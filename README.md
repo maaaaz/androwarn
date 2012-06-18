@@ -1,6 +1,6 @@
 Androwarn
 =========
-Yet another static code analyzer for Android applications
+Yet another static code analyzer for malicious Android applications
 ====================================================
 
 Description
