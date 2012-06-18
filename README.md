@@ -65,7 +65,7 @@ You're welcome, any help is appreciated :)
 
 Author
 ------
-Thomas Debize
+* Thomas Debize
 
 
 Greetings
