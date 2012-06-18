@@ -52,7 +52,7 @@ Example
 -------
 A sample application has been built, concentrating several malicious behaviours.
 
-The apk is available the `SampleApplication/bin/` folder and the HTML report is available in the `Report` folder.
+The APK is available the `SampleApplication/bin/` folder and the HTML report is available in the `Report` folder.
 
 The analysis report of a real malware (Android.Tigerbot known as com.google.android.lifestyle) is also available in the same folder.
 
@@ -78,7 +78,7 @@ You're welcome, any help is appreciated :)
 
 Author
 ------
-* Thomas Debize < tdebize at mail.com >
+* Thomas Debize < tdebize at mail [d0t] com >
 
 
 Copyright and license
