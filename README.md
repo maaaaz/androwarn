@@ -36,7 +36,7 @@ Features
 
 * Report generation according to several formats
 	- plaintext (TXT)
-	- formatted text (HTML) with a Bootstrap template
+	- formatted text (HTML) from a Bootstrap template
 
 
 Usage
