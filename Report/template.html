@@ -1,0 +1,255 @@
+{%- macro render_menu_li(dashname, data, active) -%}
+{%- if data and active -%}
+<li class="active"><a href="#{{ dashname }}" data-toggle="tab">{{ dashname|replace('-', ' ') }}</a></li>
+{%- elif data and not(active) -%}
+<li><a href="#{{ dashname }}" data-toggle="tab">{{ dashname|replace('-', ' ') }}</a></li>
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro render_string(unique_string_in_list) -%}
+{%- if unique_string_in_list -%}
+    {%- for item in unique_string_in_list -%}
+    {{ item|striptags }}
+    {%- endfor -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro render_list(list) -%}
+{%- if list -%}
+    {%- for item in list -%}
+    {{ item }}
+    {%- endfor -%}
+{%- endif -%}
+{%- endmacro -%} 
+
+{%- macro render_list_h_level(list, h_level) -%}
+{%- if list -%}
+    {%- for item in list -%}
+    <h{{h_level}}>{{ item|replace('\n',"<br/>") }}</h{{h_level}}>
+    {%- endfor -%}
+{%- endif -%}
+{%- endmacro -%} 
+
+
+{%- macro render_div_content_active(category, list) -%}
+{%- if list -%}
+<div class="tab-pane active" id="{{ category }}">
+<h2>{{ category|replace('-', ' ') }}</h2>
+    {%- for item in list -%}
+    <h3>{{ item|striptags }}</h3>
+    {%- endfor -%}
+</div>
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro render_div_content(category, list) -%}
+{%- if list -%}
+<div class="tab-pane" id="{{ category }}">
+<h2>{{ category|replace('-', ' ') }}</h2>
+{{ render_list_h_level(list, 3) }}
+</div>
+{%- endif -%}
+{%- endmacro -%}
+
+
+{%- macro render_div_content_description(category, desc, icon) -%}
+{%- if desc -%}
+<div class="tab-pane" id="{{ category }}"> {{ render_list(icon) }}
+<h2>{{ category|replace('-', ' ') }}</h2>
+{{ render_list_h_level(desc, 3) }}
+</div>
+{%- endif -%}
+{%- endmacro -%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Androwarn report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand">Androwarn Report</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a>{{ render_string(application_package_name) }}</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Application Information</li>
+              {{ render_menu_li("Application-Name", application_name, True) }}
+              {{ render_menu_li("Package-Name", application_package_name, False) }}
+              {{ render_menu_li("Description", application_description, False) }}
+              
+              <li class="nav-header">Analysis Results</li>
+              {{ render_menu_li("Telephony-Identifiers-Leakage", telephony_identifiers_leakage, False) }}
+              {{ render_menu_li("Telephony-Services-Abuse", telephony_services_abuse, False) }}
+              {{ render_menu_li("Physical-Location-Lookup", location_lookup, False) }}
+              {{ render_menu_li("Contact-List-Lookup", contact_lookup, False) }}
+              {{ render_menu_li("Native-Code-Execution", native_code_execution, False) }}
+              {{ render_menu_li("UNIX-Command-Execution", unix_command_execution, False) }}
+              {{ render_menu_li("WIFI-Credentials-Leakage", wifi_credentials_leakage, False) }}
+              {{ render_menu_li("Suspicious-Connection-Establishment", suspicious_connection_establishment, False) }}
+              {{ render_menu_li("Audio-Video-Eavesdropping", media_recorder_abuse, False) }}
+              
+              <li class="nav-header">APK File</li>
+              {{ render_menu_li("APK-File-Name", apk_file_name, False) }}
+              {{ render_menu_li("SHA1-hash", apk_file_SHA1_hash, False) }}
+              {{ render_menu_li("File-List", file_list, False) }}
+              {{ render_menu_li("Certificate-Information", certificate_information, False) }}
+
+              
+              <li class="nav-header">AndroidManifest.xml</li>
+              {{ render_menu_li("Android-Version-Code", androidversion_code, False) }}
+              {{ render_menu_li("Android-Version-Name", androidversion_name, False) }}
+              {{ render_menu_li("Main-Activity", main_activity, False) }}
+              {{ render_menu_li("Activities", activities, False) }}
+              {{ render_menu_li("Services", services, False) }}
+              {{ render_menu_li("Receivers", receivers, False) }}
+              {{ render_menu_li("Providers", providers, False) }}
+              {{ render_menu_li("Permissions", permissions, False) }}
+              {{ render_menu_li("Features", features, False) }}
+              {{ render_menu_li("Libraries", libraries, False) }}
+              
+              
+              <li class="nav-header">APIs Used</li>
+              {{ render_menu_li("Internal-Packages-List", internal_packages_list, False) }}
+              {{ render_menu_li("Internal-New-Packages-List", internal_new_packages_list, False) }}
+              {{ render_menu_li("External-Packages-List", external_packages_list, False) }}
+              {{ render_menu_li("Classes-List", classes_list, False) }}
+              {{ render_menu_li("Internal-NewClasses-List", internal_new_classes_list, False) }}
+              {{ render_menu_li("External-Classes-List", external_classes_list, False) }}
+
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        
+        <div class="span9">
+          <div class="hero-unit" id="Package_name">
+           <div class="tab-content">
+            
+            {{ render_div_content_active("Application-Name", application_name) }}
+            {{ render_div_content("Package-Name", application_package_name) }}
+            {{ render_div_content_description("Description", application_description, application_icon) }}
+            
+            {{ render_div_content("Telephony-Identifiers-Leakage", telephony_identifiers_leakage) }}
+            {{ render_div_content("Telephony-Services-Abuse", telephony_services_abuse) }}     
+            {{ render_div_content("Physical-Location-Lookup", location_lookup) }}           
+            {{ render_div_content("Contact-List-Lookup", contact_lookup) }}            
+            {{ render_div_content("Native-Code-Execution", native_code_execution) }}           
+            {{ render_div_content("UNIX-Command-Execution", unix_command_execution) }}           
+            {{ render_div_content("WiFi-Credentials-Leakage", wifi_credentials_leakage) }}                      
+            {{ render_div_content("Suspicious-Connection-Establishment", suspicious_connection_establishment) }}        
+            {{ render_div_content("AudioVideoEavesdropping", media_recorder_abuse) }}
+                 
+            {{ render_div_content("APK-File-Name", apk_file_name) }}
+            {{ render_div_content("SHA1-hash", apk_file_SHA1_hash) }}
+            {{ render_div_content("File-List", file_list) }}
+            {{ render_div_content("Certificate-Information", certificate_information) }}
+            
+            
+            {{ render_div_content("Android-Version-Code", androidversion_code) }}
+            {{ render_div_content("Android-Version-Name", androidversion_name) }}
+            {{ render_div_content("Main-Activity", main_activity) }}
+            {{ render_div_content("Activities", activities) }}
+            {{ render_div_content("Services", services) }}
+            {{ render_div_content("Receivers", receivers) }}
+            {{ render_div_content("Providers", providers) }}
+            {{ render_div_content("Permissions", permissions) }}
+            {{ render_div_content("Features", features) }}
+            {{ render_div_content("Libraries", libraries) }}
+            
+            
+            {{ render_div_content("Internal-Packages-List", internal_packages_list) }}
+            {{ render_div_content("Internal-NewPackages-List", internal_new_packages_list) }}
+            {{ render_div_content("External-Packages-List", external_packages_list) }}
+            {{ render_div_content("Classes-List", classes_list) }}
+            {{ render_div_content("Internal-New-Classes-List", internal_new_classes_list) }}
+            {{ render_div_content("External-Classes-List", external_classes_list) }}
+        
+           </div>
+          </div>
+         </div><!--/span-->
+      
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Androwarn 2012 - Thomas Debize</p>
+       <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/fr/"><img alt="Licence Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/fr/80x15.png" /></a></p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+    
+    <script>
+        $(function () {
+            $('#myTab a:last').tab('show');
+        })
+    </script>
+
+  </body>
+</html>
