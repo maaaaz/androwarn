@@ -84,50 +84,15 @@ def main(options, arguments) :
 		
 		# Output
 		output = {True : options.output, False : ''}[options.output != None]
-		
-		
+
+
 		a, d, x = AnalyzeAPK(APK_FILE)
 
-		'''
-		print detect_Telephony_SMS_abuse(x)
-		print detect_Socket_use(x)
-
-		print detect_Telephony_Operator_lookup(x)
-		print detect_Telephony_CellID_lookup(x)
-		print detect_Telephony_LAC_lookup(x)
-		print detect_Telephony_MCCMNC_lookup(x)
-		print detect_Telephony_phone_state_lookup(x)
-		print detect_Telephony_DeviceID_lookup(x)
-		print detect_Telephony_SimSerialNumber_lookup(x) 
-		print detect_ContactAccess_lookup(x)
-		print detect_Telephony_Phone_Call_abuse(x)
-		print detect_Telephony_SMS_abuse(x)
-		print detect_Telephony_SMS_read(x)
-		print detect_WiFi_Credentials_lookup(x)
-		print detect_UNIX_command_execution(x)
-		print detect_Location_lookup(x)
-		print detect_Library_loading(x)
-		
-		print detect_MediaRecorder_Video_capture(x)
-		print detect_MediaRecorder_Voice_record(x)
-		'''
 		data = perform_analysis(APK_FILE, a, d, x, no_connection)
-		dump_analysis_results(data)
+		
+		dump_analysis_results(data) # be prepared !
 		
 		generate_report(data, verbosity, report, output)
-		'''
-		name, desc, icon = grab_application_name_description_icon("com.facebook.katana")
-		print name, desc, icon
-		'''
-		#generate_report(icon,desc)
-		
-		# Machine to human transcription according to several category of information
-		# Global_Evaluation, Manifest_info, Confidential_data, Leaked_data, Third-party_libs, Suspicious_functions = transcript_to_sentences ( database )
-		# This allow the reading of the sqlite files, instead of storing the original APK
-		
-		# Filter on verbosity (user technical level)
-		# HTML_info = Sentences_to_HTML_Report(Global_Evaluation, Manifest_info, Confidential_data, Leaked_data, Third-party_libs, Suspicious_functions)
-
 
 if __name__ == "__main__" :
 	parser = OptionParser()
