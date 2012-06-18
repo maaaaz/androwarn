@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Androwarn report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand">Androwarn Report</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a>com.androwarn.sampleapplication</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Application Information</li>
+              <li class="active"><a href="#Application-Name" data-toggle="tab">Application Name</a></li>
+              <li><a href="#Package-Name" data-toggle="tab">Package Name</a></li>
+              <li><a href="#Description" data-toggle="tab">Description</a></li>
+              
+              <li class="nav-header">Analysis Results</li>
+              <li><a href="#Telephony-Identifiers-Leakage" data-toggle="tab">Telephony Identifiers Leakage</a></li>
+              <li><a href="#Telephony-Services-Abuse" data-toggle="tab">Telephony Services Abuse</a></li>
+              <li><a href="#Physical-Location-Lookup" data-toggle="tab">Physical Location Lookup</a></li>
+              <li><a href="#Contact-List-Lookup" data-toggle="tab">Contact List Lookup</a></li>
+              <li><a href="#Native-Code-Execution" data-toggle="tab">Native Code Execution</a></li>
+              <li><a href="#UNIX-Command-Execution" data-toggle="tab">UNIX Command Execution</a></li>
+              <li><a href="#WIFI-Credentials-Leakage" data-toggle="tab">WIFI Credentials Leakage</a></li>
+              <li><a href="#Suspicious-Connection-Establishment" data-toggle="tab">Suspicious Connection Establishment</a></li>
+              <li><a href="#Audio-Video-Eavesdropping" data-toggle="tab">Audio Video Eavesdropping</a></li>
+              
+              <li class="nav-header">APK File</li>
+              <li><a href="#APK-File-Name" data-toggle="tab">APK File Name</a></li>
+              <li><a href="#SHA1-hash" data-toggle="tab">SHA1 hash</a></li>
+              <li><a href="#File-List" data-toggle="tab">File List</a></li>
+              <li><a href="#Certificate-Information" data-toggle="tab">Certificate Information</a></li>
+
+              
+              <li class="nav-header">AndroidManifest.xml</li>
+              <li><a href="#Android-Version-Code" data-toggle="tab">Android Version Code</a></li>
+              <li><a href="#Android-Version-Name" data-toggle="tab">Android Version Name</a></li>
+              <li><a href="#Main-Activity" data-toggle="tab">Main Activity</a></li>
+              <li><a href="#Activities" data-toggle="tab">Activities</a></li>
+              
+              <li><a href="#Receivers" data-toggle="tab">Receivers</a></li>
+              
+              <li><a href="#Permissions" data-toggle="tab">Permissions</a></li>
+              <li><a href="#Features" data-toggle="tab">Features</a></li>
+              
+              
+              
+              <li class="nav-header">APIs Used</li>
+              <li><a href="#Internal-Packages-List" data-toggle="tab">Internal Packages List</a></li>
+              
+              <li><a href="#External-Packages-List" data-toggle="tab">External Packages List</a></li>
+              <li><a href="#Classes-List" data-toggle="tab">Classes List</a></li>
+              
+              <li><a href="#External-Classes-List" data-toggle="tab">External Classes List</a></li>
+
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        
+        <div class="span9">
+          <div class="hero-unit" id="Package_name">
+           <div class="tab-content">
+            
+            <div class="tab-pane active" id="Application-Name">
+<h2>Application Name</h2><h3>N/A</h3></div>
+            <div class="tab-pane" id="Package-Name">
+<h2>Package Name</h2>
+<h3>com.androwarn.sampleapplication</h3>
+</div>
+            <div class="tab-pane" id="Description"> N/A
+<h2>Description</h2>
+<h3>N/A</h3>
+</div>
+            
+            <div class="tab-pane" id="Telephony-Identifiers-Leakage">
+<h2>Telephony Identifiers Leakage</h2>
+<h3>This application reads the operator name</h3><h3>This application reads the CellID value</h3><h3>This application reads the Location Area value</h3><h3>This application reads the numeric name (MCC+MNC) of current registered operator.</h3><h3>This application reads the phone's current state</h3><h3>This application reads the unique device ID, for example, the IMEI for GSM and the MEID or ESN for CDMA phones</h3><h3>This application reads the unique subscriber ID, for example, the IMSI for a GSM phone</h3><h3>This application reads the serial number of the SIM</h3><h3>This application reads the software version number for the device, for example, the IMEI/SV for GSM phones</h3>
+</div>
+            <div class="tab-pane" id="Telephony-Services-Abuse">
+<h2>Telephony Services Abuse</h2>
+<h3>This application makes phone calls</h3><h3>This application reads the SMS inbox</h3><h3>This application sends an SMS message 'A SMS Message' to the '3615' phone number</h3>
+</div>     
+            <div class="tab-pane" id="Physical-Location-Lookup">
+<h2>Physical Location Lookup</h2>
+<h3>This application reads location information from available providers</h3>
+</div>           
+            <div class="tab-pane" id="Contact-List-Lookup">
+<h2>Contact List Lookup</h2>
+<h3>This application reads/edits contact data</h3>
+</div>            
+            <div class="tab-pane" id="Native-Code-Execution">
+<h2>Native Code Execution</h2>
+<h3>This application loads a native library : 'nativecode'</h3>
+</div>           
+            <div class="tab-pane" id="UNIX-Command-Execution">
+<h2>UNIX Command Execution</h2>
+<h3>This application executes that UNIX command</h3>
+</div>           
+            <div class="tab-pane" id="WiFi-Credentials-Leakage">
+<h2>WiFi Credentials Leakage</h2>
+<h3>This application reads the WiFi credentials</h3>
+</div>                      
+            <div class="tab-pane" id="Suspicious-Connection-Establishment">
+<h2>Suspicious Connection Establishment</h2>
+<h3>This application opens a Socket and connects it to the remote address '192.168.56.101' on the '1337' port </h3><h3>This application opens a Socket and connects it to the remote address '192.168.56.101 Ljava/net/InetAddress; getByName' on the '1338' port </h3>
+</div>        
+            <div class="tab-pane" id="AudioVideoEavesdropping">
+<h2>AudioVideoEavesdropping</h2>
+<h3>This application records audio from the 'VOICE_CALL' source </h3><h3>This application captures video from the 'CAMERA' source</h3>
+</div>
+                 
+            <div class="tab-pane" id="APK-File-Name">
+<h2>APK File Name</h2>
+<h3>SampleApplication.apk</h3>
+</div>
+            <div class="tab-pane" id="SHA1-hash">
+<h2>SHA1 hash</h2>
+<h3>2a05055472c54abfdc3a48ffd1e9fc7c0ee230ee</h3>
+</div>
+            <div class="tab-pane" id="File-List">
+<h2>File List</h2>
+<h3>META-INF/MANIFEST.MF</h3><h3>META-INF/MAZ.SF</h3><h3>META-INF/MAZ.RSA</h3><h3>META-INF/CERT.SF</h3><h3>META-INF/CERT.RSA</h3><h3>res/layout/main.xml</h3><h3>AndroidManifest.xml</h3><h3>resources.arsc</h3><h3>classes.dex</h3><h3>lib/x86/libnativecode.so</h3><h3>lib/armeabi/libnativecode.so</h3>
+</div>
+            <div class="tab-pane" id="Certificate-Information">
+<h2>Certificate Information</h2>
+<h3>Issuer:<br/>	C=US, ST=, L=, O=Android,<br/>	OU=, CN=Android Debug</h3><h3>Subject:<br/>	C=US, ST=, L=, O=Android,<br/>	OU=, CN=Android Debug</h3><h3>Serial number: 4F97C24C</h3><h3>SHA1 thumbprint: 15492CE83302A13CFFAFDB7DECB46EEC2B598E2C</h3>
+</div>
+            
+            
+            <div class="tab-pane" id="Android-Version-Code">
+<h2>Android Version Code</h2>
+<h3>1</h3>
+</div>
+            <div class="tab-pane" id="Android-Version-Name">
+<h2>Android Version Name</h2>
+<h3>1.0</h3>
+</div>
+            <div class="tab-pane" id="Main-Activity">
+<h2>Main Activity</h2>
+<h3>com.androwarn.sampleapplication.SampleApplication</h3>
+</div>
+            <div class="tab-pane" id="Activities">
+<h2>Activities</h2>
+<h3>com.androwarn.sampleapplication.SampleApplication</h3>
+</div>
+            
+            <div class="tab-pane" id="Receivers">
+<h2>Receivers</h2>
+<h3>com.androwarn.sampleapplication.BusterReceiver</h3>
+</div>
+            
+            <div class="tab-pane" id="Permissions">
+<h2>Permissions</h2>
+<h3>android.permission.READ_PHONE_STATE</h3><h3>android.permission.ACCESS_NETWORK_STATE</h3><h3>android.permission.RECORD_AUDIO</h3><h3>android.permission.WRITE_EXTERNAL_STORAGE</h3><h3>android.permission.CALL_PHONE</h3><h3>android.permission.ACCESS_FINE_LOCATION</h3><h3>android.permission.ACCESS_COARSE_LOCATION</h3><h3>android.permission.READ_CONTACTS</h3><h3>android.permission.WRITE_CONTACTS</h3><h3>android.permission.INTERNET</h3><h3>android.permission.RECORD_VIDEO</h3><h3>android.permission.CAMERA</h3><h3>android.permission.RECEIVE_SMS</h3><h3>android.permission.READ_SMS</h3><h3>android.permission.WRITE_SMS</h3><h3>android.permission.SEND_SMS</h3>
+</div>
+            <div class="tab-pane" id="Features">
+<h2>Features</h2>
+<h3>android.hardware.telephony</h3>
+</div>
+            
+            
+            
+            <div class="tab-pane" id="Internal-Packages-List">
+<h2>Internal Packages List</h2>
+<h3>com.androwarn.sampleapplication</h3>
+</div>
+            
+            <div class="tab-pane" id="External-Packages-List">
+<h2>External Packages List</h2>
+<h3>com.androwarn.sampleapplication</h3>
+</div>
+            <div class="tab-pane" id="Classes-List">
+<h2>Classes List</h2>
+<h3>android.app.Activity</h3><h3>android.content.BroadcastReceiver</h3><h3>android.content.ContentProviderOperation</h3><h3>android.content.ContentResolver</h3><h3>android.content.ContentValues</h3><h3>android.content.Intent</h3><h3>android.content.OperationApplicationException</h3><h3>android.database.Cursor</h3><h3>android.location.Location</h3><h3>android.location.LocationManager</h3><h3>android.media.MediaRecorder</h3><h3>android.net.Uri</h3><h3>android.net.wifi.WifiConfiguration</h3><h3>android.os.Bundle</h3><h3>android.os.Environment</h3><h3>android.os.RemoteException</h3><h3>android.telephony.SmsManager</h3><h3>android.telephony.TelephonyManager</h3><h3>android.telephony.gsm.GsmCellLocation</h3><h3>android.telephony.gsm.SmsMessage</h3><h3>android.util.Log</h3><h3>com.androwarn.sampleapplication.BusterReceiver</h3><h3>com.androwarn.sampleapplication.NativeCode</h3><h3>com.androwarn.sampleapplication.SampleApplication</h3><h3>java.io.BufferedReader</h3><h3>java.io.File</h3><h3>java.io.FileNotFoundException</h3><h3>java.io.FileOutputStream</h3><h3>java.io.IOException</h3><h3>java.io.InputStreamReader</h3><h3>java.io.OutputStream</h3><h3>java.lang.Integer</h3><h3>java.lang.NullPointerException</h3><h3>java.lang.NumberFormatException</h3><h3>java.lang.Object</h3><h3>java.lang.Process</h3><h3>java.lang.Runtime</h3><h3>java.lang.RuntimeException</h3><h3>java.lang.String</h3><h3>java.lang.StringBuffer</h3><h3>java.lang.StringBuilder</h3><h3>java.lang.System</h3><h3>java.net.InetAddress</h3><h3>java.net.Socket</h3><h3>java.net.UnknownHostException</h3><h3>java.util.ArrayList</h3><h3>java.util.Arrays</h3><h3>java.util.Iterator</h3><h3>java.util.List</h3>
+</div>
+            
+            <div class="tab-pane" id="External-Classes-List">
+<h2>External Classes List</h2>
+<h3>com.androwarn.sampleapplication.BusterReceiver</h3><h3>com.androwarn.sampleapplication.NativeCode</h3><h3>com.androwarn.sampleapplication.R</h3><h3>com.androwarn.sampleapplication.SampleApplication</h3>
+</div>
+        
+           </div>
+          </div>
+         </div><!--/span-->
+      
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Androwarn 2012 - Thomas Debize</p>
+       <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/fr/"><img alt="Licence Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/fr/80x15.png" /></a></p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+    
+    <script>
+        $(function () {
+            $('#myTab a:last').tab('show');
+        })
+    </script>
+
+  </body>
+</html>

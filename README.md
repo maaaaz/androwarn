@@ -48,6 +48,15 @@ python androwarn.py -i my_application_to_be_analyzed.apk -r html -v 3
 
 By default, the report is generated in the `Report` folder
 
+Example
+-------
+A sample application has been built, concentrating several malicious behaviours.
+
+The apk is available the `SampleApplication/bin/` folder and the HTML report is available in the `Report` folder.
+
+The analysis report of a real malware (Android.Tigerbot) is also available in the same folder.
+
+
 Installation
 ------------
 1. Take a look at the Dependencies chapter and setup what's needed
