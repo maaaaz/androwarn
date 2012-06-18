@@ -1,6 +1,7 @@
 Androwarn
+=========
 Yet another static analyzer for Android applications
-================================================================
+====================================================
 
 Description
 -----------
