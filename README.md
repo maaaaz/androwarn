@@ -44,9 +44,12 @@ Usage
 ```
 python androwarn.py -i my_application_to_be_analyzed.apk -r html -v 3
 ```
+```
+python androwarn.py -h 
+```
+to see full options
 
-(python androwarn.py -h to see full options)
-
+By default, the report is generated in the `Report` folder
 
 Installation
 ------------
