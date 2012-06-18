@@ -48,7 +48,7 @@ Installation
 ------------
 1. Take a look at the Dependencies chapter and setup what's needed
 2. Open the androwarn.py file
-3. Locate the `PATH_INSTALL = "/home/android/tools/androguard/` instruction at line 11
+3. Locate the `PATH_INSTALL = "/home/android/tools/androguard/"` instruction at line 11
 4. Edit that line with the root path of your androguard environnement
 5. Profit
 
@@ -65,12 +65,14 @@ You're welcome, any help is appreciated :)
 
 Author
 ------
-* Thomas Debize
+* Thomas Debize <tdebize at mail.com>
 
 
 Copyright and license
 ---------------------
 Androwarn is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+Androwarn is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. 
+You should have received a copy of the GNU Lesser General Public License along with Androwarn.  If not, see http://www.gnu.org/licenses/.
 
 Greetings
 -------------
