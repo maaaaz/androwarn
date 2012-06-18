@@ -67,7 +67,7 @@ You're welcome, any help is appreciated :)
 
 Author
 ------
-* Thomas Debize <tdebize at mail.com>
+* Thomas Debize < tdebize at mail.com >
 
 
 Copyright and license
