@@ -54,7 +54,7 @@ A sample application has been built, concentrating several malicious behaviours.
 
 The APK is available the `SampleApplication/bin/` folder and the HTML report is available in the `Report` folder.
 
-The analysis report of a real malware (Android.Tigerbot known as com.google.android.lifestyle) is also available in the same folder.
+The analysis report of a real malware (`Android.Tigerbot`, known as `com.google.android.lifestyle`) is also available in the same folder.
 
 
 Installation
