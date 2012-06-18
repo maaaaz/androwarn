@@ -1,4 +1,5 @@
-Androwarn : yet another static analyzer for Android applications
+Androwarn
+Yet another static analyzer for Android applications
 ================================================================
 
 Description
