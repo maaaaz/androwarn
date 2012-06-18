@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# A crappy test file to test some filthy things !
+
 import sys, re, logging, cgi
 
 PATH_INSTALL = "/home/android/tools/androguard/"
