@@ -3,7 +3,7 @@ Androwarn : yet another static analyzer for Android applications
 
 Description
 -----------
-Androwarn is a solution whose main aim is to detect and warn the user about potential malicious behaviours developped by an Android application.
+Androwarn is a tool whose main aim is to detect and warn the user about potential malicious behaviours developped by an Android application.
 
 The detection is performed with the static analysis of the application's Dalvik bytecode, represented as Smali.
 

@@ -35,7 +35,7 @@ from androwarn.analysis.analysis import *
 
 # Logger definition
 log = logging.getLogger('log')
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.ERROR)
 formatter = logging.Formatter('[%(levelname)s] %(message)s')
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
@@ -90,7 +90,8 @@ def main(options, arguments) :
 
 		data = perform_analysis(APK_FILE, a, d, x, no_connection)
 		
-		dump_analysis_results(data) # be prepared !
+		#Brace yourself, a massive debug dump is coming
+		#dump_analysis_results(data) 
 		
 		generate_report(data, verbosity, report, output)
 
