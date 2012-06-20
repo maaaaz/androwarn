@@ -499,8 +499,9 @@ def detect_Telephony_SMS_abuse(x) :
 	
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
-		
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 		#print "[+] Registers state before call " + str(registers)
@@ -528,7 +529,8 @@ def detect_Socket_use(x) :
 	
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
@@ -558,7 +560,8 @@ def detect_MediaRecorder_Voice_record(x) :
 	
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
@@ -588,7 +591,8 @@ def detect_MediaRecorder_Video_capture(x) :
 	b = x.tainted_packages.search_methods("Landroid/media/MediaRecorder","setVideoSource", ".")	
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
@@ -635,7 +639,9 @@ def detect_Telephony_Operator_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getNetworkOperatorName", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -658,7 +664,9 @@ def detect_Telephony_CellID_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/gsm/GsmCellLocation","getCid", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -681,7 +689,8 @@ def detect_Telephony_LAC_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/gsm/GsmCellLocation","getLac", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -705,7 +714,9 @@ def detect_Telephony_MCCMNC_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getNetworkOperator", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -729,7 +740,9 @@ def detect_Telephony_phone_state_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getCallState", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -754,7 +767,9 @@ def detect_Telephony_DeviceID_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getDeviceId", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -778,7 +793,9 @@ def detect_Telephony_IMSI_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getSubscriberId", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -802,7 +819,9 @@ def detect_Telephony_DeviceSoftwareVersion_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getDeviceSoftwareVersion", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -826,7 +845,9 @@ def detect_Telephony_SimSerialNumber_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getSimSerialNumber", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -931,7 +952,9 @@ def detect_WiFi_Credentials_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/net/wifi/WifiConfiguration","toString", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -956,7 +979,9 @@ def detect_UNIX_command_execution(x) :
 	b = x.tainted_packages.search_methods("Ljava/lang/Runtime","exec", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -981,7 +1006,9 @@ def detect_Location_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/location/LocationManager","getProviders", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
@@ -1005,7 +1032,9 @@ def detect_Library_loading(x) :
 	b = x.tainted_packages.search_methods("Ljava/lang/System","loadLibrary", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_offset()
+		#method_call_index_to_find = b[result].get_offset()
+		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 		

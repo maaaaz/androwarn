@@ -47,17 +47,20 @@ log = logging.getLogger('log')
 
 # Instruction matcher
 def match_current_instruction(current_instruction, registers_found) :
-		#regexes
-		p_const 				= re.compile('^const(?:\/4|\/16|\/high16|-wide(?:\/16|\/32)|-wide\/high16|)? v([0-9]+) , (?:.*) // \{(\-?[0-9]+(?:\.[0-9]+)?)\}$')
-		p_const_string			= re.compile('^const-string(?:||-jumbo) v([0-9]+) , \[ string@ (?:[0-9]+) \'(.*)\' \]$')
-		p_move					= re.compile('move(?:|\/from16|-wide(?:\/from16|\/16)|-object(?:|\/from16|\/16))? v([0-9]+) , (v[0-9]+)')
-		p_move_result			= re.compile('move(?:-result(?:|-wide|-object)|-exception)? v([0-9]+)')
-		p_aput					= re.compile('^aput(?:-wide|-object|-boolean|-byte|-char|-short|) v([0-9]+) , v([0-9]+) , v([0-9]+)$')
-		p_invoke 				= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) v([0-9]+) , \[ meth@ (?:[0-9]+) (L(?:.*); .*) \[(.*)\] \]$')
-		p_invoke_2_registers 	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) v([0-9]+) , v([0-9]+) , \[ meth@ (?:[0-9]+) (L(?:.*); .*) \[(.*)\] \]$')
-		p_invoke_no_register	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) \[ meth@ (?:[0-9]+) (L(?:.*); .*) \[(.*)\] \]$')
+
+		p_const 				= re.compile('^const(?:\/4|\/16|\/high16|-wide(?:\/16|\/32)|-wide\/high16|)? v([0-9]+), \#([+-][0-9]+(?:\.[0-9]+)?)$')
+		p_const_string			= re.compile("^const-string(?:||-jumbo) v([0-9]+), '(.*)'$")
+		p_move					= re.compile('^move(?:|\/from16|-wide(?:\/from16|\/16)|-object(?:|\/from16|\/16))? v([0-9]+), (v[0-9]+)$')
+		p_move_result			= re.compile('^move(?:-result(?:|-wide|-object)|-exception)? v([0-9]+)$')
+		p_aput					= re.compile('^aput(?:-wide|-object|-boolean|-byte|-char|-short|) v([0-9]+), v([0-9]+), v([0-9]+)$')
+		p_invoke 				= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) v([0-9]+), (L(?:.*);->.*)$')
+		p_invoke_2_registers 	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) v([0-9]+), v([0-9]+), (L(?:.*);->.*)$')
+		p_invoke_no_register	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) (L(?:.*);->.*)$')
 		p_new_instance 			= re.compile('^new-instance v([0-9]+) , \[ type@ (?:[0-9]+) (L(?:.*);) \]$')
 		
+		
+		# String cat
+		current_instruction = "%s %s" % (current_instruction.get_name(), current_instruction.get_output())
 		
 		# Returned values init
 		instruction_name = ''
@@ -231,7 +234,8 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 	#code.show()
 	
 	bc = code.get_bc()
-	instruction_list = bc.get()
+	#instruction_list = bc.get()
+	instruction_list = [ i for i in bc.get_instructions() ]
 	
 
 	found_index = find_call_index_in_code_list(index_to_find, instruction_list)
@@ -248,14 +252,17 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 		registers_found = {}
 		
 		# List the register indexes related to the method call
-		relevant_registers = relevant_registers_for_the_method(method, index_to_find)
+		#relevant_registers = relevant_registers_for_the_method(method, index_to_find)
+		relevant_registers = relevant_registers_for_the_method(instruction_list[found_index])
+		
 		#print relevant_registers
 		
 		i = int(found_index) - 1 # start index
 		
 
 		while ((all_relevant_registers_filled(registers_found,relevant_registers) != True) and (i >= 0)) :
-			current_instruction = instruction_list[i].show_buff(0)
+			#current_instruction = instruction_list[i].show_buff(0)
+			current_instruction = instruction_list[i]
 			#print current_instruction
 			
 			instruction_name, local_register_number, local_register_value, registers_found =  match_current_instruction(current_instruction, registers_found)
@@ -272,7 +279,8 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 			
 			if (cmp(instruction_name, MOVE_RESULT) == 0) and (local_register_number in relevant_registers):
 				try:
-					past_instruction = instruction_list[i-1].show_buff(0)
+					#past_instruction = instruction_list[i-1].show_buff(0)
+					past_instruction = instruction_list[i-1]
 					p_instruction_name, p_local_register_number, p_local_register_value, registers_found =  match_current_instruction(past_instruction, registers_found)
 					
 					#print past_instruction
@@ -347,7 +355,7 @@ def extract_register_index_out_splitted_values(registers_raw_list_splitted) :
 	return relevant_registers
 
 
-def relevant_registers_for_the_method(method, index_to_find) :
+def relevant_registers_for_the_method(instruction) :
 	"""
 	@param method : a method instance
 	@param index_to_find : index of the matching method
@@ -356,36 +364,37 @@ def relevant_registers_for_the_method(method, index_to_find) :
 	"""	
 	relevant_registers = []
 	
-	code = method.get_code()
-	#code.show()
+	current_instruction_name = instruction.get_name()
+	current_instruction = instruction.show_buff(0)
 	
-	bc = code.get_bc()
-	instruction_list = bc.get()
 	
+	p_invoke_name 		= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick)$')
+	p_invoke_range_name	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick)(?:\/range)$')
 
-	found_index = find_call_index_in_code_list(index_to_find, instruction_list)
-	
-	if (found_index < 0) :
-		log.error("The call index in the code list can not be found")
-		return 0
+	if p_invoke_name.match(current_instruction_name) :
 		
-	else :
-		current_instruction = instruction_list[found_index].show_buff(0)
-		#print current_instruction
-	
-		p_invoke = re.compile('^invoke-(static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick)(?:\/range)? (v(.+) ,)+ \[(?:(.*))$')
+		p_invoke_registers = re.compile('(v[0-9]+),')
 		
-		if p_invoke.match(current_instruction) :
-			registers_raw_list_splitted = p_invoke.match(current_instruction).groups()[1].split(',')
+		if p_invoke_registers.findall(current_instruction) :
+			registers_raw_list_splitted = p_invoke_registers.findall(current_instruction)
 			relevant_registers = extract_register_index_out_splitted_values(registers_raw_list_splitted)
+	
+	
+	if p_invoke_range_name.match(current_instruction_name) :
+		# We're facing implicit an implicit range declaration, for instance "invoke v19..v20"
+		p_invoke_registers_range = re.compile('^v([0-9]+) ... v([0-9]+), L.*$')
 		
-		# -- OLD --
-		#Delete the 1st elements, as it is the method's instance register
-		#relevant_registers.pop(0)
-		# ---------
+		if p_invoke_registers_range.match(current_instruction) :
+			register_start_number = p_invoke_registers_range.match(current_instruction).groups()[0]
+			register_end_number = p_invoke_registers_range.match(current_instruction).groups()[1]
+			
+			if int(register_start_number) > int(register_end_number) :
+				log.error("invoke-kind/range incoherent: # of the start register is lower than the end one")
+			else :
+				relevant_registers = [ str(i) for i in xrange(int(register_start_number), int(register_end_number))]
+				# +1 because range does not provide the higher boundary value
 		
-		return relevant_registers
-
+	return relevant_registers
 
 def all_relevant_registers_filled(registers, relevant_registers) :
 	"""
@@ -400,10 +409,7 @@ def all_relevant_registers_filled(registers, relevant_registers) :
 		# assert a False answer for null registers from the "move-result" instruction
 		if not(i in registers) or (i in registers and len(registers[i]) < 1) :
 			answer = False
-		'''	
-		if not(i in registers) :
-			answer = False
-		'''
+
 	return answer
 
 
