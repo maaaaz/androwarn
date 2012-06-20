@@ -27,8 +27,7 @@ import sys, os, re, logging
 from optparse import OptionParser
 
 # Androguard imports
-#PATH_INSTALL = "/home/android/tools/androguard/"
-PATH_INSTALL = "/home/android/tools/androguard_new_version"
+PATH_INSTALL = "/home/android/tools/androguard/"
 sys.path.append(PATH_INSTALL)
 
 from androlyze import *
