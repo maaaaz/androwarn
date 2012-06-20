@@ -124,19 +124,23 @@
             <ul class="nav nav-list">
               <li class="nav-header">Application Information</li>
               {{ render_menu_li("Application-Name", application_name, True) }}
+              {{ render_menu_li("Application-Version", application_version, False) }}
               {{ render_menu_li("Package-Name", application_package_name, False) }}
               {{ render_menu_li("Description", application_description, False) }}
+
               
               <li class="nav-header">Analysis Results</li>
               {{ render_menu_li("Telephony-Identifiers-Leakage", telephony_identifiers_leakage, False) }}
-              {{ render_menu_li("Telephony-Services-Abuse", telephony_services_abuse, False) }}
+              {{ render_menu_li("Device-Settings-Harvesting", device_settings_harvesting, False) }}
               {{ render_menu_li("Physical-Location-Lookup", location_lookup, False) }}
-              {{ render_menu_li("Contact-List-Lookup", contact_lookup, False) }}
-              {{ render_menu_li("Native-Code-Execution", native_code_execution, False) }}
-              {{ render_menu_li("UNIX-Command-Execution", unix_command_execution, False) }}
-              {{ render_menu_li("WIFI-Credentials-Leakage", wifi_credentials_leakage, False) }}
-              {{ render_menu_li("Suspicious-Connection-Establishment", suspicious_connection_establishment, False) }}
+              {{ render_menu_li("Connection-Interfaces-Exfiltration", connection_interfaces_exfiltration, False) }}
+              {{ render_menu_li("Telephony-Services-Abuse", telephony_services_abuse, False) }}
               {{ render_menu_li("Audio-Video-Eavesdropping", media_recorder_abuse, False) }}
+              {{ render_menu_li("Suspicious-Connection-Establishment", suspicious_connection_establishment, False) }}
+              {{ render_menu_li("PIM-Data-Leakage", PIM_data_leakage, False) }}
+              {{ render_menu_li("Code-Execution", code_execution, False) }}
+
+
               
               <li class="nav-header">APK File</li>
               {{ render_menu_li("APK-File-Name", apk_file_name, False) }}
@@ -146,8 +150,6 @@
 
               
               <li class="nav-header">AndroidManifest.xml</li>
-              {{ render_menu_li("Android-Version-Code", androidversion_code, False) }}
-              {{ render_menu_li("Android-Version-Name", androidversion_name, False) }}
               {{ render_menu_li("Main-Activity", main_activity, False) }}
               {{ render_menu_li("Activities", activities, False) }}
               {{ render_menu_li("Services", services, False) }}
@@ -175,18 +177,22 @@
            <div class="tab-content">
             
             {{ render_div_content_active("Application-Name", application_name) }}
+            {{ render_div_content("Application-Version", application_version) }}
             {{ render_div_content("Package-Name", application_package_name) }}
             {{ render_div_content_description("Description", application_description, application_icon) }}
+
             
             {{ render_div_content("Telephony-Identifiers-Leakage", telephony_identifiers_leakage) }}
-            {{ render_div_content("Telephony-Services-Abuse", telephony_services_abuse) }}     
-            {{ render_div_content("Physical-Location-Lookup", location_lookup) }}           
-            {{ render_div_content("Contact-List-Lookup", contact_lookup) }}            
-            {{ render_div_content("Native-Code-Execution", native_code_execution) }}           
-            {{ render_div_content("UNIX-Command-Execution", unix_command_execution) }}           
-            {{ render_div_content("WiFi-Credentials-Leakage", wifi_credentials_leakage) }}                      
-            {{ render_div_content("Suspicious-Connection-Establishment", suspicious_connection_establishment) }}        
-            {{ render_div_content("AudioVideoEavesdropping", media_recorder_abuse) }}
+            {{ render_div_content("Device-Settings-Harvesting", device_settings_harvesting) }}
+            {{ render_div_content("Physical-Location-Lookup", location_lookup) }}
+            {{ render_div_content("Connection-Interfaces-Exfiltration", connection_interfaces_exfiltration) }}
+            {{ render_div_content("Telephony-Services-Abuse", telephony_services_abuse) }}
+            {{ render_div_content("Audio-Video-Eavesdropping", media_recorder_abuse) }}
+            {{ render_div_content("Suspicious-Connection-Establishment", suspicious_connection_establishment) }}
+            {{ render_div_content("PIM-Data-Leakage", PIM_data_leakage) }}
+            {{ render_div_content("Code-Execution", code_execution) }}
+            
+
                  
             {{ render_div_content("APK-File-Name", apk_file_name) }}
             {{ render_div_content("SHA1-hash", apk_file_SHA1_hash) }}
@@ -194,8 +200,6 @@
             {{ render_div_content("Certificate-Information", certificate_information) }}
             
             
-            {{ render_div_content("Android-Version-Code", androidversion_code) }}
-            {{ render_div_content("Android-Version-Name", androidversion_name) }}
             {{ render_div_content("Main-Activity", main_activity) }}
             {{ render_div_content("Activities", activities) }}
             {{ render_div_content("Services", services) }}

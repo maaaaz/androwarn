@@ -70,33 +70,34 @@ data_level  = [
 				{ 'libraries'								: 2 },
 				{ 'certificate_information'					: 2 },
 				
-								# Malicious Behaviours Detection
+				# Malicious Behaviours Detection
 				# -- Telephony identifiers leakage				
 				{ 'telephony_identifiers_leakage'			: 1 },
 				
-				# -- Telephony services abuse
-				{ 'telephony_services_abuse'				: 1 },
+				# -- Device settings harvesting				
+				{ 'device_settings_harvesting'				: 1 },
 				
 				# -- Physical location lookup
 				{ 'location_lookup'							: 1 },
-				
-				# -- Contact list lookup
-				{ 'contact_lookup'							: 1 },
-				
-				# -- Native code execution
-				{ 'native_code_execution'					: 1 },
-				
-				# -- UNIX command execution
-				{ 'unix_command_execution'					: 1 },
-				
-				# -- WIFI credentials leakage
-				{ 'wifi_credentials_leakage'				: 1 } ,
-				
-				# -- Suspicious connection establishment
-				{ 'suspicious_connection_establishment'		: 1 },
+
+				# -- Connection interfaces information exfiltration
+				{ 'connection_interfaces_exfiltration'		: 1 },
+
+				# -- Telephony services abuse
+				{ 'telephony_services_abuse'				: 1 },
 				
 				# -- Audio/Video eavesdropping
 				{ 'media_recorder_abuse'					: 1 },
+				
+				# -- Suspicious connection establishment
+				{ 'suspicious_connection_establishment'		: 1 },
+
+				# -- PIM dataleakage
+				{ 'PIM_data_leakage'						: 1 },
+				
+				# -- Native code execution
+				{ 'code_execution'							: 1 },
+
 					
 				# Code
 				# -- Classes

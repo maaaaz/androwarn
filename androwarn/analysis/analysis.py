@@ -48,7 +48,7 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 	data['application_name']					= [app_name]
 	data['application_description']				= [app_description]
 	data['application_icon'] 					= [app_icon]
-	
+	data['application_version']					= [grab_androidversion_name(a)]
 	
 	# APK 
 	data['apk_file_SHA1_hash'] 					= [grab_apk_file_sha1_hash(apk_file)]
@@ -57,8 +57,6 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 	
 	
 	# Manifest
-	data['androidversion_code']					= [grab_androidversion_code(a)]
-	data['androidversion_name']					= [grab_androidversion_name(a)]
 	data['main_activity']						= [grab_main_activity(a)]
 	data['activities']							=  grab_activities(a)
 	data['services']							=  grab_services(a)
@@ -87,39 +85,48 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 	data['telephony_identifiers_leakage'].extend( detect_Telephony_CellID_lookup(x) )
 	data['telephony_identifiers_leakage'].extend( detect_Telephony_LAC_lookup(x) )
 	data['telephony_identifiers_leakage'].extend( detect_Telephony_MCCMNC_lookup(x) )
-	data['telephony_identifiers_leakage'].extend( detect_Telephony_phone_state_lookup(x) )
 	data['telephony_identifiers_leakage'].extend( detect_Telephony_DeviceID_lookup(x) )
 	data['telephony_identifiers_leakage'].extend( detect_Telephony_IMSI_lookup(x) )
 	data['telephony_identifiers_leakage'].extend( detect_Telephony_SimSerialNumber_lookup(x) )
-	data['telephony_identifiers_leakage'].extend( detect_Telephony_DeviceSoftwareVersion_lookup(x) )
 	
 	
-	# -- Telephony services abuse
-	data['telephony_services_abuse']			= detect_Telephony_Phone_Call_abuse(x)
-	data['telephony_services_abuse']	 .extend( detect_Telephony_SMS_read(x) )
-	data['telephony_services_abuse']	 .extend( detect_Telephony_SMS_abuse(x) )
+	# -- Device settings harvesting
+	data['device_settings_harvesting']			= detect_Telephony_DeviceSoftwareVersion_lookup(x)
+	data['device_settings_harvesting']	.extend(  detect_Telephony_phone_state_lookup(x)  )
 	
 	
 	# -- Physical location lookup
 	data['location_lookup']						= detect_Location_lookup(x)
 	
-	# -- Contact list lookup
-	data['contact_lookup']						= detect_ContactAccess_lookup(x)
 	
-	# -- Native code execution
-	data['native_code_execution']				= detect_Library_loading(x)
+	# -- Connection interfaces information exfiltration
+	data['connection_interfaces_exfiltration']	= detect_WiFi_Credentials_lookup(x)
 	
-	# -- UNIX command execution
-	data['unix_command_execution']				= detect_UNIX_command_execution(x)
 	
-	# -- WIFI credentials leakage
-	data['wifi_credentials_leakage']			= detect_WiFi_Credentials_lookup(x)
+	# -- Telephony services abuse
+	data['telephony_services_abuse']			= detect_Telephony_Phone_Call_abuse(x)
+	data['telephony_services_abuse']	 .extend( detect_Telephony_SMS_abuse(x) )
 	
-	# -- Suspicious connection establishment
-	data['suspicious_connection_establishment']	= detect_Socket_use(x)
 	
 	# -- Audio/Video eavesdropping
 	data['media_recorder_abuse']				= detect_MediaRecorder_Voice_record(x)
 	data['media_recorder_abuse']		 .extend (detect_MediaRecorder_Video_capture(x) )
+	
+	# -- Suspicious connection establishment
+	data['suspicious_connection_establishment']	= detect_Socket_use(x)
+	
+	
+	# -- PIM data leakage
+	data['PIM_data_leakage']					= detect_ContactAccess_lookup(x)
+	data['PIM_data_leakage']	 		 .extend( detect_Telephony_SMS_read(x) )
+	
+	
+	# -- Native code execution
+	data['code_execution']						= detect_Library_loading(x)
+	data['code_execution']				 .extend( detect_UNIX_command_execution(x) )
+	
+
+	
+
 	
 	return data

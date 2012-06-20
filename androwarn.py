@@ -110,7 +110,7 @@ def main(options, arguments) :
 		data = perform_analysis(APK_FILE, a, d, x, no_connection)
 		
 		#Brace yourself, a massive debug dump is coming
-		#dump_analysis_results(data) 
+		dump_analysis_results(data) 
 		
 		generate_report(data, verbosity, report, output)
 
