@@ -327,8 +327,8 @@ public class SampleApplication extends Activity
 	{
 		/** TO DO in Androwarn : modifier backtrace registers car tout n'est pas catché dans ce code (seul numéro) **/
 		String numero, message;
-		message = "A SMS Message";
-		numero = "3615";
+		message = "Premium SMS";
+		numero = "12345";
 		SmsManager smsManager = SmsManager.getDefault();
 		smsManager.sendTextMessage(numero, null, message, null, null);
 	}
