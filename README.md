@@ -69,7 +69,7 @@ Installation
 Dependencies
 ------------
 * Androguard : https://code.google.com/p/androguard/
-
+* Chilkat : https://www.chilkatsoft.com/python.asp
 
 Contributing
 -------------
