@@ -42,15 +42,11 @@ def detect_Telephony_SMS_abuse(x) :
 	"""
 	formatted_str = []
 	
-	b = x.tainted_packages.search_methods("Landroid/telephony/SmsManager","sendTextMessage", ".")
+	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/SmsManager","sendTextMessage", ".")
 	
-	for result in xrange(len(b)) :
-		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_idx()
-
-		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
-		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-				
+	for result in xrange(len(structural_analysis_results)) :
+		registers = data_flow_analysis(structural_analysis_results, result, x)		
+		
 		if len(registers) > 0 :
 			target_phone_number = get_register_value(1, registers)
 			sms_message 		= get_register_value(3, registers)

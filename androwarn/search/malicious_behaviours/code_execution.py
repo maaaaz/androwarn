@@ -43,14 +43,11 @@ def detect_Library_loading(x) :
 	# Several HTC devices suffered from a bug allowing to dump wpa_supplicant.conf file containing clear text credentials
 	formatted_str = []
 	
-	b = x.tainted_packages.search_methods("Ljava/lang/System","loadLibrary", ".")
-	for result in xrange(len(b)) :
-		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_idx()
-		
-		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
-		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-					
+	structural_analysis_results = x.tainted_packages.search_methods("Ljava/lang/System","loadLibrary", ".")
+	
+	for result in xrange(len(structural_analysis_results)) :
+		registers = data_flow_analysis(structural_analysis_results, result, x)	
+				
 		local_formatted_str = "This application loads a native library" 
 		
 		# If we're lucky enough to directly have the library's name
@@ -74,14 +71,10 @@ def detect_UNIX_command_execution(x) :
 	# Several HTC devices suffered from a bug allowing to dump wpa_supplicant.conf file containing clear text credentials
 	formatted_str = []
 	
-	b = x.tainted_packages.search_methods("Ljava/lang/Runtime","exec", ".")
-	for result in xrange(len(b)) :
-		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
-		method_call_index_to_find = b[result].get_idx()
-		
-		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
-		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
+	structural_analysis_results = x.tainted_packages.search_methods("Ljava/lang/Runtime","exec", ".")
+	
+	for result in xrange(len(structural_analysis_results)) :
+		registers = data_flow_analysis(structural_analysis_results, result, x)
 				
 		local_formatted_str = "This application executes that UNIX command" 
 		

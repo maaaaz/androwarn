@@ -61,19 +61,23 @@
             <ul class="nav nav-list">
               <li class="nav-header">Application Information</li>
               <li class="active"><a href="#Application-Name" data-toggle="tab">Application Name</a></li>
+              <li><a href="#Application-Version" data-toggle="tab">Application Version</a></li>
               <li><a href="#Package-Name" data-toggle="tab">Package Name</a></li>
               <li><a href="#Description" data-toggle="tab">Description</a></li>
+
               
               <li class="nav-header">Analysis Results</li>
               <li><a href="#Telephony-Identifiers-Leakage" data-toggle="tab">Telephony Identifiers Leakage</a></li>
+              
+              
+              
               <li><a href="#Telephony-Services-Abuse" data-toggle="tab">Telephony Services Abuse</a></li>
               
-              <li><a href="#Contact-List-Lookup" data-toggle="tab">Contact List Lookup</a></li>
-              <li><a href="#Native-Code-Execution" data-toggle="tab">Native Code Execution</a></li>
-              <li><a href="#UNIX-Command-Execution" data-toggle="tab">UNIX Command Execution</a></li>
               
-              
-              
+              <li><a href="#PIM-Data-Leakage" data-toggle="tab">PIM Data Leakage</a></li>
+              <li><a href="#Code-Execution" data-toggle="tab">Code Execution</a></li>
+
+
               
               <li class="nav-header">APK File</li>
               <li><a href="#APK-File-Name" data-toggle="tab">APK File Name</a></li>
@@ -83,8 +87,6 @@
 
               
               <li class="nav-header">AndroidManifest.xml</li>
-              <li><a href="#Android-Version-Code" data-toggle="tab">Android Version Code</a></li>
-              <li><a href="#Android-Version-Name" data-toggle="tab">Android Version Name</a></li>
               <li><a href="#Main-Activity" data-toggle="tab">Main Activity</a></li>
               <li><a href="#Activities" data-toggle="tab">Activities</a></li>
               <li><a href="#Services" data-toggle="tab">Services</a></li>
@@ -113,6 +115,10 @@
             
             <div class="tab-pane active" id="Application-Name">
 <h2>Application Name</h2><h3>N/A</h3></div>
+            <div class="tab-pane" id="Application-Version">
+<h2>Application Version</h2>
+<h3>1.4.6</h3>
+</div>
             <div class="tab-pane" id="Package-Name">
 <h2>Package Name</h2>
 <h3>com.google.android.lifestyle</h3>
@@ -121,31 +127,31 @@
 <h2>Description</h2>
 <h3>N/A</h3>
 </div>
+
             
             <div class="tab-pane" id="Telephony-Identifiers-Leakage">
 <h2>Telephony Identifiers Leakage</h2>
-<h3>This application reads the CellID value</h3><h3>This application reads the Location Area value</h3><h3>This application reads the unique device ID, for example, the IMEI for GSM and the MEID or ESN for CDMA phones</h3><h3>This application reads the unique subscriber ID, for example, the IMSI for a GSM phone</h3>
+<h3>This application reads the Cell ID value</h3><h3>This application reads the Location Area Code value</h3><h3>This application reads the unique device ID for example, the IMEI for GSM and the MEID or ESN for CDMA phones</h3><h3>This application reads the unique subscriber ID for example, the IMSI for a GSM phone</h3>
 </div>
+            
+            
+            
             <div class="tab-pane" id="Telephony-Services-Abuse">
 <h2>Telephony Services Abuse</h2>
-<h3>This application makes phone calls</h3><h3>This application reads the SMS inbox</h3>
-</div>     
-                       
-            <div class="tab-pane" id="Contact-List-Lookup">
-<h2>Contact List Lookup</h2>
-<h3>This application reads/edits contact data</h3>
-</div>            
-            <div class="tab-pane" id="Native-Code-Execution">
-<h2>Native Code Execution</h2>
-<h3>This application loads a native library : 'tiger'</h3>
-</div>           
-            <div class="tab-pane" id="UNIX-Command-Execution">
-<h2>UNIX Command Execution</h2>
-<h3>This application executes that UNIX command</h3>
-</div>           
-                                  
-                    
+<h3>This application makes phone calls</h3>
+</div>
             
+            
+            <div class="tab-pane" id="PIM-Data-Leakage">
+<h2>PIM Data Leakage</h2>
+<h3>This application reads/edits contact data</h3><h3>This application reads the SMS inbox</h3>
+</div>
+            <div class="tab-pane" id="Code-Execution">
+<h2>Code Execution</h2>
+<h3>This application loads a native library : 'tiger'</h3><h3>This application executes that UNIX command</h3>
+</div>
+            
+
                  
             <div class="tab-pane" id="APK-File-Name">
 <h2>APK File Name</h2>
@@ -165,14 +171,6 @@
 </div>
             
             
-            <div class="tab-pane" id="Android-Version-Code">
-<h2>Android Version Code</h2>
-<h3>20</h3>
-</div>
-            <div class="tab-pane" id="Android-Version-Name">
-<h2>Android Version Name</h2>
-<h3>1.4.6</h3>
-</div>
             <div class="tab-pane" id="Main-Activity">
 <h2>Main Activity</h2>
 <h3>None</h3>

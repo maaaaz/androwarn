@@ -42,14 +42,11 @@ def detect_Location_lookup(x) :
 	# Several HTC devices suffered from a bug allowing to dump wpa_supplicant.conf file containing clear text credentials
 	formatted_str = []
 	
-	b = x.tainted_packages.search_methods("Landroid/location/LocationManager","getProviders", ".")
-	for result in xrange(len(b)) :
-		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_idx()
+	structural_analysis_results = x.tainted_packages.search_methods("Landroid/location/LocationManager","getProviders", ".")
+	
+	for result in xrange(len(structural_analysis_results)) :
+		registers = data_flow_analysis(structural_analysis_results, result, x)	
 		
-		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
-		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-				
 		local_formatted_str = "This application reads location information from available providers" 
 		
 		# we want only one occurence

@@ -45,15 +45,11 @@ def detect_MediaRecorder_Voice_record(x) :
 	"""	
 	formatted_str = []
 	
-	b = x.tainted_packages.search_methods("Landroid/media/MediaRecorder","setAudioSource", ".")	
+	structural_analysis_results = x.tainted_packages.search_methods("Landroid/media/MediaRecorder","setAudioSource", ".")	
 	
-	for result in xrange(len(b)) :
-		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_idx()
+	for result in xrange(len(structural_analysis_results)) :
+		registers = data_flow_analysis(structural_analysis_results, result, x)
 		
-		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
-		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-				
 		if len(registers) > 0 :
 			audio_source_int 	= int(get_register_value(1, registers)) # 1 is the index of the PARAMETER called in the method
 			audio_source_name 	= get_constants_name_from_value(MediaRecorder_AudioSource, audio_source_int)
@@ -73,15 +69,11 @@ def detect_MediaRecorder_Video_capture(x) :
 	"""	
 	formatted_str = []
 	
-	# Retrieve the Source #
-	b = x.tainted_packages.search_methods("Landroid/media/MediaRecorder","setVideoSource", ".")	
-	for result in xrange(len(b)) :
-		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_idx()
+	structural_analysis_results = x.tainted_packages.search_methods("Landroid/media/MediaRecorder","setVideoSource", ".")	
+	
+	for result in xrange(len(structural_analysis_results)) :
+		registers = data_flow_analysis(structural_analysis_results, result, x)	
 		
-		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
-		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-				
 		if len(registers) > 0 :
 			video_source_int 	= int(get_register_value(1, registers)) # 1 is the index of the PARAMETER called in the method
 			video_source_name 	= get_constants_name_from_value(MediaRecorder_VideoSource, video_source_int)

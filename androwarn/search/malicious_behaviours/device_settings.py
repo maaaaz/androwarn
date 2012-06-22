@@ -50,13 +50,10 @@ def detect_Telephony_phone_state_lookup(x) :
 	"""
 	formatted_str = []
 	
-	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getCallState", ".")
-	for result in xrange(len(b)) :
-		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_idx()
-		
-		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
-		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
+	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getCallState", ".")
+	
+	for result in xrange(len(structural_analysis_results)) :
+		registers = data_flow_analysis(structural_analysis_results, result, x)
 				
 		local_formatted_str = "This application reads the phone's current state" 
 		
@@ -76,14 +73,11 @@ def detect_Telephony_DeviceSoftwareVersion_lookup(x) :
 	"""
 	formatted_str = []
 	
-	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getDeviceSoftwareVersion", ".")
-	for result in xrange(len(b)) :
-		method = b[result].get_method()
-		method_call_index_to_find = b[result].get_idx()
+	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getDeviceSoftwareVersion", ".")
+	
+	for result in xrange(len(structural_analysis_results)) :
+		registers = data_flow_analysis(structural_analysis_results, result, x)	
 		
-		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
-		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-				
 		local_formatted_str = "This application reads the software version number for the device, for example, the IMEI/SV for GSM phones" 
 		
 		# we want only one occurence

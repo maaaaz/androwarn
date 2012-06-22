@@ -436,6 +436,20 @@ def get_constants_name_from_value(constant_dict, value) :
 	except KeyError:
 		log.error("The constant name corresponding to the value '%s' can not be found in the dictionary '%s'" % (value, constant_dict))
 		return ERROR_CONSTANT_NAME_NOT_FOUND
+
+def data_flow_analysis(tab, result, x) :
+	"""
+	@param tab : structural analysis results tab
+	@param result : current iteration
+	@param x : a VMAnalysis instance
 	
+	@rtype : an ordered list of dictionaries of each register content [{ 'register #': 'value' }, { 'register #': 'value' } ...]
+	"""
+	method = tab[result].get_method()
+	method_call_index_to_find = tab[result].get_idx()
 	
+	registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
+	log.info("Class '%s' - Method '%s' - register state before call %s" % (tab[result].get_class_name(),tab[result].get_name(), registers))
+			
+	return registers	
 #########################
