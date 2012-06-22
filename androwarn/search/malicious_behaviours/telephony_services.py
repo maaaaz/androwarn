@@ -46,12 +46,10 @@ def detect_Telephony_SMS_abuse(x) :
 	
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-		#print "[+] Registers state before call " + str(registers)
 				
 		if len(registers) > 0 :
 			target_phone_number = get_register_value(1, registers)

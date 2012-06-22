@@ -44,13 +44,13 @@ def detect_Telephony_Operator_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getNetworkOperatorName", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
 		local_formatted_str = "This application reads the operator name" 
+		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :
 			formatted_str.append(local_formatted_str)
@@ -69,13 +69,13 @@ def detect_Telephony_CellID_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/gsm/GsmCellLocation","getCid", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
-		local_formatted_str = "This application reads the CellID value" 
+		local_formatted_str = "This application reads the Cell ID value" 
+		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :
 			formatted_str.append(local_formatted_str)
@@ -94,12 +94,12 @@ def detect_Telephony_LAC_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/gsm/GsmCellLocation","getLac", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
+		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
-		local_formatted_str = "This application reads the Location Area value" 
+		local_formatted_str = "This application reads the Location Area Code value" 
 		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :
@@ -119,7 +119,6 @@ def detect_Telephony_MCCMNC_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getNetworkOperator", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
@@ -145,13 +144,12 @@ def detect_Telephony_DeviceID_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getDeviceId", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
-		local_formatted_str = "This application reads the unique device ID, for example, the IMEI for GSM and the MEID or ESN for CDMA phones" 
+		local_formatted_str = "This application reads the unique device ID for example, the IMEI for GSM and the MEID or ESN for CDMA phones" 
 		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :
@@ -171,13 +169,12 @@ def detect_Telephony_IMSI_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getSubscriberId", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
-		local_formatted_str = "This application reads the unique subscriber ID, for example, the IMSI for a GSM phone" 
+		local_formatted_str = "This application reads the unique subscriber ID for example, the IMSI for a GSM phone" 
 		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :
@@ -197,13 +194,12 @@ def detect_Telephony_SimSerialNumber_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getSimSerialNumber", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
 				
-		local_formatted_str = "This application reads the serial number of the SIM" 
+		local_formatted_str = "This application reads the SIM's serial number" 
 		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :

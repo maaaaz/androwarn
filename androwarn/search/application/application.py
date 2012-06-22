@@ -72,10 +72,8 @@ def grab_application_name_description_icon(package_name, no_connection) :
 		if p_name.findall(the_page) and p_desc.findall(the_page) and p_icon.findall(the_page) :
 			name = strip_HTML_tags(p_name.findall(the_page)[0].decode("utf-8"))
 			desc = strip_HTML_tags(p_desc.findall(the_page)[0].decode("utf-8"))
-			#icon_link = strip_HTML_tags(p_icon.findall(the_page)[0])
 			icon_link = p_icon.findall(the_page)[0]
 
-			#return (p_name.findall(the_page)[0].decode("utf-8"), p_desc.findall(the_page)[0].decode("utf-8"), p_icon.findall(the_page)[0])
 			return (name, desc, icon_link)
 
 		else :

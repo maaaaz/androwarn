@@ -49,13 +49,10 @@ def detect_MediaRecorder_Voice_record(x) :
 	
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-
-		#print "[+] Registers state before call " + str(registers)
 				
 		if len(registers) > 0 :
 			audio_source_int 	= int(get_register_value(1, registers)) # 1 is the index of the PARAMETER called in the method
@@ -80,12 +77,10 @@ def detect_MediaRecorder_Video_capture(x) :
 	b = x.tainted_packages.search_methods("Landroid/media/MediaRecorder","setVideoSource", ".")	
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-		#print "[+] Registers state before call " + str(registers)
 				
 		if len(registers) > 0 :
 			video_source_int 	= int(get_register_value(1, registers)) # 1 is the index of the PARAMETER called in the method

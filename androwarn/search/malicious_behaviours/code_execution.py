@@ -46,13 +46,10 @@ def detect_Library_loading(x) :
 	b = x.tainted_packages.search_methods("Ljava/lang/System","loadLibrary", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-		
-		
 					
 		local_formatted_str = "This application loads a native library" 
 		

@@ -53,7 +53,6 @@ def detect_Telephony_phone_state_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getCallState", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
@@ -80,7 +79,6 @@ def detect_Telephony_DeviceSoftwareVersion_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getDeviceSoftwareVersion", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)

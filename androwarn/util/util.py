@@ -50,8 +50,6 @@ def log_result_path_information(res, res_prefix, res_type) :
 		for path in res.get_paths() :
 			log.info("%s %s found '%s'\n\t=> %s %s %s %s " % (res_prefix, res_type, res_info, path.get_access_flag(), path.get_method().get_class_name(), path.get_method().get_name(), path.get_method().get_descriptor() ) )
 
-
-
 class MLStripper(HTMLParser):
     def __init__(self):
         self.reset()
@@ -77,7 +75,6 @@ def dump_analysis_results(data) :
 		print "[+] Data\t: %s" % data[i]
 		print "[+] Data type\t: %s" % type(data[i])
 		print
-
 
 def search_class(x, package_name) :
 	"""
@@ -126,5 +123,3 @@ def search_class_in_the_list(canonical_class_list,canonical_class_name):
         l = filter(ex.search, canonical_class_list)
         
         return l
-
-

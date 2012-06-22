@@ -54,7 +54,6 @@ def detect_WiFi_Credentials_lookup(x) :
 	b = x.tainted_packages.search_methods("Landroid/net/wifi/WifiConfiguration","toString", ".")
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)

@@ -193,11 +193,8 @@ def match_current_instruction(current_instruction, registers_found) :
 			register_element_index = p_aput.match(current_instruction).groups()[2]
 
 			local_register_number = register_object_reference 
-			local_register_value =  register_array_reference	
-			#supprimer dans relevant_registers la valeur 'array_reference'
+			local_register_value =  register_array_reference
 			
-			#ajouter object_reference
-			#modifier la condition d'ajout pour "const_string" pour le cas ou il y a déja ce même numéro de registre => concaténer les valeurs en LIFO strcat(%s%s,new_element, old_string)
 		
 		return instruction_name, local_register_number, local_register_value, registers_found	
 
@@ -234,7 +231,6 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 	#code.show()
 	
 	bc = code.get_bc()
-	#instruction_list = bc.get()
 	instruction_list = [ i for i in bc.get_instructions() ]
 	
 
@@ -252,7 +248,6 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 		registers_found = {}
 		
 		# List the register indexes related to the method call
-		#relevant_registers = relevant_registers_for_the_method(method, index_to_find)
 		relevant_registers = relevant_registers_for_the_method(instruction_list[found_index])
 		
 		#print relevant_registers
@@ -262,9 +257,9 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 
 		while ((all_relevant_registers_filled(registers_found,relevant_registers) != True) and (i >= 0)) :
 			#current_instruction = instruction_list[i].show_buff(0)
-			current_instruction = instruction_list[i]
 			#print current_instruction
-			
+			current_instruction = instruction_list[i]
+
 			instruction_name, local_register_number, local_register_value, registers_found =  match_current_instruction(current_instruction, registers_found)
 			
 			if cmp(instruction_name, APUT) == 0:
@@ -280,10 +275,11 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 			if (cmp(instruction_name, MOVE_RESULT) == 0) and (local_register_number in relevant_registers):
 				try:
 					#past_instruction = instruction_list[i-1].show_buff(0)
+					#print past_instruction
 					past_instruction = instruction_list[i-1]
 					p_instruction_name, p_local_register_number, p_local_register_value, registers_found =  match_current_instruction(past_instruction, registers_found)
 					
-					#print past_instruction
+					
 					if cmp(p_instruction_name, INVOKE_NO_REGISTER) == 0 :
 						registers_found[local_register_number] = p_local_register_value
 					
@@ -423,7 +419,6 @@ def get_register_value(index, registers) :
 	# Index - 1, list starts at index 0
 	if index <= len(registers) :
 		dict = registers[index]
-		#dict = registers[index-1]
 		return dict.values()[0]
 	else :
 		return ERROR_VALUE_NOT_FOUND

@@ -127,7 +127,6 @@ def w_simple_string(string, file) :
 def generate_report_txt(data,verbosity, report, output_file) :
 	with open(output_file, 'w') as f_out :
 		w_simple_string("===== Androwarn Report =====", f_out)
-		#print data_level
 		for item in data_level :
 			key =  item.keys()[0]
 			if (item[key] <= int(verbosity)) and (key in data) and (len(data[key]) > 0):

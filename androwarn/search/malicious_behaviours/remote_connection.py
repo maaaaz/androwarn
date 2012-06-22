@@ -59,13 +59,10 @@ def detect_Socket_use(x) :
 	
 	for result in xrange(len(b)) :
 		method = b[result].get_method()
-		#method_call_index_to_find = b[result].get_offset()
 		method_call_index_to_find = b[result].get_idx()
 		
 		registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
 		log.info("Class '%s' - Method '%s' - register state before call %s" % (b[result].get_class_name(),b[result].get_name(), registers))
-
-		#print "[+] Registers state before call " + str(registers)
 				
 		if len(registers) > 0 :
 			remote_address 	= get_register_value(1, registers) # 1 is the index of the PARAMETER called in the method
