@@ -94,4 +94,5 @@ If not, see http://www.gnu.org/licenses/.
 
 Greetings
 -------------
-* Anthony Desnos, for his amazing Androguard project and his help through my entire Final-Year project
+* Stéphane Coulondre, for supervising my Final-Year project
+* Anthony Desnos, for his amazing Androguard project and his help through my Final-Year project
