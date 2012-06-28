@@ -2,7 +2,7 @@
 #include <jni.h>
 #include <string.h>  
 
-JNIEXPORT void JNICALL Java_name_lol_android_helloworld_NativeCode_NativeMethod
+JNIEXPORT void JNICALL Java_com_androwarn_sampleapplication_NativeCode_NativeMethod
   (JNIEnv * env, jclass jc, jstring str)
 {
 	/** This function is supposed to do a 'printf' **/
