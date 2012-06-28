@@ -61,7 +61,7 @@ Installation
 ------------
 1. Take a look at the Dependencies chapter and setup what's needed
 2. Open the androwarn.py file
-3. Locate the `PATH_INSTALL = "/home/android/tools/androguard/"` instruction at line 11
+3. Locate the `PATH_INSTALL = "/home/android/tools/androguard/"` instruction at line 30
 4. Edit that line with the root path of your androguard environnement
 5. Profit
 
