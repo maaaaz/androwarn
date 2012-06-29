@@ -69,7 +69,8 @@ Installation
 Dependencies
 ------------
 * Jinja2 : http://pypi.python.org/pypi/Jinja2/
-* Chilkat : https://www.chilkatsoft.com/python.asp (the installation folder may be in some cases, "/usr/local/lib/python2.X/dist-packages" instead of "/usr/local/lib/python2.X/site-packages"
+* Chilkat : https://www.chilkatsoft.com/python.asp 
+(the installation folder may be in some cases, "/usr/local/lib/python2.X/dist-packages" instead of "/usr/local/lib/python2.X/site-packages"
 * networkx : http://networkx.lanl.gov/download.html (please install the mercurial version)
 
 Contributing
