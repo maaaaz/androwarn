@@ -27,20 +27,21 @@ import sys, os, re, logging
 from optparse import OptionParser
 
 # Androguard imports
-PATH_INSTALL = "/home/android/tools/androguard/"
+#PATH_INSTALL = "/home/android/tools/androguard/"
+PATH_INSTALL = "./androguard/"
 sys.path.append(PATH_INSTALL)
 
-from androlyze import *
+#from androlyze import *
 from androguard.core import *
 from androguard.core.androgen import *
 from androguard.core.androconf import *
-from androguard.core.bytecode import *
-from androguard.core.bytecodes.jvm import *
-from androguard.core.bytecodes.dvm import *
-from androguard.core.bytecodes.apk import *
+#from androguard.core.bytecode import *
+#from androguard.core.bytecodes.jvm import *
+#from androguard.core.bytecodes.dvm import *
+#from androguard.core.bytecodes.apk import *
 from androguard.core.analysis.analysis import *
-from androguard.core.analysis.ganalysis import *
-from androguard.decompiler.decompiler import *
+#from androguard.core.analysis.ganalysis import *
+#from androguard.decompiler.decompiler import *
 #from androguard.core.analysis.risk import *
 
 # Androwarn modules import
