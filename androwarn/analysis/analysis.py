@@ -22,11 +22,13 @@
 # Global imports
 import re, logging
 
-# Androwarn modules import
+# Androguard import
 from androguard.core.bytecode import *
 from androguard.core.bytecodes.dvm import *
 from androguard.core.bytecodes.apk import *
 from androguard.core.analysis.ganalysis import *
+
+# Androwarn modules import
 from androwarn.core.core import *
 from androwarn.search.search import *
 from androwarn.util.util import *
