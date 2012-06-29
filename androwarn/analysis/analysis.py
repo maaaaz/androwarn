@@ -20,7 +20,7 @@
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global imports
-import re, logging
+import logging
 
 # Androguard import
 from androguard.core.bytecode import *

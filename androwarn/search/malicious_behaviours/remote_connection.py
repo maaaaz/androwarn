@@ -20,7 +20,7 @@
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global imports
-import os, re, logging
+import logging
 
 # Androguard imports
 from androguard.core.analysis import analysis
@@ -30,15 +30,6 @@ from androguard.core.bytecodes.apk import *
 # Androwarn modules import
 from androwarn.core.core import *
 from androwarn.util.util import *
-
-# Constants 
-ERROR_INDEX_NOT_FOUND = -2
-
-REQUEST_TIMEOUT = 4
-ERROR_APP_DESC_NOT_FOUND = 'N/A'
-
-CONNECTION_DISABLED = 0
-CONNECTION_ENABLED = 1
 
 # Logguer
 log = logging.getLogger('log')

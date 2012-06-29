@@ -20,7 +20,7 @@
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global imports
-import os, re, logging, urllib2, hashlib
+import re, logging, urllib2, hashlib
 from urllib2 import urlopen, HTTPError
 
 # Androguard imports
