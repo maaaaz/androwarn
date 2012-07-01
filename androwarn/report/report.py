@@ -42,8 +42,7 @@ OUTPUT_DIR = './Report/'
 # Constants
 REPORT_TXT = 'txt'
 REPORT_HTML = 'html'
-REPORT_PDF = 'pdf'
-REPORT_TYPE = [REPORT_TXT, REPORT_HTML, REPORT_PDF]
+REPORT_TYPE = [REPORT_TXT, REPORT_HTML]
 
 VERBOSE_ESSENTIAL = '1'
 VERBOSE_ADVANCED = '2'
@@ -162,9 +161,6 @@ def generate_report(data, verbosity, report) :
 	
 	if cmp(report, REPORT_HTML) == 0 :
 		generate_report_html(data,verbosity, report, output_file)
-	
-	if cmp(report, REPORT_PDF) == 0 :
-		sys.exit("[!] PDF Generation not implemented yet")
 			
 
 	
