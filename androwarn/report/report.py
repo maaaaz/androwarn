@@ -22,6 +22,9 @@
 # Global imports
 import logging
 
+# Logguer
+log = logging.getLogger('log')
+
 try :
 	from jinja2 import Environment, PackageLoader, FileSystemLoader, Template
 except ImportError :
@@ -35,8 +38,7 @@ from androwarn.util.util import *
 HTML_TEMPLATE_FILE = 'template.html'
 OUTPUT_DIR = './Report/'
 
-# Logguer
-log = logging.getLogger('log')
+
 
 # Constants
 REPORT_TXT = 'txt'
