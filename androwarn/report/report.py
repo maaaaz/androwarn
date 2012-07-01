@@ -25,6 +25,7 @@ import logging
 # Logguer
 log = logging.getLogger('log')
 
+# Jinja2 import
 try :
 	from jinja2 import Environment, PackageLoader, FileSystemLoader, Template
 except ImportError :
