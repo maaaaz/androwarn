@@ -21,7 +21,11 @@
 
 # Global imports
 import logging
-from jinja2 import Environment, PackageLoader, FileSystemLoader, Template
+
+try :
+	from jinja2 import Environment, PackageLoader, FileSystemLoader, Template
+except ImportError :
+	log.error("The Jinja2 module is not installed, please install it and try again")
 
 # Androwarn modules import
 from androwarn.search.search import *
