@@ -22,19 +22,22 @@
 # Global imports
 import logging
 
+# Logguer
+log = logging.getLogger('log')
+
 # Androguard import
 from androguard.core.bytecode import *
 from androguard.core.bytecodes.dvm import *
 from androguard.core.bytecodes.apk import *
-from androguard.core.analysis.ganalysis import *
+try :
+	from androguard.core.analysis.ganalysis import *
+except ImportError :
+	log.error("The networkx module is not installed, please install it and try again")
 
 # Androwarn modules import
 from androwarn.core.core import *
 from androwarn.search.search import *
 from androwarn.util.util import *
-
-# Logguer
-log = logging.getLogger('log')
 
 def AnalyzeAPK(filename, raw=False, decompiler=None) :
     """
