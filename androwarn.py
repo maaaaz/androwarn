@@ -30,12 +30,6 @@ from optparse import OptionParser
 PATH_INSTALL = "./androguard/"
 sys.path.append(PATH_INSTALL)
 
-#from androlyze import *
-#from androguard.core import *
-#from androguard.core.androgen import *
-#from androguard.core.androconf import *
-#from androguard.core.analysis.analysis import *
-
 # Androwarn modules import
 PATH_INSTALL = "./"
 sys.path.append(PATH_INSTALL)
@@ -55,7 +49,7 @@ log.addHandler(handler)
 
 # Options definition
 option_0 = { 'name' : ('-i', '--input'), 'help' : 'APK file to analyze', 'nargs' : 1 }
-option_1 = { 'name' : ('-v', '--verbose'), 'help' : 'Verbosity level { 1-3 }  ( ESSENTIAL, MODERATE, ADVANCED, EXPERT )', 'nargs' : 1 }
+option_1 = { 'name' : ('-v', '--verbose'), 'help' : 'Verbosity level { 1-3 }  ( ESSENTIAL, ADVANCED, EXPERT )', 'nargs' : 1 }
 option_2 = { 'name' : ('-r', '--report'), 'help' : 'Report type { txt, html }', 'nargs' : 1 }
 option_3 = { 'name' : ('-L', '--log-level'), 'help' : 'Log level { DEBUG, INFO, WARN, ERROR, CRITICAL }', 'nargs' : 1 }
 option_4 = { 'name' : ('-n', '--no-connection'), 'help' : 'Disable lookups on Google Play ', 'nargs' : 0 }
