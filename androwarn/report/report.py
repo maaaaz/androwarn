@@ -20,7 +20,7 @@
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global imports
-import logging
+import sys, logging
 
 # Logguer
 log = logging.getLogger('log')
