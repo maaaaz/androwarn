@@ -130,6 +130,7 @@ def w_simple_string(string, file) :
 	file.write("%s\n" % string)
 	
 def generate_report_txt(data,verbosity, report, output_file) :
+	output_file = "%s%s.txt" % (OUTPUT_DIR, output_file)
 	with open(output_file, 'w') as f_out :
 		w_simple_string("===== Androwarn Report =====", f_out)
 		for item in data_level :
@@ -140,7 +141,8 @@ def generate_report_txt(data,verbosity, report, output_file) :
 				w_simple_string('', f_out)
 			
 	f_out.close()
-
+	
+	print("[+] Analysis successfully completed and TXT file report available '%s'" % output_file)
 
 def generate_report_html(data, verbosity, report, output_file) :
 	env = Environment( loader = FileSystemLoader(OUTPUT_DIR), trim_blocks=True, newline_sequence='\n')
@@ -149,9 +151,11 @@ def generate_report_html(data, verbosity, report, output_file) :
 	# In this case we are forced to dump the html into the Report folder as it contains css/img/ico
 	output_file = "%s%s.html" % (OUTPUT_DIR, output_file.split('/')[-1])
 	template.stream(data).dump(output_file, encoding='utf-8')
+	
+	print("[+] Analysis successfully completed and HTML file report available '%s'" % output_file)
 
-def generate_report(data, verbosity, report, output) :
-	output_file = {True: data['application_package_name'][0] , False: output }[cmp(output, '') == 0]
+def generate_report(data, verbosity, report) :
+	output_file = data['application_package_name'][0]
 	
 	if cmp(report, REPORT_TXT) == 0 :
 		generate_report_txt(data,verbosity, report, output_file)
@@ -160,7 +164,7 @@ def generate_report(data, verbosity, report, output) :
 		generate_report_html(data,verbosity, report, output_file)
 	
 	if cmp(report, REPORT_PDF) == 0 :
-		print "PDF Generation not implemented yet"
+		sys.exit("[!] PDF Generation not implemented yet")
 			
 
 	
