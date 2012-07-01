@@ -22,18 +22,18 @@
 # Global imports
 import sys, logging
 
-# Logguer
-log = logging.getLogger('log')
-
 # Jinja2 module import
 try :
 	from jinja2 import Environment, PackageLoader, FileSystemLoader, Template
 except ImportError :
-	sys.exit("The Jinja2 module is not installed, please install it and try again")
+	sys.exit("[!] The Jinja2 module is not installed, please install it and try again")
 
 # Androwarn modules import
 from androwarn.search.search import *
 from androwarn.util.util import *
+
+# Logguer
+log = logging.getLogger('log')
 
 # Constants 
 HTML_TEMPLATE_FILE = 'template.html'

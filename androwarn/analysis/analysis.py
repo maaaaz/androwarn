@@ -20,10 +20,7 @@
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global imports
-import logging
-
-# Logguer
-log = logging.getLogger('log')
+import sys, logging
 
 # Androguard import
 from androguard.core.bytecode import *
@@ -32,12 +29,15 @@ from androguard.core.bytecodes.apk import *
 try :
 	from androguard.core.analysis.ganalysis import *
 except ImportError :
-	print "The networkx module is not installed, please install it and try again"
+	sys.exit("[!] The networkx module is not installed, please install it and try again")
 
 # Androwarn modules import
 from androwarn.core.core import *
 from androwarn.search.search import *
 from androwarn.util.util import *
+
+# Logguer
+log = logging.getLogger('log')
 
 def AnalyzeAPK(filename, raw=False, decompiler=None) :
     """
