@@ -32,6 +32,7 @@ from androguard.core.bytecodes.apk import *
 try :
 	from androguard.core.analysis.ganalysis import *
 except ImportError :
+	print "It's me!"
 	log.error("The networkx module is not installed, please install it and try again")
 
 # Androwarn modules import
