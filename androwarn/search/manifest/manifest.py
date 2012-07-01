@@ -100,11 +100,15 @@ def grab_certificate(apk, filename) :
 	"""
 	Return a certificate object by giving the name in the apk file
 	"""
-	import chilkat
-	cert = chilkat.CkCert()
-	f = apk.get_file( filename )
-	success = cert.LoadFromBinary(f, len(f))
-	return success, cert
+	try :
+		import chilkat
+		cert = chilkat.CkCert()
+		f = apk.get_file( filename )
+		success = cert.LoadFromBinary(f, len(f))
+		return success, cert
+	except ImportError :
+		log.error("The Chilkat module is not installed, you will not have information about the certificate in the generated report")
+		return False, []
 
 def grab_certificate_information(apk) :
 
@@ -119,11 +123,13 @@ def grab_certificate_information(apk) :
 
 	
 	success, cert = grab_certificate(apk, cert_found)
+	cert_info = []
 	
 	if success != True :
-		log.error("Can not get the certificate %s from the APK" % cert_found)
+		log.error("Can not read the certificate %s from the APK" % cert_found)
+		return cert_info
 
-	cert_info = []
+	
 	cert_info.append("Issuer:\n\tC=%s, ST=%s, L=%s, O=%s,\n\tOU=%s, CN=%s" % (cert.issuerC(), cert.issuerS(), cert.issuerL(), cert.issuerO(), cert.issuerOU(), cert.issuerCN()))
 	cert_info.append("Subject:\n\tC=%s, ST=%s, L=%s, O=%s,\n\tOU=%s, CN=%s" % (cert.subjectC(), cert.subjectS(), cert.subjectL(), cert.subjectO(), cert.subjectOU(), cert.subjectCN()))
 	cert_info.append("Serial number: %s" % cert.serialNumber())
