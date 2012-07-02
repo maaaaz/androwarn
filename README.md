@@ -59,7 +59,7 @@ The analysis report of a real malware `Android.Tigerbot`, known as `com.google.a
 
 Installation
 ------------
-1. Take a look at the Dependencies chapter and setup what's needed
+1. Take a look at the Dependencies chapter and [install what's needed](https://github.com/maaaaz/androwarn/wiki/Installation)
 2. Profit
 
 
