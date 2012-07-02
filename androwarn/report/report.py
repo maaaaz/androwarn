@@ -36,7 +36,7 @@ from androwarn.util.util import *
 log = logging.getLogger('log')
 
 # Constants 
-HTML_TEMPLATE_FILE = 'template.html'
+HTML_TEMPLATE_FILE = './template/template.html'
 OUTPUT_DIR = './Report/'
 
 # Constants
