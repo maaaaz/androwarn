@@ -31,7 +31,7 @@ Features
 
 * Report generation according to several detail levels
 	- Essential (-v 1) for newbies
-	- Intermediate (-v 2)
+	- Advanced (-v 2)
 	- Expert (-v 3)
 
 * Report generation according to several formats
@@ -93,5 +93,5 @@ If not, see http://www.gnu.org/licenses/.
 
 Greetings
 -------------
-* Stéphane Coulondre, for supervising my Final-Year project
-* Anthony Desnos, for his amazing Androguard project and his help through my Final-Year project
+* Stéphane Coulondre, for supervising my Final Year project
+* Anthony Desnos, for his amazing Androguard project and his help through my Final Year project
