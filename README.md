@@ -93,5 +93,5 @@ If not, see http://www.gnu.org/licenses/.
 
 Greetings
 -------------
-* (Stéphane Coulondre)[http://scoulond.insa-lyon.fr], for supervising my Final Year project
-* (Anthony Desnos)[https://sites.google.com/site/anthonydesnos/home], for his amazing (Androguard)[https://code.google.com/p/androguard] project and his help through my Final Year project
+* [Stéphane Coulondre](http://scoulond.insa-lyon.fr), for supervising my Final Year project
+* [Anthony Desnos](https://sites.google.com/site/anthonydesnos/home), for his amazing [Androguard](https://code.google.com/p/androguard) project and his help through my Final Year project
