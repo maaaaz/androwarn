@@ -68,7 +68,6 @@ Dependencies
 * python >= 2.6
 * Jinja2 : http://pypi.python.org/pypi/Jinja2/
 * Chilkat : https://www.chilkatsoft.com/python.asp 
-* networkx : http://networkx.lanl.gov/download.html (please install the mercurial version)
 
 Contributing
 -------------

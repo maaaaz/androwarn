@@ -88,7 +88,6 @@ def AnalyzeDex(filename, raw=False) :
 	dx = uVMAnalysis( d )
 
 	d.set_vmanalysis( dx )
-
 	
 	return d, dx
 
