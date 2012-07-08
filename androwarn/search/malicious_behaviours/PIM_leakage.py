@@ -45,8 +45,8 @@ def detect_ContactAccess_lookup(x) :
 		
 	detectors = [detector_1]
 	
-	if detectors :
-		local_formatted_str = 'This application reads/edits contact data'
+	if detector_tab_is_not_empty(detectors) :
+		local_formatted_str = 'This application reads or edits contact data'
 		formatted_str.append(local_formatted_str)
 		
 		for res in detectors :
@@ -54,7 +54,7 @@ def detect_ContactAccess_lookup(x) :
 				try :
 					log_result_path_information(res, "Contact access", "field")
 				except :
-					log.warn("Detector result '%s' is not a Path instance" % res)
+					log.warn("Detector result '%s' is not a PathVariable instance" % res)
 					
 	return formatted_str
 
@@ -71,7 +71,7 @@ def detect_Telephony_SMS_read(x) :
 		
 	detectors = [detector_1]
 	
-	if detectors :
+	if detector_tab_is_not_empty(detectors) :
 		local_formatted_str = 'This application reads the SMS inbox'
 		formatted_str.append(local_formatted_str)
 		
@@ -80,6 +80,6 @@ def detect_Telephony_SMS_read(x) :
 				try :
 					log_result_path_information(res, "SMS Inbox", "string")
 				except :
-					log.warn("Detector result '%s' is not a Path instance" % res) 
+					log.warn("Detector result '%s' is not a PathVariable instance" % res) 
 		
 	return formatted_str

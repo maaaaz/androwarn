@@ -39,7 +39,6 @@ def detect_Location_lookup(x) :
 		
 		@rtype : a list of formatted strings
 	"""
-	# Several HTC devices suffered from a bug allowing to dump wpa_supplicant.conf file containing clear text credentials
 	formatted_str = []
 	
 	structural_analysis_results = x.tainted_packages.search_methods("Landroid/location/LocationManager","getProviders", ".")

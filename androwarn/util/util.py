@@ -32,6 +32,11 @@ from HTMLParser import HTMLParser
 log = logging.getLogger('log')
 
 def convert_dex_to_canonical(dex_name) :
+	"""
+		@param dex_name : a dex name, for instance "Lcom/name/test"
+	
+		@rtype : a dotted string, for instance "com.name.test"
+	"""
 	final_name = ''
 	if re.match( '^L[a-zA-Z]+(?:\/[a-zA-Z]+)*(.)*;$', dex_name) :
 		global_part = dex_name[1:-1].split('/')
@@ -43,12 +48,34 @@ def convert_dex_to_canonical(dex_name) :
 		return "[!] Conversion to canonical name failed : \"" + dex_name + "\" is not a valid library dex name"
 	return final_name
 
+def detector_tab_is_not_empty(list) :
+	"""
+		@param list : a list of result
+	
+		@rtype : False if all the items in the list are empty, True otherwise
+	"""
+	for item in list :
+		if not(not(item)) :
+			return True
+	return False
 
 def log_result_path_information(res, res_prefix, res_type) :
+	"""
+		@param res : a result from the detector's result list
+		@param res_prefix : result's category name
+		@param res_type : result's type
+	
+		@rtype : void - it only logs extra information about the analysis result
+	"""
 	res_info = res.get_info()
 	if len(res_info) > 0:
+		paths = res.get_paths()
+		
 		for path in res.get_paths() :
-			log.info("%s %s found '%s'\n\t=> %s %s %s %s " % (res_prefix, res_type, res_info, path.get_access_flag(), path.get_method().get_class_name(), path.get_method().get_name(), path.get_method().get_descriptor() ) )
+			access, idx = path[0]
+			m_idx = path[1]
+			#log.info("%s %s found '%s'\n\t=> %s %s %s %s " % (res_prefix, res_type, res_info, path.get_access_flag(), path.get_method().get_class_name(), path.get_method().get_name(), path.get_method().get_descriptor() ) )
+			log.info("%s %s found '%s'\n\t=> access_flag %s, index %s, method_index %s" % (res_prefix, res_type, res_info, access, idx, m_idx ) )
 
 class MLStripper(HTMLParser):
     def __init__(self):
@@ -60,6 +87,11 @@ class MLStripper(HTMLParser):
         return ''.join(self.fed)
 
 def strip_HTML_tags(html):
+	"""
+		@param html : a string to be cleaned up
+	
+		@rtype : a HTML-tag sanitized string
+	"""
 	# Keep the indentation
 	html = html.replace('<br>', '\n')
 	
@@ -70,6 +102,11 @@ def strip_HTML_tags(html):
 	return s.get_data()
 
 def dump_analysis_results(data) :
+	"""
+		@param data : analysis results list
+	
+		@rtype : void - it only prints out the list
+	"""
 	for i in data :
 		print "[+] Item\t: '%s'" % i
 		print "[+] Data\t: %s" % data[i]
@@ -78,19 +115,19 @@ def dump_analysis_results(data) :
 
 def search_class(x, package_name) :
 	"""
-	@param x : a VMAnalysis instance
-	@param package_name : a regexp for the name of the package
+		@param x : a VMAnalysis instance
+		@param package_name : a regexp for the name of the package
 	
-	@rtype : a list of classes' paths
+		@rtype : a list of classes' paths
 	"""
 	return x.tainted_packages.search_packages( package_name )
 
 def search_field(x, field_name) :
 	"""
-	@param x : a VMAnalysis instance
-	@param field_name : a regexp for the field name
+		@param x : a VMAnalysis instance
+		@param field_name : a regexp for the field name
 	
-	@rtype : a list of classes' paths
+		@rtype : a list of classes' paths
 	"""
 	for f, _ in x.tainted_variables.get_fields() :
 		field_info = f.get_info()
@@ -100,10 +137,10 @@ def search_field(x, field_name) :
 
 def search_string(x, string_name) :
 	"""
-	@param x : a VMAnalysis instance
-	@param string_name : a regexp for the string name
+		@param x : a VMAnalysis instance
+		@param string_name : a regexp for the string name
 	
-	@rtype : a list of classes' paths
+		@rtype : a list of classes' paths
 	"""
 	for s, _ in x.tainted_variables.get_strings() :
 		string_info = s.get_info()
@@ -112,14 +149,14 @@ def search_string(x, string_name) :
 	return []
 
 def search_class_in_the_list(canonical_class_list,canonical_class_name):
-        """
-			@param canonical_class_list : a canonical list of classes
-            @param canonical_class_name : a regexp for the name of the class
-        
-            @rtype : a list of class names
-        """
-        l = []
-        ex = re.compile( canonical_class_name )   
-        l = filter(ex.search, canonical_class_list)
-        
-        return l
+	"""
+		@param canonical_class_list : a canonical list of classes
+		@param canonical_class_name : a regexp for the name of the class
+	
+		@rtype : a list of class names
+	"""
+	l = []
+	ex = re.compile( canonical_class_name )
+	l = filter(ex.search, canonical_class_list)
+	
+	return l

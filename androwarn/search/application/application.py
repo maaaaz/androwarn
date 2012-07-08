@@ -45,15 +45,17 @@ log = logging.getLogger('log')
 # Some aliases to the original functions
 def grab_application_package_name(apk) :
 	"""
-	Return the name of the package
+		@param apk : an APK instance
+		
+		@rtype : the package name
 	"""
 	return apk.package
 
 def grab_application_name_description_icon(package_name, no_connection) :
 	"""
-	@param package_name : package name
+		@param package_name : package name
 	
-	@rtype : (name, description, icon) string tuple
+		@rtype : (name, description, icon) string tuple
 	"""
 	if no_connection == CONNECTION_DISABLED :
 		return ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND		
@@ -86,12 +88,16 @@ def grab_application_name_description_icon(package_name, no_connection) :
 
 def grab_androidversion_code(apk) :
 	"""
-	Return the android version code
+		@param apk : an APK instance
+		
+		@rtype : the android version code
 	"""
 	return apk.androidversion["Code"]
 
 def grab_androidversion_name(apk) :
 	"""
-	Return the android version name 
+		@param apk : an APK instance
+		
+		@rtype : the android version name 
 	"""
 	return apk.androidversion["Name"]

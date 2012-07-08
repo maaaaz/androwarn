@@ -34,10 +34,6 @@ from androwarn.util.util import *
 # Logguer
 log = logging.getLogger('log')
 
-
-# Some aliases to the original functions
-
-# -- Socket -- #			
 def detect_Socket_use(x) :
 	"""
 		@param x : a VMAnalysis instance

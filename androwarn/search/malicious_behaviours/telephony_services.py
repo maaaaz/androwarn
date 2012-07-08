@@ -69,7 +69,7 @@ def detect_Telephony_Phone_Call_abuse(x) :
 		
 	detectors = [detector_1, detector_2]
 	
-	if detectors :
+	if detector_tab_is_not_empty(detectors) :
 		local_formatted_str = 'This application makes phone calls'
 		formatted_str.append(local_formatted_str)
 		
@@ -78,6 +78,6 @@ def detect_Telephony_Phone_Call_abuse(x) :
 				try :
 					log_result_path_information(res, "Call Intent", "string")
 				except :
-					log.warn("Detector result '%s' is not a Path instance" % res) 
+					log.warn("Detector result '%s' is not a PathVariable instance" % res)
 		
 	return formatted_str

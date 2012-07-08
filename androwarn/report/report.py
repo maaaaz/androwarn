@@ -115,20 +115,38 @@ data_level  = [
 			  ]
 			  
 def w_list(list, file) :
+	"""
+		@param list : a list
+		@param file : output file
+	"""	
 	if list :
 		for i in list :
 			file.write("- %s\n" % i)
 
 def w_title(string, file) :
+	"""
+		@param string : a string to be titled
+		@param file : output file
+	"""	
 	# Title it and replace underscores with spaces
 	string = string.replace('_', ' ')
 	string = ' '.join(word.capitalize() for word in string.split())
 	file.write("[+] %s:\n" % string)
 
 def w_simple_string(string, file) :
+	"""
+		@param string : a unique string
+		@param file : output file
+	"""
 	file.write("%s\n" % string)
 	
 def generate_report_txt(data,verbosity, report, output_file) :
+	"""
+		@param data : analysis result list
+		@param verbosity : desired verbosity
+		@param report : report type
+		@param output_file : output file name
+	"""
 	output_file = "%s%s.txt" % (OUTPUT_DIR, output_file)
 	with open(output_file, 'w') as f_out :
 		w_simple_string("===== Androwarn Report =====", f_out)
@@ -144,6 +162,12 @@ def generate_report_txt(data,verbosity, report, output_file) :
 	print("[+] Analysis successfully completed and TXT file report available '%s'" % output_file)
 
 def generate_report_html(data, verbosity, report, output_file) :
+	"""
+		@param data : analysis result list
+		@param verbosity : desired verbosity
+		@param report : report type
+		@param output_file : output file name
+	"""
 	env = Environment( loader = FileSystemLoader(OUTPUT_DIR), trim_blocks=True, newline_sequence='\n')
 	template = env.get_template(HTML_TEMPLATE_FILE)
 	
@@ -154,6 +178,11 @@ def generate_report_html(data, verbosity, report, output_file) :
 	print("[+] Analysis successfully completed and HTML file report available '%s'" % output_file)
 
 def generate_report(data, verbosity, report) :
+	"""
+		@param data : analysis result list
+		@param verbosity : desired verbosity
+		@param report : report type
+	"""	
 	output_file = data['application_package_name'][0]
 	
 	if cmp(report, REPORT_TXT) == 0 :

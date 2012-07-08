@@ -40,7 +40,6 @@ def detect_Library_loading(x) :
 		
 		@rtype : a list of formatted strings
 	"""
-	# Several HTC devices suffered from a bug allowing to dump wpa_supplicant.conf file containing clear text credentials
 	formatted_str = []
 	
 	structural_analysis_results = x.tainted_packages.search_methods("Ljava/lang/System","loadLibrary", ".")
@@ -52,7 +51,7 @@ def detect_Library_loading(x) :
 		
 		# If we're lucky enough to directly have the library's name
 		if len(registers) == 1 :
-			local_formatted_str = "%s : '%s'" % (local_formatted_str, get_register_value(0, registers))
+			local_formatted_str = "%s: '%s'" % (local_formatted_str, get_register_value(0, registers))
 		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :
@@ -68,7 +67,6 @@ def detect_UNIX_command_execution(x) :
 		
 		@rtype : a list of formatted strings
 	"""
-	# Several HTC devices suffered from a bug allowing to dump wpa_supplicant.conf file containing clear text credentials
 	formatted_str = []
 	
 	structural_analysis_results = x.tainted_packages.search_methods("Ljava/lang/Runtime","exec", ".")
@@ -76,8 +74,8 @@ def detect_UNIX_command_execution(x) :
 	for result in xrange(len(structural_analysis_results)) :
 		registers = data_flow_analysis(structural_analysis_results, result, x)
 				
-		local_formatted_str = "This application executes that UNIX command" 
-		
+		local_formatted_str = "This application executes a UNIX command" 
+
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :
 			formatted_str.append(local_formatted_str)

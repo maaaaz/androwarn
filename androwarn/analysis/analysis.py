@@ -107,12 +107,12 @@ def AnalyzeDex(filename, raw=False) :
 
 def perform_analysis(apk_file, a, d, x, no_connection) :
 	"""
-	@param apk_file : apk file path
-	@param a 		: an APK instance, DalvikVMFormat, and VMAnalysis objects
-	@param d 		: a DalvikVMFormat instance
-	@param x 		: a VMAnalysis instance
+		@param apk_file : apk file path
+		@param a 		: an APK instance, DalvikVMFormat, and VMAnalysis objects
+		@param d 		: a DalvikVMFormat instance
+		@param x 		: a VMAnalysis instance
 	
-	@rtype : a dictionary of strings lists { "apk_files" : ["1", "2", "3"...], "application_name" : ['example'], ...}
+		@rtype : a dictionary of strings lists { "apk_files" : ["1", "2", "3"...], "application_name" : ['example'], ...}
 	"""
 	data = {}
 	
@@ -199,8 +199,5 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 	data['code_execution']						= detect_Library_loading(x)
 	data['code_execution']				 .extend( detect_UNIX_command_execution(x) )
 	
-
-	
-
 	
 	return data

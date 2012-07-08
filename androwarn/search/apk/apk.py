@@ -36,9 +36,9 @@ log = logging.getLogger('log')
 # APK and Manifest related functions #
 def grab_apk_file_sha1_hash(apk_file) :
 	"""
-	@param apk_file : apk file path (not an apk instance)
+		@param apk_file : apk file path (not an apk instance)
 	
-	@rtype : the hexified string SHA1 hash
+		@rtype : the hexified string SHA1 hash
 	"""	
 	block_size=2**20
 	sha1 = hashlib.sha1()
@@ -55,14 +55,10 @@ def grab_apk_file_sha1_hash(apk_file) :
 	
 def grab_filename(apk) :
 	"""
-	Return the filename of the APK
+		@param apk : an APK instance
+		
+		@rtype : the APK's filename
 	"""
 	# Grab only the name.apk, not the full path provided
 	#return apk.filename
 	return apk.filename.split('/')[-1]
-	
-def grab_file_list(apk) :
-	"""
-	Return the files inside the AP
-	"""
-	return apk.zip.namelist()

@@ -41,7 +41,9 @@ log = logging.getLogger('log')
 # -- Classes -- #
 def grab_classes_list(x) :
 	"""
-	Return a list of the canonical name (ex "android.widget.GridView") of all the classes used
+		@param x : a VMAnalysis instance
+		
+		@rtype : a list of the canonical name (ex "android.widget.GridView") of all the classes used
 	"""
 	tainted_list = x.get_tainted_packages().get_packages()
 	list = []
@@ -64,7 +66,9 @@ def grab_classes_list(x) :
 
 def grab_internal_classes_list(x) :
 	"""
-	Return a list of the canonical name (ex "android.widget.GridView") of the internal classes used
+		@param x : a VMAnalysis instance
+		
+		@rtype : a list of the canonical name (ex "android.widget.GridView") of the internal classes used
 	"""
 	tainted_list = x.get_tainted_packages().get_internal_packages()
 	list = []
@@ -86,7 +90,9 @@ def grab_internal_classes_list(x) :
 
 def grab_internal_new_classes_list(x) :
 	"""
-	Return a list of the canonical name (ex "android.widget.GridView") of the internal new classes used
+		@param x : a VMAnalysis instance
+		
+		@rtype : a list of the canonical name (ex "android.widget.GridView") of the internal new classes used
 	"""
 	tainted_list = x.get_tainted_packages().get_internal_new_packages()
 	list = []
@@ -108,7 +114,9 @@ def grab_internal_new_classes_list(x) :
 
 def grab_external_classes_list(x) :
 	"""
-	Return a list of the canonical name (ex "android.widget.GridView") of the external packages used
+		@param x : a VMAnalysis instance
+		
+		@rtype : a list of the canonical name (ex "android.widget.GridView") of the external packages used
 	"""
 	tainted_list = x.get_tainted_packages().get_external_packages()
 	list = []
@@ -131,7 +139,9 @@ def grab_external_classes_list(x) :
 # -- Packages -- #
 def grab_packages_list(x) :
 	"""
-	Return a list of the canonical name (ex "android.widget.GridView") of all the packages used
+		@param x : a VMAnalysis instance
+		
+		@rtype : a list of the canonical name (ex "android.widget.GridView") of all the packages used
 	"""
 	tainted_list = x.get_tainted_packages().get_packages()
 	list = []
@@ -152,7 +162,9 @@ def grab_packages_list(x) :
 
 def grab_internal_packages_list(x) :
 	"""
-	Return a list of the canonical name (ex "android.widget.GridView") of the internal classes used
+		@param x : a VMAnalysis instance
+		
+		@rtype : a list of the canonical name (ex "android.widget.GridView") of the internal classes used
 	"""
 	tainted_list = x.get_tainted_packages().get_internal_packages()
 	list = []
@@ -173,7 +185,9 @@ def grab_internal_packages_list(x) :
 
 def grab_internal_new_packages_list(x) :
 	"""
-	Return a list of the canonical name (ex "android.widget.GridView") of the internal new classes used
+		@param x : a VMAnalysis instance
+		
+		@rtype : a list of the canonical name (ex "android.widget.GridView") of the internal new classes used
 	"""
 	tainted_list = x.get_tainted_packages().get_internal_new_packages()
 	list = []
@@ -194,7 +208,9 @@ def grab_internal_new_packages_list(x) :
 
 def grab_external_packages_list(x) :
 	"""
-	Return a list of the canonical name (ex "android.widget.GridView") of the external packages used
+		@param x : a VMAnalysis instance
+	
+		@rtype : a list of the canonical name (ex "android.widget.GridView") of the external packages used
 	"""
 	tainted_list = x.get_tainted_packages().get_external_packages()
 	list = []
@@ -219,7 +235,7 @@ def search_package_in_the_list(canonical_package_list,canonical_package_name):
 		@param canonical_package_name : a regexp for the name of the package
 
 	
-		@rtype : a list of package names
+		@rtype : a list of packages names
 	"""
 	l = []
 	ex = re.compile( canonical_package_name )   

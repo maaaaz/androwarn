@@ -47,156 +47,161 @@ log = logging.getLogger('log')
 
 # Instruction matcher
 def match_current_instruction(current_instruction, registers_found) :
-
-		p_const 				= re.compile('^const(?:\/4|\/16|\/high16|-wide(?:\/16|\/32)|-wide\/high16|)? v([0-9]+), \#([+-][0-9]+(?:\.[0-9]+)?)$')
-		p_const_string			= re.compile("^const-string(?:||-jumbo) v([0-9]+), '(.*)'$")
-		p_move					= re.compile('^move(?:|\/from16|-wide(?:\/from16|\/16)|-object(?:|\/from16|\/16))? v([0-9]+), (v[0-9]+)$')
-		p_move_result			= re.compile('^move(?:-result(?:|-wide|-object)|-exception)? v([0-9]+)$')
-		p_aput					= re.compile('^aput(?:-wide|-object|-boolean|-byte|-char|-short|) v([0-9]+), v([0-9]+), v([0-9]+)$')
-		p_invoke 				= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) v([0-9]+), (L(?:.*);->.*)$')
-		p_invoke_2_registers 	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) v([0-9]+), v([0-9]+), (L(?:.*);->.*)$')
-		p_invoke_no_register	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) (L(?:.*);->.*)$')
-		p_new_instance 			= re.compile('^new-instance v([0-9]+) , \[ type@ (?:[0-9]+) (L(?:.*);) \]$')
-		
-		
-		# String cat
-		current_instruction = "%s %s" % (current_instruction.get_name(), current_instruction.get_output())
-		
-		# Returned values init
-		instruction_name = ''
-		local_register_number = -1
-		local_register_value = -1
-		
-		
-		if p_const_string.match(current_instruction) :
-			#print p_const_string.match(current_instruction).groups()
-			
-			instruction_name = CONST_STRING
-			
-			register_number = p_const_string.match(current_instruction).groups()[0]
-			register_value = p_const_string.match(current_instruction).groups()[1]
-			
-			if not(register_number in registers_found) :
-				registers_found[register_number] = register_value
-			else :
-				old_string = registers_found[register_number]
-				new_string = "%s %s" % (str(register_value), str(old_string))
-				registers_found[register_number] = new_string
-			
-			local_register_number = register_number
-			local_register_value = register_value
+	"""
+		@param current_instruction : the current instruction to be analyzed
+		@param registers_found : a dictionary of registers recovered so far
+	
+		@rtype : the instruction name from the constants above, the local register number and its value, an updated version of the registers_found
+	"""
+	p_const 				= re.compile('^const(?:\/4|\/16|\/high16|-wide(?:\/16|\/32)|-wide\/high16|)? v([0-9]+), \#([+-][0-9]+(?:\.[0-9]+)?)$')
+	p_const_string			= re.compile("^const-string(?:||-jumbo) v([0-9]+), '(.*)'$")
+	p_move					= re.compile('^move(?:|\/from16|-wide(?:\/from16|\/16)|-object(?:|\/from16|\/16))? v([0-9]+), (v[0-9]+)$')
+	p_move_result			= re.compile('^move(?:-result(?:|-wide|-object)|-exception)? v([0-9]+)$')
+	p_aput					= re.compile('^aput(?:-wide|-object|-boolean|-byte|-char|-short|) v([0-9]+), v([0-9]+), v([0-9]+)$')
+	p_invoke 				= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) v([0-9]+), (L(?:.*);->.*)$')
+	p_invoke_2_registers 	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) v([0-9]+), v([0-9]+), (L(?:.*);->.*)$')
+	p_invoke_no_register	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) (L(?:.*);->.*)$')
+	p_new_instance 			= re.compile('^new-instance v([0-9]+) , \[ type@ (?:[0-9]+) (L(?:.*);) \]$')
 	
 	
-		if p_const.match(current_instruction) :
-			#print p_const.match(current_instruction).groups()
-			
-			instruction_name = CONST
-			
-			register_number = p_const.match(current_instruction).groups()[0]
-			register_value = p_const.match(current_instruction).groups()[1]
-			
-			if not(register_number in registers_found) :
-				registers_found[register_number] = register_value
-			
-			local_register_number = register_number
-			local_register_value = register_value
+	# String concat
+	current_instruction = "%s %s" % (current_instruction.get_name(), current_instruction.get_output())
+	
+	# Returned values init
+	instruction_name = ''
+	local_register_number = -1
+	local_register_value = -1
 	
 	
-		if p_move.match(current_instruction) :
-			#print p_move.match(current_instruction).groups()
-			
-			instruction_name = MOVE
-			
-			register_number = p_move.match(current_instruction).groups()[0]
-			register_value = p_move.match(current_instruction).groups()[1]
-			
-			if not(register_number in registers_found) :
-				registers_found[register_number] = register_value				
-			
-			local_register_number = register_number
-			local_register_value = register_value
+	if p_const_string.match(current_instruction) :
+		#print p_const_string.match(current_instruction).groups()
+		
+		instruction_name = CONST_STRING
+		
+		register_number = p_const_string.match(current_instruction).groups()[0]
+		register_value = p_const_string.match(current_instruction).groups()[1]
+		
+		if not(register_number in registers_found) :
+			registers_found[register_number] = register_value
+		else :
+			old_string = registers_found[register_number]
+			new_string = "%s %s" % (str(register_value), str(old_string))
+			registers_found[register_number] = new_string
+		
+		local_register_number = register_number
+		local_register_value = register_value
 
 
-		if p_move_result.match(current_instruction) :
-			#print p_move_result.match(current_instruction).groups()
-			
-			instruction_name = MOVE_RESULT
-			
-			register_number = p_move_result.match(current_instruction).groups()[0]
-			register_value = ''
-			
-			if not(register_number in registers_found) :
-				registers_found[register_number] = register_value		
-			
-			local_register_number = register_number
-			local_register_value = register_value	
-			#print "number returned %s" % local_register_number
-			#print "value returned %s" % local_register_value	
+	if p_const.match(current_instruction) :
+		#print p_const.match(current_instruction).groups()
+		
+		instruction_name = CONST
+		
+		register_number = p_const.match(current_instruction).groups()[0]
+		register_value = p_const.match(current_instruction).groups()[1]
+		
+		if not(register_number in registers_found) :
+			registers_found[register_number] = register_value
+		
+		local_register_number = register_number
+		local_register_value = register_value
 
-		if p_invoke.match(current_instruction) :
-			#print p_invoke.match(current_instruction).groups()
-			
-			instruction_name = INVOKE
-			
-			register_number = p_invoke.match(current_instruction).groups()[0]
-			register_value = p_invoke.match(current_instruction).groups()[1]
-			
-			if not(register_number in registers_found) :
-				registers_found[register_number] = register_value		
-			
-			local_register_number = register_number
-			local_register_value = register_value		
-		
-		if p_invoke_no_register.match(current_instruction) :
-			#print p_invoke.match(current_instruction).groups()
-			
-			instruction_name = INVOKE_NO_REGISTER
-			
-			register_number = ''
-			register_value = p_invoke_no_register.match(current_instruction).groups()[0]
-			
-			local_register_number = register_number
-			local_register_value = register_value
-		
-		if p_invoke_2_registers.match(current_instruction) :
-			#print p_invoke.match(current_instruction).groups()
-			
-			instruction_name = INVOKE_NO_REGISTER
-			
-			register_number = p_invoke_2_registers.match(current_instruction).groups()[0]
-			register_value = p_invoke_2_registers.match(current_instruction).groups()[1]
-			
-			local_register_number = register_number
-			local_register_value = register_value		
-			
-		if p_new_instance.match(current_instruction) :
-			#print p_new_instance.match(current_instruction).groups()
-			
-			instruction_name = INVOKE
-			
-			register_number = p_new_instance.match(current_instruction).groups()[0]
-			register_value = p_new_instance.match(current_instruction).groups()[1]
-			
-			if not(register_number in registers_found) :
-				registers_found[register_number] = register_value		
-			
-			local_register_number = register_number
-			local_register_value = register_value
-		
-		if p_aput.match(current_instruction) :
-			#print p_aput.match(current_instruction).groups()
-			
-			instruction_name = APUT
-			
-			register_object_reference = p_aput.match(current_instruction).groups()[0]
-			register_array_reference = p_aput.match(current_instruction).groups()[1]
-			register_element_index = p_aput.match(current_instruction).groups()[2]
 
-			local_register_number = register_object_reference 
-			local_register_value =  register_array_reference
-			
+	if p_move.match(current_instruction) :
+		#print p_move.match(current_instruction).groups()
 		
-		return instruction_name, local_register_number, local_register_value, registers_found	
+		instruction_name = MOVE
+		
+		register_number = p_move.match(current_instruction).groups()[0]
+		register_value = p_move.match(current_instruction).groups()[1]
+		
+		if not(register_number in registers_found) :
+			registers_found[register_number] = register_value				
+		
+		local_register_number = register_number
+		local_register_value = register_value
+
+
+	if p_move_result.match(current_instruction) :
+		#print p_move_result.match(current_instruction).groups()
+		
+		instruction_name = MOVE_RESULT
+		
+		register_number = p_move_result.match(current_instruction).groups()[0]
+		register_value = ''
+		
+		if not(register_number in registers_found) :
+			registers_found[register_number] = register_value		
+		
+		local_register_number = register_number
+		local_register_value = register_value	
+		#print "number returned %s" % local_register_number
+		#print "value returned %s" % local_register_value	
+
+	if p_invoke.match(current_instruction) :
+		#print p_invoke.match(current_instruction).groups()
+		
+		instruction_name = INVOKE
+		
+		register_number = p_invoke.match(current_instruction).groups()[0]
+		register_value = p_invoke.match(current_instruction).groups()[1]
+		
+		if not(register_number in registers_found) :
+			registers_found[register_number] = register_value		
+		
+		local_register_number = register_number
+		local_register_value = register_value		
+	
+	if p_invoke_no_register.match(current_instruction) :
+		#print p_invoke.match(current_instruction).groups()
+		
+		instruction_name = INVOKE_NO_REGISTER
+		
+		register_number = ''
+		register_value = p_invoke_no_register.match(current_instruction).groups()[0]
+		
+		local_register_number = register_number
+		local_register_value = register_value
+	
+	if p_invoke_2_registers.match(current_instruction) :
+		#print p_invoke.match(current_instruction).groups()
+		
+		instruction_name = INVOKE_NO_REGISTER
+		
+		register_number = p_invoke_2_registers.match(current_instruction).groups()[0]
+		register_value = p_invoke_2_registers.match(current_instruction).groups()[1]
+		
+		local_register_number = register_number
+		local_register_value = register_value		
+		
+	if p_new_instance.match(current_instruction) :
+		#print p_new_instance.match(current_instruction).groups()
+		
+		instruction_name = INVOKE
+		
+		register_number = p_new_instance.match(current_instruction).groups()[0]
+		register_value = p_new_instance.match(current_instruction).groups()[1]
+		
+		if not(register_number in registers_found) :
+			registers_found[register_number] = register_value		
+		
+		local_register_number = register_number
+		local_register_value = register_value
+	
+	if p_aput.match(current_instruction) :
+		#print p_aput.match(current_instruction).groups()
+		
+		instruction_name = APUT
+		
+		register_object_reference = p_aput.match(current_instruction).groups()[0]
+		register_array_reference = p_aput.match(current_instruction).groups()[1]
+		register_element_index = p_aput.match(current_instruction).groups()[2]
+
+		local_register_number = register_object_reference 
+		local_register_value =  register_array_reference
+		
+	
+	return instruction_name, local_register_number, local_register_value, registers_found	
 
 # Backtrace registers #
 def find_call_index_in_code_list(index_to_find, instruction_list):
@@ -219,11 +224,11 @@ def find_call_index_in_code_list(index_to_find, instruction_list):
 
 def backtrace_registers_before_call(x, method, index_to_find) :
 	"""
-	@param x : a VMAnalysis instance
-	@param method : a regexp for the method (the package)
-	@param index_to_find : index of the matching method
+		@param x : a VMAnalysis instance
+		@param method : a regexp for the method (the package)
+		@param index_to_find : index of the matching method
 	
-	@rtype : an ordered list of dictionaries of each register content [{ 'register #': 'value' }, { 'register #': 'value' } ...]
+		@rtype : an ordered list of dictionaries of each register content [{ 'register #': 'value' }, { 'register #': 'value' } ...]
 	"""	
 	registers = {}
 	
@@ -325,9 +330,9 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 		
 def extract_register_index_out_splitted_values(registers_raw_list_splitted) :
 	"""
-	@param : registers_raw_list_splitted : a list of registers still containing the 'v' prefix [' v1 ', ' v2 ' ...]
+		@param : registers_raw_list_splitted : a list of registers still containing the 'v' prefix [' v1 ', ' v2 ' ...]
 	
-	@rtype : an ordered list of register indexes ['1', '2' ...]
+		@rtype : an ordered list of register indexes ['1', '2' ...]
 	"""		
 	relevant_registers = []
 	
@@ -353,10 +358,10 @@ def extract_register_index_out_splitted_values(registers_raw_list_splitted) :
 
 def relevant_registers_for_the_method(instruction) :
 	"""
-	@param method : a method instance
-	@param index_to_find : index of the matching method
+		@param method : a method instance
+		@param index_to_find : index of the matching method
 	
-	@rtype : an ordered list of register indexes related to that method call
+		@rtype : an ordered list of register indexes related to that method call
 	"""	
 	relevant_registers = []
 	
@@ -411,10 +416,10 @@ def all_relevant_registers_filled(registers, relevant_registers) :
 
 def get_register_value(index, registers) :
 	"""
-	@param index : integer value of the index
-	@param registers : an ordered list of register indexes related to that method call
+		@param index : integer value of the index
+		@param registers : an ordered list of register indexes related to that method call
 	
-	@rtype : a value casted in string
+		@rtype : a value casted in string
 	"""
 	# Index - 1, list starts at index 0
 	if index <= len(registers) :
@@ -425,10 +430,10 @@ def get_register_value(index, registers) :
 
 def get_constants_name_from_value(constant_dict, value) :
 	"""
-	@param constant_dict : constant dictionary to consider
-	@param value : value's constant name to retrieve
+		@param constant_dict : constant dictionary to consider
+		@param value : value's constant name to retrieve
 	
-	@rtype : a string
+		@rtype : a string
 	"""
 	try:
 		return constant_dict[value]
@@ -439,11 +444,11 @@ def get_constants_name_from_value(constant_dict, value) :
 
 def data_flow_analysis(tab, result, x) :
 	"""
-	@param tab : structural analysis results tab
-	@param result : current iteration
-	@param x : a VMAnalysis instance
+		@param tab : structural analysis results tab
+		@param result : current iteration
+		@param x : a VMAnalysis instance
 	
-	@rtype : an ordered list of dictionaries of each register content [{ 'register #': 'value' }, { 'register #': 'value' } ...]
+		@rtype : an ordered list of dictionaries of each register content [{ 'register #': 'value' }, { 'register #': 'value' } ...]
 	"""
 	method = tab[result].get_method()
 	method_call_index_to_find = tab[result].get_idx()

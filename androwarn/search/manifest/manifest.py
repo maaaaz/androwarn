@@ -37,43 +37,57 @@ log = logging.getLogger('log')
 
 def grab_main_activity(apk) :
 	"""
-	Return the name of the main activity
+		@param apk : an APK instance
+		
+		@rtype : the name of the main activity
 	"""
 	return apk.get_main_activity()
 
 def grab_activities(apk) :
 	"""
-	Return the android:name attribute of all activities
+		@param apk : an APK instance
+	
+		@rtype : the android:name attribute of all activities
 	"""
 	return apk.get_elements("activity", "android:name")
 
 def grab_services(apk) :
 	"""
-	Return the android:name attribute of all services
+		@param apk : an APK instance
+		
+		@rtype : the android:name attribute of all services
 	"""
 	return apk.get_elements("service", "android:name")
 
 def grab_receivers(apk) :
 	"""
-	Return the android:name attribute of all receivers
+		@param apk : an APK instance
+	
+		@rtype : the android:name attribute of all receivers
 	"""
 	return apk.get_elements("receiver", "android:name")
 
 def grab_providers(apk) :
 	"""
-	Return the android:name attribute of all providers
+		@param apk : an APK instance
+	
+		@rtype : the android:name attribute of all providers
 	"""
 	return apk.get_elements("provider", "android:name")
 
 def grab_permissions(apk) :
 	"""
-	Return a list of permissions
+		@param apk : an APK instance
+		
+		@rtype : a list of permissions
 	"""
 	return apk.get_permissions()
 
 def grab_features(apk) :
 	"""
-	Return a list of features
+		@param apk : an APK instance
+	
+		@rtype : a list of features
 	"""
 	features = []
 	xml = {}
@@ -86,19 +100,25 @@ def grab_features(apk) :
 
 def grab_libraries(apk) :
 	"""
-	Return the android:name attributes for libraries
+		@param apk : an APK instance
+	
+		@rtype : the libraries' names
 	"""
 	return apk.get_elements( "uses-library", "android:name" )
 
 def grab_file_list(apk) :
 	"""
-	Return the files inside the AP
+		@param apk : an APK instance
+		
+		@rtype : the file list inside the AP
 	"""
 	return apk.zip.namelist()
 
 def grab_certificate(apk, filename) :
 	"""
-	Return a certificate object by giving the name in the apk file
+		@param apk : an APK instance
+	
+		@rtype : a certificate object by giving the name in the apk file
 	"""
 	try :
 		import chilkat
@@ -111,7 +131,11 @@ def grab_certificate(apk, filename) :
 		return False, []
 
 def grab_certificate_information(apk) :
-
+	"""
+		@param apk : an APK instance
+		
+		@rtype : a certificate object by giving the name in the apk file
+	"""
 	file_list = grab_file_list(apk)
 	p_find_cert = re.compile('^(META-INF\/(.*).RSA)$')
 	cert_found = ''
@@ -136,5 +160,4 @@ def grab_certificate_information(apk) :
 	cert_info.append("SHA-1 thumbprint: %s" % cert.sha1Thumbprint())
 	
 	return cert_info
-	
 ####################################
