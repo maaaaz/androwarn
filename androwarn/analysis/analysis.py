@@ -26,10 +26,6 @@ import sys, logging
 from androguard.core.bytecode import *
 from androguard.core.bytecodes.dvm import *
 from androguard.core.bytecodes.apk import *
-try :
-	from androguard.core.analysis.ganalysis import *
-except ImportError :
-	sys.exit("[!] The networkx module is not installed, please install it and try again")
 
 # Androwarn modules import
 from androwarn.core.core import *
@@ -86,25 +82,13 @@ def AnalyzeDex(filename, raw=False) :
 		d = DalvikVMFormat( filename )
 
 	androconf.debug("EXPORT VM to python namespace")
-	ExportVMToPython( d )
+	#ExportVMToPython( d )
 
 	androconf.debug("VMAnalysis ...")
 	dx = uVMAnalysis( d )
-	#dx = VMAnalysis( d )
-
-	androconf.debug("GVMAnalysis ...")
-	gx = GVMAnalysis( dx, None )
 
 	d.set_vmanalysis( dx )
-	d.set_gvmanalysis( gx )
-	
-	''' 
-	XREF/DREF creation disabled for performance purposes
-	androconf.debug("XREF ...")
-	d.create_xref()
-	androconf.debug("DREF ...")
-	d.create_dref()
-	'''
+
 	
 	return d, dx
 
