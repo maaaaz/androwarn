@@ -74,7 +74,6 @@ def log_result_path_information(res, res_prefix, res_type) :
 		for path in res.get_paths() :
 			access, idx = path[0]
 			m_idx = path[1]
-			#log.info("%s %s found '%s'\n\t=> %s %s %s %s " % (res_prefix, res_type, res_info, path.get_access_flag(), path.get_method().get_class_name(), path.get_method().get_name(), path.get_method().get_descriptor() ) )
 			log.info("%s %s found '%s'\n\t=> access_flag %s, index %s, method_index %s" % (res_prefix, res_type, res_info, access, idx, m_idx ) )
 
 # HTML Sanitizer
