@@ -1,257 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>Androwarn report</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<title>Androwarn report</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-    </style>
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<!-- Le styles -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<style type="text/css">
+	body {
+		padding-top: 60px;
+		padding-bottom: 40px;
+	}
+	.sidebar-nav {
+		padding: 9px 0;
+	}
+	</style>
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+	<!-- Le fav and touch icons -->
+	<link rel="shortcut icon" href="ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
   </head>
 
   <body>
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand">Androwarn Report</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li><a>com.google.android.lifestyle</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand">Androwarn Report</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li><a>com.google.android.lifestyle</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
-        
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Application Information</li>
-              <li class="active"><a href="#Application-Name" data-toggle="tab">Application Name</a></li>
-              <li><a href="#Application-Version" data-toggle="tab">Application Version</a></li>
-              <li><a href="#Package-Name" data-toggle="tab">Package Name</a></li>
-              <li><a href="#Description" data-toggle="tab">Description</a></li>
+	<div class="container-fluid">
+		<div class="row-fluid">
 
-              
-              <li class="nav-header">Analysis Results</li>
-              <li><a href="#Telephony-Identifiers-Leakage" data-toggle="tab">Telephony Identifiers Leakage</a></li>
-              
-              
-              
-              <li><a href="#Telephony-Services-Abuse" data-toggle="tab">Telephony Services Abuse</a></li>
-              
-              
-              <li><a href="#PIM-Data-Leakage" data-toggle="tab">PIM Data Leakage</a></li>
-              <li><a href="#Code-Execution" data-toggle="tab">Code Execution</a></li>
+			<div class="span3">
+				<div class="well sidebar-nav">
+					<ul class="nav nav-list">
+					<li class="nav-header">Application Information</li>
+			<li class="active"><a href="#application-name" data-toggle="tab">Application Name</a></li>
+			<li><a href="#application-version" data-toggle="tab">Application Version</a></li>
+			<li><a href="#package-name" data-toggle="tab">Package Name</a></li>
+			<li><a href="#description" data-toggle="tab">Description</a></li>
+			<li class="nav-header">Analysis Results</li>
+			<li><a href="#telephony-identifiers-leakage" data-toggle="tab">Telephony Identifiers Leakage</a></li>
+			
+			
+			
+			
+			
+			
+			
+			<li><a href="#code-execution" data-toggle="tab">Code Execution</a></li>
+			<li class="nav-header">Apk File</li>
+			<li><a href="#apk-file-name" data-toggle="tab">Apk File Name</a></li>
+			<li><a href="#SHA-1-hash" data-toggle="tab">Sha-1 Hash</a></li>
+			<li><a href="#file-list" data-toggle="tab">File List</a></li>
+			<li><a href="#certificate-information" data-toggle="tab">Certificate Information</a></li>
+			<li class="nav-header">Androidmanifest.Xml</li>
+			<li><a href="#main-activity" data-toggle="tab">Main Activity</a></li>
+			<li><a href="#activities" data-toggle="tab">Activities</a></li>
+			<li><a href="#receivers" data-toggle="tab">Receivers</a></li>
+			
+			<li><a href="#permissions" data-toggle="tab">Permissions</a></li>
+			
+			
+			<li class="nav-header">Apis Used</li>
+			<li><a href="#classes-list" data-toggle="tab">Classes List</a></li>
+			<li><a href="#internal-classes-list" data-toggle="tab">Internal Classes List</a></li>
+			<li><a href="#external-classes-list" data-toggle="tab">External Classes List</a></li>
+			<li><a href="#internal-packages-list" data-toggle="tab">Internal Packages List</a></li>
+			<li><a href="#external-packages-list" data-toggle="tab">External Packages List</a></li>
+						
+					</ul>
+				</div><!--/.well -->
+			</div><!--/span-->
 
+			<div class="span9">
+				<div class="hero-unit" id="Package_name">
+					<div class="tab-content">
+					
+						<div class="tab-pane active" id="application-name">
+							<h2>Application Name</h2>
+							<h3>N/A</h3>
+						</div>
+					
+						<div class="tab-pane" id="application-version">
+							<h2>Application Version</h2>
+							<h3>1.4.6</h3>
+						</div>
+					
+						<div class="tab-pane" id="package-name">
+							<h2>Package Name</h2>
+							<h3>com.google.android.lifestyle</h3>
+						</div>
+					
+						<div class="tab-pane" id="description">
+							<h2>Description</h2>
+							<h3>N/A</h3><h3>N/A</h3>
+						</div>
+					
+						<div class="tab-pane" id="telephony-identifiers-leakage">
+							<h2>Telephony Identifiers Leakage</h2>
+							<h3>This application reads the Cell ID value</h3><h3>This application reads the Location Area Code value</h3><h3>This application reads the unique device ID for example, the IMEI for GSM and the MEID or ESN for CDMA phones</h3><h3>This application reads the unique subscriber ID for example, the IMSI for a GSM phone</h3>
+						</div>
+					
+						<div class="tab-pane" id="code-execution">
+							<h2>Code Execution</h2>
+							<h3>This application loads a native library: 'tiger'</h3><h3>This application executes a UNIX command</h3>
+						</div>
+					
+						<div class="tab-pane" id="apk-file-name">
+							<h2>Apk File Name</h2>
+							<h3>Tigerbot_spyera.apk</h3>
+						</div>
+					
+						<div class="tab-pane" id="SHA-1-hash">
+							<h2>Sha-1 Hash</h2>
+							<h3>312977e2dc75b52ccd02187528ad20a9b231b436</h3>
+						</div>
+					
+						<div class="tab-pane" id="file-list">
+							<h2>File List</h2>
+							<h3>res/drawable/icon.png</h3><h3>res/layout/de.xml</h3><h3>res/layout/main.xml</h3><h3>res/xml/default_apns.xml</h3><h3>AndroidManifest.xml</h3><h3>resources.arsc</h3><h3>classes.dex</h3><h3>lib/armeabi/libtiger.so</h3><h3>META-INF/MANIFEST.MF</h3><h3>META-INF/CERT.SF</h3><h3>META-INF/CERT.RSA</h3>
+						</div>
+					
+						<div class="tab-pane" id="certificate-information">
+							<h2>Certificate Information</h2>
+							<h3>Issuer:</h3><h3>C=</h3><h3>ST=</h3><h3>L=</h3><h3>O=</h3><h3>OU=</h3><h3>CN=backup<br/><br/></h3><h3>Subject:</h3><h3>C=</h3><h3>ST=</h3><h3>L=</h3><h3>O=</h3><h3>OU=</h3><h3>CN=backup<br/><br/></h3><h3>Serial number: 4D6E8950<br/></h3><h3>SHA-1 thumbprint: 3FFB23E3E9BD736856A2F29DD718B63DAFD220D6<br/></h3>
+						</div>
+					
+						<div class="tab-pane" id="main-activity">
+							<h2>Main Activity</h2>
+							<h3>None</h3>
+						</div>
+					
+						<div class="tab-pane" id="activities">
+							<h2>Activities</h2>
+							<h3>com.google.android.lifestyle.call.SC</h3><h3>com.google.android.lifestyle.call.LP</h3>
+						</div>
+					
+						<div class="tab-pane" id="receivers">
+							<h2>Receivers</h2>
+							<h3>com.google.android.lifestyle.b.oo</h3><h3>com.google.android.lifestyle.s.SE1</h3><h3>com.google.android.lifestyle.s.SE2</h3><h3>com.google.android.lifestyle.s.SE3</h3><h3>com.google.android.lifestyle.s.SE4</h3><h3>com.google.android.lifestyle.s.SE5</h3><h3>com.google.android.lifestyle.s.SE6</h3><h3>com.google.android.lifestyle.s.SE7</h3><h3>com.google.android.lifestyle.s.SE8</h3><h3>com.google.android.lifestyle.s.SE9</h3><h3>com.google.android.lifestyle.s.SE10</h3><h3>com.google.android.lifestyle.s.Network</h3><h3>com.google.android.lifestyle.call.ca</h3><h3>com.google.android.lifestyle.call.CR</h3><h3>com.google.android.lifestyle.cm.SP</h3><h3>com.google.android.lifestyle.task.TaskService</h3><h3>com.google.android.lifestyle.s.FService</h3>
+						</div>
+					
+						<div class="tab-pane" id="permissions">
+							<h2>Permissions</h2>
+							<h3>android.permission.READ_PHONE_STATE</h3><h3>android.permission.MODIFY_PHONE_STATE</h3><h3>android.permission.CALL_PHONE</h3><h3>android.permission.PROCESS_OUTGOING_CALLS</h3><h3>android.permission.RECORD_AUDIO</h3><h3>android.permission.CAMERA</h3><h3>android.permission.MODIFY_AUDIO_SETTINGS</h3><h3>android.permission.READ_CONTACTS</h3><h3>android.permission.WRITE_CONTACTS</h3><h3>android.permission.RECEIVE_BOOT_COMPLETED</h3><h3>android.permission.SEND_SMS</h3><h3>android.permission.RECEIVE_SMS</h3><h3>android.permission.READ_SMS</h3><h3>android.permission.WRITE_SMS</h3><h3>android.permission.INTERNET</h3><h3>android.permission.ACCESS_COARSE_LOCATION</h3><h3>android.permission.ACCESS_FINE_LOCATION</h3><h3>android.permission.ACCESS_LOCATION_EXTRA_COMMANDS</h3><h3>android.permission.ACCESS_MOCK_LOCATION</h3><h3>android.permission.UPDATE_DEVICE_STATS</h3><h3>android.permission.WAKE_LOCK</h3><h3>android.permission.DEVICE_POWER</h3><h3>android.permission.WRITE_SETTINGS</h3><h3>android.permission.DISABLE_KEYGUARD</h3><h3>android.permission.WRITE_EXTERNAL_STORAGE</h3><h3>android.permission.READ_LOGS</h3><h3>android.permission.KILL_BACKGROUND_PROCESSES</h3><h3>android.permission.RESTART_PACKAGES</h3><h3>android.permission.ACCESS_NETWORK_STATE</h3><h3>android.permission.WRITE_APN_SETTINGS</h3><h3>android.permission.BLUETOOTH</h3>
+						</div>
+					
+						<div class="tab-pane" id="classes-list">
+							<h2>Classes List</h2>
+							<h3>android.app.Activity</h3><h3>android.app.ActivityManager</h3><h3>android.app.Application</h3><h3>android.app.KeyguardManager</h3><h3>android.app.PendingIntent</h3><h3>android.app.Service</h3><h3>android.content.BroadcastReceiver</h3><h3>android.content.ContentResolver</h3><h3>android.content.ContentUris</h3><h3>android.content.ContentValues</h3><h3>android.content.Context</h3><h3>android.content.Intent</h3><h3>android.content.IntentFilter</h3><h3>android.content.pm.PackageManager</h3><h3>android.content.res.Resources</h3><h3>android.database.ContentObserver</h3><h3>android.database.Cursor</h3><h3>android.database.sqlite.SQLiteDatabase</h3><h3>android.graphics.Bitmap</h3><h3>android.hardware.Camera</h3><h3>android.location.Location</h3><h3>android.location.LocationManager</h3><h3>android.media.AudioManager</h3><h3>android.media.MediaRecorder</h3><h3>android.net.ConnectivityManager</h3><h3>android.net.NetworkInfo</h3><h3>android.net.Uri</h3><h3>android.os.Binder</h3><h3>android.os.Bundle</h3><h3>android.os.Handler</h3><h3>android.os.IBinder</h3><h3>android.os.Message</h3><h3>android.os.Parcel</h3><h3>android.os.Parcelable</h3><h3>android.os.PowerManager</h3><h3>android.os.SystemProperties</h3><h3>android.provider.Settings</h3><h3>android.telephony.CellLocation</h3><h3>android.telephony.PhoneNumberUtils</h3><h3>android.telephony.PhoneStateListener</h3><h3>android.telephony.SmsManager</h3><h3>android.telephony.SmsMessage</h3><h3>android.telephony.TelephonyManager</h3><h3>android.telephony.cdma.CdmaCellLocation</h3><h3>android.telephony.gsm.GsmCellLocation</h3><h3>android.text.format.Time</h3><h3>android.util.Log</h3><h3>android.util.SparseBooleanArray</h3><h3>android.util.SparseIntArray</h3><h3>android.view.Window</h3><h3>android.widget.Button</h3><h3>android.widget.ProgressBar</h3><h3>android.widget.TextView</h3><h3>com.android.internal.telephony.EncodeException</h3><h3>com.android.internal.telephony.GsmAlphabet</h3><h3>com.android.internal.telephony.ITelephony</h3><h3>com.android.internal.telephony.IccUtils</h3><h3>com.android.internal.telephony.SmsAddress</h3><h3>com.android.internal.telephony.SmsHeader</h3><h3>com.android.internal.telephony.SmsMessageBase</h3><h3>com.android.internal.telephony.a</h3><h3>com.android.internal.telephony.cdma.SmsMessage</h3><h3>com.android.internal.telephony.cdma.sms.BearerData</h3><h3>com.android.internal.telephony.cdma.sms.CdmaSmsAddress</h3><h3>com.android.internal.telephony.cdma.sms.SmsEnvelope</h3><h3>com.android.internal.telephony.cdma.sms.UserData</h3><h3>com.android.internal.telephony.cdma.sms.a</h3><h3>com.android.internal.telephony.cdma.sms.b</h3><h3>com.android.internal.telephony.gsm.GsmSmsAddress</h3><h3>com.android.internal.telephony.gsm.SmsMessage</h3><h3>com.android.internal.telephony.gsm.a</h3><h3>com.android.internal.util.BitwiseInputStream</h3><h3>com.android.internal.util.BitwiseOutputStream</h3><h3>com.android.internal.util.HexDump</h3><h3>com.google.android.lifestyle.App</h3><h3>com.google.android.lifestyle.Main</h3><h3>com.google.android.lifestyle.a</h3><h3>com.google.android.lifestyle.a.a</h3><h3>com.google.android.lifestyle.a.b</h3><h3>com.google.android.lifestyle.a.c</h3><h3>com.google.android.lifestyle.a.e</h3><h3>com.google.android.lifestyle.a.f</h3><h3>com.google.android.lifestyle.b</h3><h3>com.google.android.lifestyle.b.a</h3><h3>com.google.android.lifestyle.b.b</h3><h3>com.google.android.lifestyle.b.br</h3><h3>com.google.android.lifestyle.b.c</h3><h3>com.google.android.lifestyle.b.oo</h3><h3>com.google.android.lifestyle.c.a</h3><h3>com.google.android.lifestyle.c.b</h3><h3>com.google.android.lifestyle.c.c</h3><h3>com.google.android.lifestyle.c.d</h3><h3>com.google.android.lifestyle.c.e</h3><h3>com.google.android.lifestyle.c.f</h3><h3>com.google.android.lifestyle.c.g</h3><h3>com.google.android.lifestyle.c.h</h3><h3>com.google.android.lifestyle.call.CR</h3><h3>com.google.android.lifestyle.call.LP</h3><h3>com.google.android.lifestyle.call.PSR</h3><h3>com.google.android.lifestyle.call.SC</h3><h3>com.google.android.lifestyle.call.a</h3><h3>com.google.android.lifestyle.call.b</h3><h3>com.google.android.lifestyle.call.c</h3><h3>com.google.android.lifestyle.call.ca</h3><h3>com.google.android.lifestyle.call.d</h3><h3>com.google.android.lifestyle.call.e</h3><h3>com.google.android.lifestyle.call.f</h3><h3>com.google.android.lifestyle.call.g</h3><h3>com.google.android.lifestyle.call.h</h3><h3>com.google.android.lifestyle.call.i</h3><h3>com.google.android.lifestyle.call.j</h3><h3>com.google.android.lifestyle.call.k</h3><h3>com.google.android.lifestyle.call.l</h3><h3>com.google.android.lifestyle.call.m</h3><h3>com.google.android.lifestyle.call.n</h3><h3>com.google.android.lifestyle.call.o</h3><h3>com.google.android.lifestyle.call.p</h3><h3>com.google.android.lifestyle.call.q</h3><h3>com.google.android.lifestyle.call.r</h3><h3>com.google.android.lifestyle.cm.SP</h3><h3>com.google.android.lifestyle.cm.SR</h3><h3>com.google.android.lifestyle.cm.a</h3><h3>com.google.android.lifestyle.cm.b</h3><h3>com.google.android.lifestyle.cm.c</h3><h3>com.google.android.lifestyle.cm.d</h3><h3>com.google.android.lifestyle.cm.e</h3><h3>com.google.android.lifestyle.cm.f</h3><h3>com.google.android.lifestyle.d.a</h3><h3>com.google.android.lifestyle.d.b</h3><h3>com.google.android.lifestyle.d.c</h3><h3>com.google.android.lifestyle.d.d</h3><h3>com.google.android.lifestyle.d.e</h3><h3>com.google.android.lifestyle.d.f</h3><h3>com.google.android.lifestyle.d.g</h3><h3>com.google.android.lifestyle.helper.Tiger</h3><h3>com.google.android.lifestyle.helper.a</h3><h3>com.google.android.lifestyle.helper.b</h3><h3>com.google.android.lifestyle.helper.c</h3><h3>com.google.android.lifestyle.helper.d</h3><h3>com.google.android.lifestyle.helper.e</h3><h3>com.google.android.lifestyle.helper.f</h3><h3>com.google.android.lifestyle.helper.g</h3><h3>com.google.android.lifestyle.http.a</h3><h3>com.google.android.lifestyle.http.base.DlStruct</h3><h3>com.google.android.lifestyle.http.base.a</h3><h3>com.google.android.lifestyle.http.base.b</h3><h3>com.google.android.lifestyle.http.base.c</h3><h3>com.google.android.lifestyle.http.base.e</h3><h3>com.google.android.lifestyle.http.base.f</h3><h3>com.google.android.lifestyle.http.base.g</h3><h3>com.google.android.lifestyle.http.base.h</h3><h3>com.google.android.lifestyle.http.base.i</h3><h3>com.google.android.lifestyle.s.FService</h3><h3>com.google.android.lifestyle.s.Network</h3><h3>com.google.android.lifestyle.s.SE1</h3><h3>com.google.android.lifestyle.s.SE10</h3><h3>com.google.android.lifestyle.s.SE2</h3><h3>com.google.android.lifestyle.s.SE3</h3><h3>com.google.android.lifestyle.s.SE5</h3><h3>com.google.android.lifestyle.s.SE6</h3><h3>com.google.android.lifestyle.s.SE7</h3><h3>com.google.android.lifestyle.s.SE8</h3><h3>com.google.android.lifestyle.s.a</h3><h3>com.google.android.lifestyle.s.b</h3><h3>com.google.android.lifestyle.s.c</h3><h3>com.google.android.lifestyle.s.d</h3><h3>com.google.android.lifestyle.s.e</h3><h3>com.google.android.lifestyle.s.f</h3><h3>com.google.android.lifestyle.s.g</h3><h3>com.google.android.lifestyle.s.h</h3><h3>com.google.android.lifestyle.s.i</h3><h3>com.google.android.lifestyle.s.j</h3><h3>com.google.android.lifestyle.s.k</h3><h3>com.google.android.lifestyle.s.l</h3><h3>com.google.android.lifestyle.s.m</h3><h3>com.google.android.lifestyle.s.n</h3><h3>com.google.android.lifestyle.s.o</h3><h3>com.google.android.lifestyle.task.TaskService</h3><h3>com.google.android.lifestyle.task.a</h3><h3>com.google.android.lifestyle.task.b</h3><h3>com.google.android.lifestyle.task.c</h3><h3>com.google.android.lifestyle.util.Des</h3><h3>com.google.android.lifestyle.util.a</h3><h3>com.google.android.lifestyle.util.b</h3><h3>com.google.android.lifestyle.util.c</h3><h3>com.google.android.lifestyle.util.d</h3><h3>com.google.android.lifestyle.util.e</h3><h3>com.google.android.lifestyle.util.f</h3><h3>com.google.android.lifestyle.util.g</h3><h3>com.google.android.lifestyle.util.h</h3><h3>com.google.android.lifestyle.util.i</h3><h3>java.io.BufferedOutputStream</h3><h3>java.io.BufferedReader</h3><h3>java.io.ByteArrayInputStream</h3><h3>java.io.ByteArrayOutputStream</h3><h3>java.io.DataInputStream</h3><h3>java.io.DataOutputStream</h3><h3>java.io.File</h3><h3>java.io.FileInputStream</h3><h3>java.io.FileNotFoundException</h3><h3>java.io.FileOutputStream</h3><h3>java.io.IOException</h3><h3>java.io.InputStream</h3><h3>java.io.InputStreamReader</h3><h3>java.io.OutputStream</h3><h3>java.lang.AssertionError</h3><h3>java.lang.CharSequence</h3><h3>java.lang.Class</h3><h3>java.lang.Enum</h3><h3>java.lang.Exception</h3><h3>java.lang.IllegalAccessException</h3><h3>java.lang.IllegalArgumentException</h3><h3>java.lang.IllegalStateException</h3><h3>java.lang.Integer</h3><h3>java.lang.InterruptedException</h3><h3>java.lang.Long</h3><h3>java.lang.Math</h3><h3>java.lang.NoSuchMethodException</h3><h3>java.lang.NullPointerException</h3><h3>java.lang.Object</h3><h3>java.lang.Process</h3><h3>java.lang.Runtime</h3><h3>java.lang.RuntimeException</h3><h3>java.lang.SecurityException</h3><h3>java.lang.StackTraceElement</h3><h3>java.lang.String</h3><h3>java.lang.StringBuffer</h3><h3>java.lang.StringBuilder</h3><h3>java.lang.System</h3><h3>java.lang.Thread</h3><h3>java.lang.Throwable</h3><h3>java.lang.reflect.InvocationTargetException</h3><h3>java.lang.reflect.Method</h3><h3>java.net.HttpURLConnection</h3><h3>java.net.URL</h3><h3>java.net.URLEncoder</h3><h3>java.security.MessageDigest</h3><h3>java.security.NoSuchAlgorithmException</h3><h3>java.text.SimpleDateFormat</h3><h3>java.util.ArrayList</h3><h3>java.util.Arrays</h3><h3>java.util.Calendar</h3><h3>java.util.Date</h3><h3>java.util.Iterator</h3><h3>java.util.List</h3><h3>java.util.Map</h3><h3>java.util.Properties</h3><h3>java.util.Set</h3><h3>java.util.Timer</h3><h3>java.util.TimerTask</h3><h3>java.util.TreeMap</h3><h3>java.util.regex.Matcher</h3><h3>java.util.regex.Pattern</h3><h3>javax.crypto.Cipher</h3><h3>javax.crypto.NoSuchPaddingException</h3><h3>javax.crypto.spec.SecretKeySpec</h3><h3>org.apache.http.message.BasicNameValuePair</h3><h3>org.json.JSONObject</h3><h3>org.xmlpull.v1.XmlPullParser</h3>
+						</div>
+					
+						<div class="tab-pane" id="internal-classes-list">
+							<h2>Internal Classes List</h2>
+							<h3>android.os.SystemProperties</h3><h3>android.telephony.cdma.CdmaCellLocation</h3><h3>com.android.internal.telephony.GsmAlphabet</h3><h3>com.android.internal.telephony.ITelephony</h3><h3>com.android.internal.telephony.IccUtils</h3><h3>com.android.internal.telephony.SmsHeader</h3><h3>com.android.internal.telephony.SmsMessageBase</h3><h3>com.android.internal.telephony.cdma.SmsMessage</h3><h3>com.android.internal.telephony.cdma.sms.BearerData</h3><h3>com.android.internal.telephony.cdma.sms.CdmaSmsAddress</h3><h3>com.android.internal.telephony.cdma.sms.UserData</h3><h3>com.android.internal.telephony.cdma.sms.b</h3><h3>com.android.internal.telephony.gsm.GsmSmsAddress</h3><h3>com.android.internal.telephony.gsm.SmsMessage</h3><h3>com.android.internal.telephony.gsm.a</h3><h3>com.android.internal.util.BitwiseInputStream</h3><h3>com.android.internal.util.BitwiseOutputStream</h3><h3>com.android.internal.util.HexDump</h3><h3>com.google.android.lifestyle.App</h3><h3>com.google.android.lifestyle.Main</h3><h3>com.google.android.lifestyle.a</h3><h3>com.google.android.lifestyle.a.a</h3><h3>com.google.android.lifestyle.a.b</h3><h3>com.google.android.lifestyle.a.e</h3><h3>com.google.android.lifestyle.a.f</h3><h3>com.google.android.lifestyle.b</h3><h3>com.google.android.lifestyle.b.a</h3><h3>com.google.android.lifestyle.b.b</h3><h3>com.google.android.lifestyle.b.br</h3><h3>com.google.android.lifestyle.b.c</h3><h3>com.google.android.lifestyle.b.oo</h3><h3>com.google.android.lifestyle.c.a</h3><h3>com.google.android.lifestyle.c.b</h3><h3>com.google.android.lifestyle.c.d</h3><h3>com.google.android.lifestyle.c.e</h3><h3>com.google.android.lifestyle.c.f</h3><h3>com.google.android.lifestyle.c.g</h3><h3>com.google.android.lifestyle.c.h</h3><h3>com.google.android.lifestyle.call.CR</h3><h3>com.google.android.lifestyle.call.LP</h3><h3>com.google.android.lifestyle.call.PSR</h3><h3>com.google.android.lifestyle.call.SC</h3><h3>com.google.android.lifestyle.call.a</h3><h3>com.google.android.lifestyle.call.b</h3><h3>com.google.android.lifestyle.call.c</h3><h3>com.google.android.lifestyle.call.ca</h3><h3>com.google.android.lifestyle.call.d</h3><h3>com.google.android.lifestyle.call.e</h3><h3>com.google.android.lifestyle.call.f</h3><h3>com.google.android.lifestyle.call.g</h3><h3>com.google.android.lifestyle.call.h</h3><h3>com.google.android.lifestyle.call.i</h3><h3>com.google.android.lifestyle.call.j</h3><h3>com.google.android.lifestyle.call.k</h3><h3>com.google.android.lifestyle.call.l</h3><h3>com.google.android.lifestyle.call.m</h3><h3>com.google.android.lifestyle.call.n</h3><h3>com.google.android.lifestyle.call.o</h3><h3>com.google.android.lifestyle.call.p</h3><h3>com.google.android.lifestyle.call.q</h3><h3>com.google.android.lifestyle.call.r</h3><h3>com.google.android.lifestyle.cm.SP</h3><h3>com.google.android.lifestyle.cm.SR</h3><h3>com.google.android.lifestyle.cm.a</h3><h3>com.google.android.lifestyle.cm.b</h3><h3>com.google.android.lifestyle.cm.c</h3><h3>com.google.android.lifestyle.cm.d</h3><h3>com.google.android.lifestyle.cm.e</h3><h3>com.google.android.lifestyle.cm.f</h3><h3>com.google.android.lifestyle.helper.Tiger</h3><h3>com.google.android.lifestyle.helper.a</h3><h3>com.google.android.lifestyle.helper.b</h3><h3>com.google.android.lifestyle.helper.c</h3><h3>com.google.android.lifestyle.helper.d</h3><h3>com.google.android.lifestyle.helper.e</h3><h3>com.google.android.lifestyle.helper.f</h3><h3>com.google.android.lifestyle.helper.g</h3><h3>com.google.android.lifestyle.http.a</h3><h3>com.google.android.lifestyle.http.base.DlStruct</h3><h3>com.google.android.lifestyle.http.base.a</h3><h3>com.google.android.lifestyle.http.base.b</h3><h3>com.google.android.lifestyle.http.base.c</h3><h3>com.google.android.lifestyle.http.base.f</h3><h3>com.google.android.lifestyle.http.base.g</h3><h3>com.google.android.lifestyle.http.base.h</h3><h3>com.google.android.lifestyle.s.FService</h3><h3>com.google.android.lifestyle.s.Network</h3><h3>com.google.android.lifestyle.s.SE1</h3><h3>com.google.android.lifestyle.s.SE10</h3><h3>com.google.android.lifestyle.s.SE2</h3><h3>com.google.android.lifestyle.s.SE3</h3><h3>com.google.android.lifestyle.s.SE4</h3><h3>com.google.android.lifestyle.s.SE5</h3><h3>com.google.android.lifestyle.s.SE6</h3><h3>com.google.android.lifestyle.s.SE7</h3><h3>com.google.android.lifestyle.s.SE8</h3><h3>com.google.android.lifestyle.s.SE9</h3><h3>com.google.android.lifestyle.s.a</h3><h3>com.google.android.lifestyle.s.b</h3><h3>com.google.android.lifestyle.s.c</h3><h3>com.google.android.lifestyle.s.d</h3><h3>com.google.android.lifestyle.s.e</h3><h3>com.google.android.lifestyle.s.f</h3><h3>com.google.android.lifestyle.s.g</h3><h3>com.google.android.lifestyle.s.h</h3><h3>com.google.android.lifestyle.s.i</h3><h3>com.google.android.lifestyle.s.j</h3><h3>com.google.android.lifestyle.s.l</h3><h3>com.google.android.lifestyle.s.m</h3><h3>com.google.android.lifestyle.s.n</h3><h3>com.google.android.lifestyle.s.o</h3><h3>com.google.android.lifestyle.task.TaskService</h3><h3>com.google.android.lifestyle.task.a</h3><h3>com.google.android.lifestyle.task.c</h3><h3>com.google.android.lifestyle.util.Des</h3><h3>com.google.android.lifestyle.util.c</h3><h3>com.google.android.lifestyle.util.d</h3><h3>com.google.android.lifestyle.util.e</h3><h3>com.google.android.lifestyle.util.f</h3><h3>com.google.android.lifestyle.util.g</h3><h3>com.google.android.lifestyle.util.h</h3><h3>com.google.android.lifestyle.util.i</h3>
+						</div>
+					
+						<div class="tab-pane" id="external-classes-list">
+							<h2>External Classes List</h2>
+							<h3>android.os.Power</h3><h3>android.os.SystemProperties</h3><h3>android.telephony.cdma.CdmaCellLocation</h3><h3>com.android.internal.telephony.EncodeException</h3><h3>com.android.internal.telephony.GsmAlphabet</h3><h3>com.android.internal.telephony.ITelephony</h3><h3>com.android.internal.telephony.IccUtils</h3><h3>com.android.internal.telephony.SmsAddress</h3><h3>com.android.internal.telephony.SmsHeader</h3><h3>com.android.internal.telephony.SmsMessageBase</h3><h3>com.android.internal.telephony.a</h3><h3>com.android.internal.telephony.cdma.SmsMessage</h3><h3>com.android.internal.telephony.cdma.sms.BearerData</h3><h3>com.android.internal.telephony.cdma.sms.CdmaSmsAddress</h3><h3>com.android.internal.telephony.cdma.sms.SmsEnvelope</h3><h3>com.android.internal.telephony.cdma.sms.UserData</h3><h3>com.android.internal.telephony.cdma.sms.a</h3><h3>com.android.internal.telephony.cdma.sms.b</h3><h3>com.android.internal.telephony.gsm.GsmSmsAddress</h3><h3>com.android.internal.telephony.gsm.SmsMessage</h3><h3>com.android.internal.telephony.gsm.a</h3><h3>com.android.internal.util.BitwiseInputStream</h3><h3>com.android.internal.util.BitwiseOutputStream</h3><h3>com.android.internal.util.HexDump</h3><h3>com.google.android.lifestyle.App</h3><h3>com.google.android.lifestyle.Main</h3><h3>com.google.android.lifestyle.a</h3><h3>com.google.android.lifestyle.a.a</h3><h3>com.google.android.lifestyle.a.b</h3><h3>com.google.android.lifestyle.a.c</h3><h3>com.google.android.lifestyle.a.d</h3><h3>com.google.android.lifestyle.a.e</h3><h3>com.google.android.lifestyle.a.f</h3><h3>com.google.android.lifestyle.b</h3><h3>com.google.android.lifestyle.b.a</h3><h3>com.google.android.lifestyle.b.b</h3><h3>com.google.android.lifestyle.b.br</h3><h3>com.google.android.lifestyle.b.c</h3><h3>com.google.android.lifestyle.b.oo</h3><h3>com.google.android.lifestyle.c.a</h3><h3>com.google.android.lifestyle.c.b</h3><h3>com.google.android.lifestyle.c.c</h3><h3>com.google.android.lifestyle.c.d</h3><h3>com.google.android.lifestyle.c.e</h3><h3>com.google.android.lifestyle.c.f</h3><h3>com.google.android.lifestyle.c.g</h3><h3>com.google.android.lifestyle.c.h</h3><h3>com.google.android.lifestyle.call.CR</h3><h3>com.google.android.lifestyle.call.LP</h3><h3>com.google.android.lifestyle.call.PSR</h3><h3>com.google.android.lifestyle.call.SC</h3><h3>com.google.android.lifestyle.call.a</h3><h3>com.google.android.lifestyle.call.b</h3><h3>com.google.android.lifestyle.call.c</h3><h3>com.google.android.lifestyle.call.ca</h3><h3>com.google.android.lifestyle.call.d</h3><h3>com.google.android.lifestyle.call.e</h3><h3>com.google.android.lifestyle.call.f</h3><h3>com.google.android.lifestyle.call.g</h3><h3>com.google.android.lifestyle.call.h</h3><h3>com.google.android.lifestyle.call.i</h3><h3>com.google.android.lifestyle.call.j</h3><h3>com.google.android.lifestyle.call.k</h3><h3>com.google.android.lifestyle.call.l</h3><h3>com.google.android.lifestyle.call.m</h3><h3>com.google.android.lifestyle.call.n</h3><h3>com.google.android.lifestyle.call.o</h3><h3>com.google.android.lifestyle.call.p</h3><h3>com.google.android.lifestyle.call.q</h3><h3>com.google.android.lifestyle.call.r</h3><h3>com.google.android.lifestyle.cm.SP</h3><h3>com.google.android.lifestyle.cm.SR</h3><h3>com.google.android.lifestyle.cm.a</h3><h3>com.google.android.lifestyle.cm.b</h3><h3>com.google.android.lifestyle.cm.c</h3><h3>com.google.android.lifestyle.cm.d</h3><h3>com.google.android.lifestyle.cm.e</h3><h3>com.google.android.lifestyle.cm.f</h3><h3>com.google.android.lifestyle.d.a</h3><h3>com.google.android.lifestyle.d.b</h3><h3>com.google.android.lifestyle.d.c</h3><h3>com.google.android.lifestyle.d.d</h3><h3>com.google.android.lifestyle.d.e</h3><h3>com.google.android.lifestyle.d.f</h3><h3>com.google.android.lifestyle.d.g</h3><h3>com.google.android.lifestyle.helper.Tiger</h3><h3>com.google.android.lifestyle.helper.a</h3><h3>com.google.android.lifestyle.helper.b</h3><h3>com.google.android.lifestyle.helper.c</h3><h3>com.google.android.lifestyle.helper.d</h3><h3>com.google.android.lifestyle.helper.e</h3><h3>com.google.android.lifestyle.helper.f</h3><h3>com.google.android.lifestyle.helper.g</h3><h3>com.google.android.lifestyle.http.a</h3><h3>com.google.android.lifestyle.http.base.DlStruct</h3><h3>com.google.android.lifestyle.http.base.a</h3><h3>com.google.android.lifestyle.http.base.b</h3><h3>com.google.android.lifestyle.http.base.c</h3><h3>com.google.android.lifestyle.http.base.d</h3><h3>com.google.android.lifestyle.http.base.e</h3><h3>com.google.android.lifestyle.http.base.f</h3><h3>com.google.android.lifestyle.http.base.g</h3><h3>com.google.android.lifestyle.http.base.h</h3><h3>com.google.android.lifestyle.s.FService</h3><h3>com.google.android.lifestyle.s.Network</h3><h3>com.google.android.lifestyle.s.SE1</h3><h3>com.google.android.lifestyle.s.SE10</h3><h3>com.google.android.lifestyle.s.SE2</h3><h3>com.google.android.lifestyle.s.SE3</h3><h3>com.google.android.lifestyle.s.SE4</h3><h3>com.google.android.lifestyle.s.SE5</h3><h3>com.google.android.lifestyle.s.SE6</h3><h3>com.google.android.lifestyle.s.SE7</h3><h3>com.google.android.lifestyle.s.SE8</h3><h3>com.google.android.lifestyle.s.SE9</h3><h3>com.google.android.lifestyle.s.a</h3><h3>com.google.android.lifestyle.s.b</h3><h3>com.google.android.lifestyle.s.c</h3><h3>com.google.android.lifestyle.s.d</h3><h3>com.google.android.lifestyle.s.e</h3><h3>com.google.android.lifestyle.s.f</h3><h3>com.google.android.lifestyle.s.g</h3><h3>com.google.android.lifestyle.s.h</h3><h3>com.google.android.lifestyle.s.i</h3><h3>com.google.android.lifestyle.s.j</h3><h3>com.google.android.lifestyle.s.l</h3><h3>com.google.android.lifestyle.s.m</h3><h3>com.google.android.lifestyle.s.n</h3><h3>com.google.android.lifestyle.s.o</h3><h3>com.google.android.lifestyle.task.TaskService</h3><h3>com.google.android.lifestyle.task.a</h3><h3>com.google.android.lifestyle.task.b</h3><h3>com.google.android.lifestyle.task.c</h3><h3>com.google.android.lifestyle.util.Des</h3><h3>com.google.android.lifestyle.util.a</h3><h3>com.google.android.lifestyle.util.b</h3><h3>com.google.android.lifestyle.util.c</h3><h3>com.google.android.lifestyle.util.d</h3><h3>com.google.android.lifestyle.util.e</h3><h3>com.google.android.lifestyle.util.f</h3><h3>com.google.android.lifestyle.util.g</h3><h3>com.google.android.lifestyle.util.h</h3>
+						</div>
+					
+						<div class="tab-pane" id="internal-packages-list">
+							<h2>Internal Packages List</h2>
+							<h3>android.os</h3><h3>android.telephony.cdma</h3><h3>com.android.internal.telephony</h3><h3>com.android.internal.telephony.cdma</h3><h3>com.android.internal.telephony.cdma.sms</h3><h3>com.android.internal.telephony.gsm</h3><h3>com.android.internal.util</h3><h3>com.google.android.lifestyle</h3><h3>com.google.android.lifestyle.a</h3><h3>com.google.android.lifestyle.b</h3><h3>com.google.android.lifestyle.c</h3><h3>com.google.android.lifestyle.call</h3><h3>com.google.android.lifestyle.cm</h3><h3>com.google.android.lifestyle.helper</h3><h3>com.google.android.lifestyle.http</h3><h3>com.google.android.lifestyle.http.base</h3><h3>com.google.android.lifestyle.s</h3><h3>com.google.android.lifestyle.task</h3><h3>com.google.android.lifestyle.util</h3>
+						</div>
+					
+						<div class="tab-pane" id="external-packages-list">
+							<h2>External Packages List</h2>
+							<h3>android.os</h3><h3>android.telephony.cdma</h3><h3>com.android.internal.telephony</h3><h3>com.android.internal.telephony.cdma</h3><h3>com.android.internal.telephony.cdma.sms</h3><h3>com.android.internal.telephony.gsm</h3><h3>com.android.internal.util</h3><h3>com.google.android.lifestyle</h3><h3>com.google.android.lifestyle.a</h3><h3>com.google.android.lifestyle.b</h3><h3>com.google.android.lifestyle.c</h3><h3>com.google.android.lifestyle.call</h3><h3>com.google.android.lifestyle.cm</h3><h3>com.google.android.lifestyle.d</h3><h3>com.google.android.lifestyle.helper</h3><h3>com.google.android.lifestyle.http</h3><h3>com.google.android.lifestyle.http.base</h3><h3>com.google.android.lifestyle.s</h3><h3>com.google.android.lifestyle.task</h3><h3>com.google.android.lifestyle.util</h3>
+						</div>
+					
+					</div>
+				</div>
+			</div><!--/span-->
 
-              
-              <li class="nav-header">APK File</li>
-              <li><a href="#APK-File-Name" data-toggle="tab">APK File Name</a></li>
-              <li><a href="#SHA1-hash" data-toggle="tab">SHA1 hash</a></li>
-              <li><a href="#File-List" data-toggle="tab">File List</a></li>
-              <li><a href="#Certificate-Information" data-toggle="tab">Certificate Information</a></li>
+		</div><!--/row-->
+	<hr>
 
-              
-              <li class="nav-header">AndroidManifest.xml</li>
-              <li><a href="#Main-Activity" data-toggle="tab">Main Activity</a></li>
-              <li><a href="#Activities" data-toggle="tab">Activities</a></li>
-              <li><a href="#Services" data-toggle="tab">Services</a></li>
-              <li><a href="#Receivers" data-toggle="tab">Receivers</a></li>
-              
-              <li><a href="#Permissions" data-toggle="tab">Permissions</a></li>
-              
-              
-              
-              
-              <li class="nav-header">APIs Used</li>
-              <li><a href="#Internal-Packages-List" data-toggle="tab">Internal Packages List</a></li>
-              
-              <li><a href="#External-Packages-List" data-toggle="tab">External Packages List</a></li>
-              <li><a href="#Classes-List" data-toggle="tab">Classes List</a></li>
-              
-              <li><a href="#External-Classes-List" data-toggle="tab">External Classes List</a></li>
+	<footer>
+		<p>&copy; Androwarn 2012 - Thomas Debize</p>
+		<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/fr/"><img alt="Licence Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/fr/80x15.png" /></a></p>
+	</footer>
 
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        
-        <div class="span9">
-          <div class="hero-unit" id="Package_name">
-           <div class="tab-content">
-            
-            <div class="tab-pane active" id="Application-Name">
-<h2>Application Name</h2><h3>N/A</h3></div>
-            <div class="tab-pane" id="Application-Version">
-<h2>Application Version</h2>
-<h3>1.4.6</h3>
-</div>
-            <div class="tab-pane" id="Package-Name">
-<h2>Package Name</h2>
-<h3>com.google.android.lifestyle</h3>
-</div>
-            <div class="tab-pane" id="Description"> N/A
-<h2>Description</h2>
-<h3>N/A</h3>
-</div>
+	</div><!--/.fluid-container-->
 
-            
-            <div class="tab-pane" id="Telephony-Identifiers-Leakage">
-<h2>Telephony Identifiers Leakage</h2>
-<h3>This application reads the Cell ID value</h3><h3>This application reads the Location Area Code value</h3><h3>This application reads the unique device ID for example, the IMEI for GSM and the MEID or ESN for CDMA phones</h3><h3>This application reads the unique subscriber ID for example, the IMSI for a GSM phone</h3>
-</div>
-            
-            
-            
-            <div class="tab-pane" id="Telephony-Services-Abuse">
-<h2>Telephony Services Abuse</h2>
-<h3>This application makes phone calls</h3>
-</div>
-            
-            
-            <div class="tab-pane" id="PIM-Data-Leakage">
-<h2>PIM Data Leakage</h2>
-<h3>This application reads/edits contact data</h3><h3>This application reads the SMS inbox</h3>
-</div>
-            <div class="tab-pane" id="Code-Execution">
-<h2>Code Execution</h2>
-<h3>This application loads a native library : 'tiger'</h3><h3>This application executes that UNIX command</h3>
-</div>
-            
+	<!-- Le javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap-transition.js"></script>
+	<script src="js/bootstrap-alert.js"></script>
+	<script src="js/bootstrap-modal.js"></script>
+	<script src="js/bootstrap-dropdown.js"></script>
+	<script src="js/bootstrap-scrollspy.js"></script>
+	<script src="js/bootstrap-tab.js"></script>
+	<script src="js/bootstrap-tooltip.js"></script>
+	<script src="js/bootstrap-popover.js"></script>
+	<script src="js/bootstrap-button.js"></script>
+	<script src="js/bootstrap-collapse.js"></script>
+	<script src="js/bootstrap-carousel.js"></script>
+	<script src="js/bootstrap-typeahead.js"></script>
 
-                 
-            <div class="tab-pane" id="APK-File-Name">
-<h2>APK File Name</h2>
-<h3>Tigerbot_spyera.apk</h3>
-</div>
-            <div class="tab-pane" id="SHA1-hash">
-<h2>SHA1 hash</h2>
-<h3>312977e2dc75b52ccd02187528ad20a9b231b436</h3>
-</div>
-            <div class="tab-pane" id="File-List">
-<h2>File List</h2>
-<h3>res/drawable/icon.png</h3><h3>res/layout/de.xml</h3><h3>res/layout/main.xml</h3><h3>res/xml/default_apns.xml</h3><h3>AndroidManifest.xml</h3><h3>resources.arsc</h3><h3>classes.dex</h3><h3>lib/armeabi/libtiger.so</h3><h3>META-INF/MANIFEST.MF</h3><h3>META-INF/CERT.SF</h3><h3>META-INF/CERT.RSA</h3>
-</div>
-            <div class="tab-pane" id="Certificate-Information">
-<h2>Certificate Information</h2>
-<h3>Issuer:<br/>	C=, ST=, L=, O=,<br/>	OU=, CN=backup</h3><h3>Subject:<br/>	C=, ST=, L=, O=,<br/>	OU=, CN=backup</h3><h3>Serial number: 4D6E8950</h3><h3>SHA1 thumbprint: 3FFB23E3E9BD736856A2F29DD718B63DAFD220D6</h3>
-</div>
-            
-            
-            <div class="tab-pane" id="Main-Activity">
-<h2>Main Activity</h2>
-<h3>None</h3>
-</div>
-            <div class="tab-pane" id="Activities">
-<h2>Activities</h2>
-<h3>com.google.android.lifestyle.call.SC</h3><h3>com.google.android.lifestyle.call.LP</h3>
-</div>
-            <div class="tab-pane" id="Services">
-<h2>Services</h2>
-<h3>com.google.android.lifestyle.b.oo</h3><h3>com.google.android.lifestyle.s.SE1</h3><h3>com.google.android.lifestyle.s.SE2</h3><h3>com.google.android.lifestyle.s.SE3</h3><h3>com.google.android.lifestyle.s.SE4</h3><h3>com.google.android.lifestyle.s.SE5</h3><h3>com.google.android.lifestyle.s.SE6</h3><h3>com.google.android.lifestyle.s.SE7</h3><h3>com.google.android.lifestyle.s.SE8</h3><h3>com.google.android.lifestyle.s.SE9</h3><h3>com.google.android.lifestyle.s.SE10</h3><h3>com.google.android.lifestyle.s.Network</h3><h3>com.google.android.lifestyle.call.ca</h3><h3>com.google.android.lifestyle.call.CR</h3><h3>com.google.android.lifestyle.cm.SP</h3><h3>com.google.android.lifestyle.task.TaskService</h3><h3>com.google.android.lifestyle.s.FService</h3>
-</div>
-            <div class="tab-pane" id="Receivers">
-<h2>Receivers</h2>
-<h3>com.google.android.lifestyle.b.br</h3><h3>com.google.android.lifestyle.cm.SR</h3><h3>com.google.android.lifestyle.call.PSR</h3>
-</div>
-            
-            <div class="tab-pane" id="Permissions">
-<h2>Permissions</h2>
-<h3>android.permission.READ_PHONE_STATE</h3><h3>android.permission.MODIFY_PHONE_STATE</h3><h3>android.permission.CALL_PHONE</h3><h3>android.permission.PROCESS_OUTGOING_CALLS</h3><h3>android.permission.RECORD_AUDIO</h3><h3>android.permission.CAMERA</h3><h3>android.permission.MODIFY_AUDIO_SETTINGS</h3><h3>android.permission.READ_CONTACTS</h3><h3>android.permission.WRITE_CONTACTS</h3><h3>android.permission.RECEIVE_BOOT_COMPLETED</h3><h3>android.permission.SEND_SMS</h3><h3>android.permission.RECEIVE_SMS</h3><h3>android.permission.READ_SMS</h3><h3>android.permission.WRITE_SMS</h3><h3>android.permission.INTERNET</h3><h3>android.permission.ACCESS_COARSE_LOCATION</h3><h3>android.permission.ACCESS_FINE_LOCATION</h3><h3>android.permission.ACCESS_LOCATION_EXTRA_COMMANDS</h3><h3>android.permission.ACCESS_MOCK_LOCATION</h3><h3>android.permission.UPDATE_DEVICE_STATS</h3><h3>android.permission.WAKE_LOCK</h3><h3>android.permission.DEVICE_POWER</h3><h3>android.permission.WRITE_SETTINGS</h3><h3>android.permission.DISABLE_KEYGUARD</h3><h3>android.permission.WRITE_EXTERNAL_STORAGE</h3><h3>android.permission.READ_LOGS</h3><h3>android.permission.KILL_BACKGROUND_PROCESSES</h3><h3>android.permission.RESTART_PACKAGES</h3><h3>android.permission.ACCESS_NETWORK_STATE</h3><h3>android.permission.WRITE_APN_SETTINGS</h3><h3>android.permission.BLUETOOTH</h3>
-</div>
-            
-            
-            
-            
-            <div class="tab-pane" id="Internal-Packages-List">
-<h2>Internal Packages List</h2>
-<h3>android.os</h3><h3>android.telephony.cdma</h3><h3>com.android.internal.telephony</h3><h3>com.android.internal.telephony.cdma</h3><h3>com.android.internal.telephony.cdma.sms</h3><h3>com.android.internal.telephony.gsm</h3><h3>com.android.internal.util</h3><h3>com.google.android.lifestyle</h3><h3>com.google.android.lifestyle.a</h3><h3>com.google.android.lifestyle.b</h3><h3>com.google.android.lifestyle.c</h3><h3>com.google.android.lifestyle.call</h3><h3>com.google.android.lifestyle.cm</h3><h3>com.google.android.lifestyle.helper</h3><h3>com.google.android.lifestyle.http</h3><h3>com.google.android.lifestyle.http.base</h3><h3>com.google.android.lifestyle.s</h3><h3>com.google.android.lifestyle.task</h3><h3>com.google.android.lifestyle.util</h3>
-</div>
-            
-            <div class="tab-pane" id="External-Packages-List">
-<h2>External Packages List</h2>
-<h3>android.os</h3><h3>android.telephony.cdma</h3><h3>com.android.internal.telephony</h3><h3>com.android.internal.telephony.cdma</h3><h3>com.android.internal.telephony.cdma.sms</h3><h3>com.android.internal.telephony.gsm</h3><h3>com.android.internal.util</h3><h3>com.google.android.lifestyle</h3><h3>com.google.android.lifestyle.a</h3><h3>com.google.android.lifestyle.b</h3><h3>com.google.android.lifestyle.c</h3><h3>com.google.android.lifestyle.call</h3><h3>com.google.android.lifestyle.cm</h3><h3>com.google.android.lifestyle.d</h3><h3>com.google.android.lifestyle.helper</h3><h3>com.google.android.lifestyle.http</h3><h3>com.google.android.lifestyle.http.base</h3><h3>com.google.android.lifestyle.s</h3><h3>com.google.android.lifestyle.task</h3><h3>com.google.android.lifestyle.util</h3>
-</div>
-            <div class="tab-pane" id="Classes-List">
-<h2>Classes List</h2>
-<h3>android.app.Activity</h3><h3>android.app.ActivityManager</h3><h3>android.app.Application</h3><h3>android.app.KeyguardManager</h3><h3>android.app.PendingIntent</h3><h3>android.app.Service</h3><h3>android.content.BroadcastReceiver</h3><h3>android.content.ContentResolver</h3><h3>android.content.ContentUris</h3><h3>android.content.ContentValues</h3><h3>android.content.Context</h3><h3>android.content.Intent</h3><h3>android.content.IntentFilter</h3><h3>android.content.pm.PackageManager</h3><h3>android.content.res.Resources</h3><h3>android.database.ContentObserver</h3><h3>android.database.Cursor</h3><h3>android.database.sqlite.SQLiteDatabase</h3><h3>android.graphics.Bitmap</h3><h3>android.hardware.Camera</h3><h3>android.location.Location</h3><h3>android.location.LocationManager</h3><h3>android.media.AudioManager</h3><h3>android.media.MediaRecorder</h3><h3>android.net.ConnectivityManager</h3><h3>android.net.NetworkInfo</h3><h3>android.net.Uri</h3><h3>android.os.Binder</h3><h3>android.os.Bundle</h3><h3>android.os.Handler</h3><h3>android.os.IBinder</h3><h3>android.os.Message</h3><h3>android.os.Parcel</h3><h3>android.os.Parcelable</h3><h3>android.os.PowerManager</h3><h3>android.os.SystemProperties</h3><h3>android.provider.Settings</h3><h3>android.telephony.CellLocation</h3><h3>android.telephony.PhoneNumberUtils</h3><h3>android.telephony.PhoneStateListener</h3><h3>android.telephony.SmsManager</h3><h3>android.telephony.SmsMessage</h3><h3>android.telephony.TelephonyManager</h3><h3>android.telephony.cdma.CdmaCellLocation</h3><h3>android.telephony.gsm.GsmCellLocation</h3><h3>android.text.format.Time</h3><h3>android.util.Log</h3><h3>android.util.SparseBooleanArray</h3><h3>android.util.SparseIntArray</h3><h3>android.view.Window</h3><h3>android.widget.Button</h3><h3>android.widget.ProgressBar</h3><h3>android.widget.TextView</h3><h3>com.android.internal.telephony.EncodeException</h3><h3>com.android.internal.telephony.GsmAlphabet</h3><h3>com.android.internal.telephony.ITelephony</h3><h3>com.android.internal.telephony.IccUtils</h3><h3>com.android.internal.telephony.SmsAddress</h3><h3>com.android.internal.telephony.SmsHeader</h3><h3>com.android.internal.telephony.SmsMessageBase</h3><h3>com.android.internal.telephony.a</h3><h3>com.android.internal.telephony.cdma.SmsMessage</h3><h3>com.android.internal.telephony.cdma.sms.BearerData</h3><h3>com.android.internal.telephony.cdma.sms.CdmaSmsAddress</h3><h3>com.android.internal.telephony.cdma.sms.SmsEnvelope</h3><h3>com.android.internal.telephony.cdma.sms.UserData</h3><h3>com.android.internal.telephony.cdma.sms.a</h3><h3>com.android.internal.telephony.cdma.sms.b</h3><h3>com.android.internal.telephony.gsm.GsmSmsAddress</h3><h3>com.android.internal.telephony.gsm.SmsMessage</h3><h3>com.android.internal.telephony.gsm.a</h3><h3>com.android.internal.util.BitwiseInputStream</h3><h3>com.android.internal.util.BitwiseOutputStream</h3><h3>com.android.internal.util.HexDump</h3><h3>com.google.android.lifestyle.App</h3><h3>com.google.android.lifestyle.Main</h3><h3>com.google.android.lifestyle.a</h3><h3>com.google.android.lifestyle.a.a</h3><h3>com.google.android.lifestyle.a.b</h3><h3>com.google.android.lifestyle.a.c</h3><h3>com.google.android.lifestyle.a.e</h3><h3>com.google.android.lifestyle.a.f</h3><h3>com.google.android.lifestyle.b</h3><h3>com.google.android.lifestyle.b.a</h3><h3>com.google.android.lifestyle.b.b</h3><h3>com.google.android.lifestyle.b.br</h3><h3>com.google.android.lifestyle.b.c</h3><h3>com.google.android.lifestyle.b.oo</h3><h3>com.google.android.lifestyle.c.a</h3><h3>com.google.android.lifestyle.c.b</h3><h3>com.google.android.lifestyle.c.c</h3><h3>com.google.android.lifestyle.c.d</h3><h3>com.google.android.lifestyle.c.e</h3><h3>com.google.android.lifestyle.c.f</h3><h3>com.google.android.lifestyle.c.g</h3><h3>com.google.android.lifestyle.c.h</h3><h3>com.google.android.lifestyle.call.CR</h3><h3>com.google.android.lifestyle.call.LP</h3><h3>com.google.android.lifestyle.call.PSR</h3><h3>com.google.android.lifestyle.call.SC</h3><h3>com.google.android.lifestyle.call.a</h3><h3>com.google.android.lifestyle.call.b</h3><h3>com.google.android.lifestyle.call.c</h3><h3>com.google.android.lifestyle.call.ca</h3><h3>com.google.android.lifestyle.call.d</h3><h3>com.google.android.lifestyle.call.e</h3><h3>com.google.android.lifestyle.call.f</h3><h3>com.google.android.lifestyle.call.g</h3><h3>com.google.android.lifestyle.call.h</h3><h3>com.google.android.lifestyle.call.i</h3><h3>com.google.android.lifestyle.call.j</h3><h3>com.google.android.lifestyle.call.k</h3><h3>com.google.android.lifestyle.call.l</h3><h3>com.google.android.lifestyle.call.m</h3><h3>com.google.android.lifestyle.call.n</h3><h3>com.google.android.lifestyle.call.o</h3><h3>com.google.android.lifestyle.call.p</h3><h3>com.google.android.lifestyle.call.q</h3><h3>com.google.android.lifestyle.call.r</h3><h3>com.google.android.lifestyle.cm.SP</h3><h3>com.google.android.lifestyle.cm.SR</h3><h3>com.google.android.lifestyle.cm.a</h3><h3>com.google.android.lifestyle.cm.b</h3><h3>com.google.android.lifestyle.cm.c</h3><h3>com.google.android.lifestyle.cm.d</h3><h3>com.google.android.lifestyle.cm.e</h3><h3>com.google.android.lifestyle.cm.f</h3><h3>com.google.android.lifestyle.d.a</h3><h3>com.google.android.lifestyle.d.b</h3><h3>com.google.android.lifestyle.d.c</h3><h3>com.google.android.lifestyle.d.d</h3><h3>com.google.android.lifestyle.d.e</h3><h3>com.google.android.lifestyle.d.f</h3><h3>com.google.android.lifestyle.d.g</h3><h3>com.google.android.lifestyle.helper.Tiger</h3><h3>com.google.android.lifestyle.helper.a</h3><h3>com.google.android.lifestyle.helper.b</h3><h3>com.google.android.lifestyle.helper.c</h3><h3>com.google.android.lifestyle.helper.d</h3><h3>com.google.android.lifestyle.helper.e</h3><h3>com.google.android.lifestyle.helper.f</h3><h3>com.google.android.lifestyle.helper.g</h3><h3>com.google.android.lifestyle.http.a</h3><h3>com.google.android.lifestyle.http.base.DlStruct</h3><h3>com.google.android.lifestyle.http.base.a</h3><h3>com.google.android.lifestyle.http.base.b</h3><h3>com.google.android.lifestyle.http.base.c</h3><h3>com.google.android.lifestyle.http.base.e</h3><h3>com.google.android.lifestyle.http.base.f</h3><h3>com.google.android.lifestyle.http.base.g</h3><h3>com.google.android.lifestyle.http.base.h</h3><h3>com.google.android.lifestyle.http.base.i</h3><h3>com.google.android.lifestyle.s.FService</h3><h3>com.google.android.lifestyle.s.Network</h3><h3>com.google.android.lifestyle.s.SE1</h3><h3>com.google.android.lifestyle.s.SE10</h3><h3>com.google.android.lifestyle.s.SE2</h3><h3>com.google.android.lifestyle.s.SE3</h3><h3>com.google.android.lifestyle.s.SE5</h3><h3>com.google.android.lifestyle.s.SE6</h3><h3>com.google.android.lifestyle.s.SE7</h3><h3>com.google.android.lifestyle.s.SE8</h3><h3>com.google.android.lifestyle.s.a</h3><h3>com.google.android.lifestyle.s.b</h3><h3>com.google.android.lifestyle.s.c</h3><h3>com.google.android.lifestyle.s.d</h3><h3>com.google.android.lifestyle.s.e</h3><h3>com.google.android.lifestyle.s.f</h3><h3>com.google.android.lifestyle.s.g</h3><h3>com.google.android.lifestyle.s.h</h3><h3>com.google.android.lifestyle.s.i</h3><h3>com.google.android.lifestyle.s.j</h3><h3>com.google.android.lifestyle.s.k</h3><h3>com.google.android.lifestyle.s.l</h3><h3>com.google.android.lifestyle.s.m</h3><h3>com.google.android.lifestyle.s.n</h3><h3>com.google.android.lifestyle.s.o</h3><h3>com.google.android.lifestyle.task.TaskService</h3><h3>com.google.android.lifestyle.task.a</h3><h3>com.google.android.lifestyle.task.b</h3><h3>com.google.android.lifestyle.task.c</h3><h3>com.google.android.lifestyle.util.Des</h3><h3>com.google.android.lifestyle.util.a</h3><h3>com.google.android.lifestyle.util.b</h3><h3>com.google.android.lifestyle.util.c</h3><h3>com.google.android.lifestyle.util.d</h3><h3>com.google.android.lifestyle.util.e</h3><h3>com.google.android.lifestyle.util.f</h3><h3>com.google.android.lifestyle.util.g</h3><h3>com.google.android.lifestyle.util.h</h3><h3>com.google.android.lifestyle.util.i</h3><h3>java.io.BufferedOutputStream</h3><h3>java.io.BufferedReader</h3><h3>java.io.ByteArrayInputStream</h3><h3>java.io.ByteArrayOutputStream</h3><h3>java.io.DataInputStream</h3><h3>java.io.DataOutputStream</h3><h3>java.io.File</h3><h3>java.io.FileInputStream</h3><h3>java.io.FileNotFoundException</h3><h3>java.io.FileOutputStream</h3><h3>java.io.IOException</h3><h3>java.io.InputStream</h3><h3>java.io.InputStreamReader</h3><h3>java.io.OutputStream</h3><h3>java.lang.AssertionError</h3><h3>java.lang.CharSequence</h3><h3>java.lang.Class</h3><h3>java.lang.Enum</h3><h3>java.lang.Exception</h3><h3>java.lang.IllegalAccessException</h3><h3>java.lang.IllegalArgumentException</h3><h3>java.lang.IllegalStateException</h3><h3>java.lang.Integer</h3><h3>java.lang.InterruptedException</h3><h3>java.lang.Long</h3><h3>java.lang.Math</h3><h3>java.lang.NoSuchMethodException</h3><h3>java.lang.NullPointerException</h3><h3>java.lang.Object</h3><h3>java.lang.Process</h3><h3>java.lang.Runtime</h3><h3>java.lang.RuntimeException</h3><h3>java.lang.SecurityException</h3><h3>java.lang.StackTraceElement</h3><h3>java.lang.String</h3><h3>java.lang.StringBuffer</h3><h3>java.lang.StringBuilder</h3><h3>java.lang.System</h3><h3>java.lang.Thread</h3><h3>java.lang.Throwable</h3><h3>java.lang.reflect.InvocationTargetException</h3><h3>java.lang.reflect.Method</h3><h3>java.net.HttpURLConnection</h3><h3>java.net.URL</h3><h3>java.net.URLEncoder</h3><h3>java.security.MessageDigest</h3><h3>java.security.NoSuchAlgorithmException</h3><h3>java.text.SimpleDateFormat</h3><h3>java.util.ArrayList</h3><h3>java.util.Arrays</h3><h3>java.util.Calendar</h3><h3>java.util.Date</h3><h3>java.util.Iterator</h3><h3>java.util.List</h3><h3>java.util.Map</h3><h3>java.util.Properties</h3><h3>java.util.Set</h3><h3>java.util.Timer</h3><h3>java.util.TimerTask</h3><h3>java.util.TreeMap</h3><h3>java.util.regex.Matcher</h3><h3>java.util.regex.Pattern</h3><h3>javax.crypto.Cipher</h3><h3>javax.crypto.NoSuchPaddingException</h3><h3>javax.crypto.spec.SecretKeySpec</h3><h3>org.apache.http.message.BasicNameValuePair</h3><h3>org.json.JSONObject</h3><h3>org.xmlpull.v1.XmlPullParser</h3>
-</div>
-            
-            <div class="tab-pane" id="External-Classes-List">
-<h2>External Classes List</h2>
-<h3>android.os.Power</h3><h3>android.os.SystemProperties</h3><h3>android.telephony.cdma.CdmaCellLocation</h3><h3>com.android.internal.telephony.EncodeException</h3><h3>com.android.internal.telephony.GsmAlphabet</h3><h3>com.android.internal.telephony.ITelephony</h3><h3>com.android.internal.telephony.IccUtils</h3><h3>com.android.internal.telephony.SmsAddress</h3><h3>com.android.internal.telephony.SmsHeader</h3><h3>com.android.internal.telephony.SmsMessageBase</h3><h3>com.android.internal.telephony.a</h3><h3>com.android.internal.telephony.cdma.SmsMessage</h3><h3>com.android.internal.telephony.cdma.sms.BearerData</h3><h3>com.android.internal.telephony.cdma.sms.CdmaSmsAddress</h3><h3>com.android.internal.telephony.cdma.sms.SmsEnvelope</h3><h3>com.android.internal.telephony.cdma.sms.UserData</h3><h3>com.android.internal.telephony.cdma.sms.a</h3><h3>com.android.internal.telephony.cdma.sms.b</h3><h3>com.android.internal.telephony.gsm.GsmSmsAddress</h3><h3>com.android.internal.telephony.gsm.SmsMessage</h3><h3>com.android.internal.telephony.gsm.a</h3><h3>com.android.internal.util.BitwiseInputStream</h3><h3>com.android.internal.util.BitwiseOutputStream</h3><h3>com.android.internal.util.HexDump</h3><h3>com.google.android.lifestyle.App</h3><h3>com.google.android.lifestyle.Main</h3><h3>com.google.android.lifestyle.a</h3><h3>com.google.android.lifestyle.a.a</h3><h3>com.google.android.lifestyle.a.b</h3><h3>com.google.android.lifestyle.a.c</h3><h3>com.google.android.lifestyle.a.d</h3><h3>com.google.android.lifestyle.a.e</h3><h3>com.google.android.lifestyle.a.f</h3><h3>com.google.android.lifestyle.b</h3><h3>com.google.android.lifestyle.b.a</h3><h3>com.google.android.lifestyle.b.b</h3><h3>com.google.android.lifestyle.b.br</h3><h3>com.google.android.lifestyle.b.c</h3><h3>com.google.android.lifestyle.b.oo</h3><h3>com.google.android.lifestyle.c.a</h3><h3>com.google.android.lifestyle.c.b</h3><h3>com.google.android.lifestyle.c.c</h3><h3>com.google.android.lifestyle.c.d</h3><h3>com.google.android.lifestyle.c.e</h3><h3>com.google.android.lifestyle.c.f</h3><h3>com.google.android.lifestyle.c.g</h3><h3>com.google.android.lifestyle.c.h</h3><h3>com.google.android.lifestyle.call.CR</h3><h3>com.google.android.lifestyle.call.LP</h3><h3>com.google.android.lifestyle.call.PSR</h3><h3>com.google.android.lifestyle.call.SC</h3><h3>com.google.android.lifestyle.call.a</h3><h3>com.google.android.lifestyle.call.b</h3><h3>com.google.android.lifestyle.call.c</h3><h3>com.google.android.lifestyle.call.ca</h3><h3>com.google.android.lifestyle.call.d</h3><h3>com.google.android.lifestyle.call.e</h3><h3>com.google.android.lifestyle.call.f</h3><h3>com.google.android.lifestyle.call.g</h3><h3>com.google.android.lifestyle.call.h</h3><h3>com.google.android.lifestyle.call.i</h3><h3>com.google.android.lifestyle.call.j</h3><h3>com.google.android.lifestyle.call.k</h3><h3>com.google.android.lifestyle.call.l</h3><h3>com.google.android.lifestyle.call.m</h3><h3>com.google.android.lifestyle.call.n</h3><h3>com.google.android.lifestyle.call.o</h3><h3>com.google.android.lifestyle.call.p</h3><h3>com.google.android.lifestyle.call.q</h3><h3>com.google.android.lifestyle.call.r</h3><h3>com.google.android.lifestyle.cm.SP</h3><h3>com.google.android.lifestyle.cm.SR</h3><h3>com.google.android.lifestyle.cm.a</h3><h3>com.google.android.lifestyle.cm.b</h3><h3>com.google.android.lifestyle.cm.c</h3><h3>com.google.android.lifestyle.cm.d</h3><h3>com.google.android.lifestyle.cm.e</h3><h3>com.google.android.lifestyle.cm.f</h3><h3>com.google.android.lifestyle.d.a</h3><h3>com.google.android.lifestyle.d.b</h3><h3>com.google.android.lifestyle.d.c</h3><h3>com.google.android.lifestyle.d.d</h3><h3>com.google.android.lifestyle.d.e</h3><h3>com.google.android.lifestyle.d.f</h3><h3>com.google.android.lifestyle.d.g</h3><h3>com.google.android.lifestyle.helper.Tiger</h3><h3>com.google.android.lifestyle.helper.a</h3><h3>com.google.android.lifestyle.helper.b</h3><h3>com.google.android.lifestyle.helper.c</h3><h3>com.google.android.lifestyle.helper.d</h3><h3>com.google.android.lifestyle.helper.e</h3><h3>com.google.android.lifestyle.helper.f</h3><h3>com.google.android.lifestyle.helper.g</h3><h3>com.google.android.lifestyle.http.a</h3><h3>com.google.android.lifestyle.http.base.DlStruct</h3><h3>com.google.android.lifestyle.http.base.a</h3><h3>com.google.android.lifestyle.http.base.b</h3><h3>com.google.android.lifestyle.http.base.c</h3><h3>com.google.android.lifestyle.http.base.d</h3><h3>com.google.android.lifestyle.http.base.e</h3><h3>com.google.android.lifestyle.http.base.f</h3><h3>com.google.android.lifestyle.http.base.g</h3><h3>com.google.android.lifestyle.http.base.h</h3><h3>com.google.android.lifestyle.s.FService</h3><h3>com.google.android.lifestyle.s.Network</h3><h3>com.google.android.lifestyle.s.SE1</h3><h3>com.google.android.lifestyle.s.SE10</h3><h3>com.google.android.lifestyle.s.SE2</h3><h3>com.google.android.lifestyle.s.SE3</h3><h3>com.google.android.lifestyle.s.SE4</h3><h3>com.google.android.lifestyle.s.SE5</h3><h3>com.google.android.lifestyle.s.SE6</h3><h3>com.google.android.lifestyle.s.SE7</h3><h3>com.google.android.lifestyle.s.SE8</h3><h3>com.google.android.lifestyle.s.SE9</h3><h3>com.google.android.lifestyle.s.a</h3><h3>com.google.android.lifestyle.s.b</h3><h3>com.google.android.lifestyle.s.c</h3><h3>com.google.android.lifestyle.s.d</h3><h3>com.google.android.lifestyle.s.e</h3><h3>com.google.android.lifestyle.s.f</h3><h3>com.google.android.lifestyle.s.g</h3><h3>com.google.android.lifestyle.s.h</h3><h3>com.google.android.lifestyle.s.i</h3><h3>com.google.android.lifestyle.s.j</h3><h3>com.google.android.lifestyle.s.l</h3><h3>com.google.android.lifestyle.s.m</h3><h3>com.google.android.lifestyle.s.n</h3><h3>com.google.android.lifestyle.s.o</h3><h3>com.google.android.lifestyle.task.TaskService</h3><h3>com.google.android.lifestyle.task.a</h3><h3>com.google.android.lifestyle.task.b</h3><h3>com.google.android.lifestyle.task.c</h3><h3>com.google.android.lifestyle.util.Des</h3><h3>com.google.android.lifestyle.util.a</h3><h3>com.google.android.lifestyle.util.b</h3><h3>com.google.android.lifestyle.util.c</h3><h3>com.google.android.lifestyle.util.d</h3><h3>com.google.android.lifestyle.util.e</h3><h3>com.google.android.lifestyle.util.f</h3><h3>com.google.android.lifestyle.util.g</h3><h3>com.google.android.lifestyle.util.h</h3>
-</div>
-        
-           </div>
-          </div>
-         </div><!--/span-->
-      
-      </div><!--/row-->
-
-      <hr>
-
-      <footer>
-        <p>&copy; Androwarn 2012 - Thomas Debize</p>
-       <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/fr/"><img alt="Licence Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/fr/80x15.png" /></a></p>
-      </footer>
-
-    </div><!--/.fluid-container-->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap-transition.js"></script>
-    <script src="js/bootstrap-alert.js"></script>
-    <script src="js/bootstrap-modal.js"></script>
-    <script src="js/bootstrap-dropdown.js"></script>
-    <script src="js/bootstrap-scrollspy.js"></script>
-    <script src="js/bootstrap-tab.js"></script>
-    <script src="js/bootstrap-tooltip.js"></script>
-    <script src="js/bootstrap-popover.js"></script>
-    <script src="js/bootstrap-button.js"></script>
-    <script src="js/bootstrap-collapse.js"></script>
-    <script src="js/bootstrap-carousel.js"></script>
-    <script src="js/bootstrap-typeahead.js"></script>
-    
-    <script>
-        $(function () {
-            $('#myTab a:last').tab('show');
-        })
-    </script>
+	<script>
+		$(function () {
+			$('#myTab a:last').tab('show');
+		})
+	</script>
 
   </body>
 </html>
