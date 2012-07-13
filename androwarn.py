@@ -49,11 +49,11 @@ log.addHandler(handler)
 
 # Options definition
 option_0 = { 'name' : ('-i', '--input'), 'help' : 'APK file to analyze', 'nargs' : 1 }
-option_1 = { 'name' : ('-v', '--verbose'), 'help' : 'Verbosity level { 1-3 }  ( ESSENTIAL, ADVANCED, EXPERT )', 'nargs' : 1 }
+option_1 = { 'name' : ('-v', '--verbose'), 'help' : 'Verbosity level { 1-3 } (ESSENTIAL, ADVANCED, EXPERT)', 'nargs' : 1 }
 option_2 = { 'name' : ('-r', '--report'), 'help' : 'Report type { txt, html }', 'nargs' : 1 }
-option_3 = { 'name' : ('-d', '--display-report'), 'help' : 'Display analysis results to stdout', 'nargs' : 0 }
+option_3 = { 'name' : ('-d', '--display-report'), 'help' : 'Display analysis results to stdout', 'action' : 'count' }
 option_4 = { 'name' : ('-L', '--log-level'), 'help' : 'Log level { DEBUG, INFO, WARN, ERROR, CRITICAL }', 'nargs' : 1 }
-option_5 = { 'name' : ('-n', '--no-connection'), 'help' : 'Disable lookups on Google Play', 'nargs' : 0 }
+option_5 = { 'name' : ('-n', '--no-connection'), 'help' : 'Disable lookups on Google Play', 'action' : 'count'}
 
 options = [option_0, option_1, option_2, option_3, option_4, option_5]
 
