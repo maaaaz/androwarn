@@ -81,3 +81,17 @@ def detect_Telephony_Phone_Call_abuse(x) :
 					log.warn("Detector result '%s' is not a PathVariable instance" % res)
 		
 	return formatted_str
+
+
+def gather_telephony_services_abuse(x) :
+	"""
+		@param x : a VMAnalysis instance
+	
+		@rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
+	"""
+	result = []
+	
+	result.extend( detect_Telephony_Phone_Call_abuse(x) )
+	result.extend( detect_Telephony_SMS_abuse(x) )
+	
+	return result

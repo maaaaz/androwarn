@@ -85,12 +85,14 @@ def AnalyzeDex(filename, raw=False) :
 	#ExportVMToPython( d )
 
 	androconf.debug("VMAnalysis ...")
-	dx = uVMAnalysis( d )
+	dx = VMAnalysis( d )
+	#dx = uVMAnalysis( d )
 
 	d.set_vmanalysis( dx )
 	
 	return d, dx
 
+# Consolidate all data
 def perform_analysis(apk_file, a, d, x, no_connection) :
 	"""
 		@param apk_file : apk file path
@@ -98,92 +100,79 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 		@param d 		: a DalvikVMFormat instance
 		@param x 		: a VMAnalysis instance
 	
-		@rtype : a dictionary of strings lists { "apk_files" : ["1", "2", "3"...], "application_name" : ['example'], ...}
+		@rtype : a list of dictionaries of strings lists [ { "Application_info": [("Application_name", ["com.test.test"]), ("Application_version", ["1.0", ".1"])] } ]
 	"""
-	data = {}
 	
-	# Application
-	data['application_package_name'] 			= [grab_application_package_name(a)]
-	app_name, app_description, app_icon			= grab_application_name_description_icon(data['application_package_name'][0], no_connection)
-	data['application_name']					= [app_name]
-	data['application_description']				= [app_description]
-	data['application_icon'] 					= [app_icon]
-	data['application_version']					= [grab_androidversion_name(a)]
-	
-	# APK 
-	data['apk_file_SHA1_hash'] 					= [grab_apk_file_sha1_hash(apk_file)]
-	data['apk_file_name'] 						= [grab_filename(a)]
-	data['file_list']							=  grab_file_list(a)
+	# application general information 
+	app_package_name = grab_application_package_name(a)
+	app_name, app_description, app_icon	= grab_application_name_description_icon(app_package_name, no_connection)
 	
 	
-	# Manifest
-	data['main_activity']						= [grab_main_activity(a)]
-	data['activities']							=  grab_activities(a)
-	data['services']							=  grab_services(a)
-	data['receivers']							=  grab_receivers(a)
-	data['providers']							=  grab_providers(a)
-	data['permissions']							=  grab_permissions(a)
-	data['features']							=  grab_features(a)
-	data['libraries']							=  grab_libraries(a)
-	data['certificate_information']				=  grab_certificate_information(a)
+	# data gathering
+	data = []
 	
+	data.append(
+				{ "application_information" :
+					[
+						( "application_name", 				[app_name] ),
+						( "application_version", 			[grab_androidversion_name(a)] ),
+						( "package_name", 					[app_package_name] ),
+						( "description", 					[app_description] )#inserer icone dans desc
+					]
+				}
+	)
 	
-	# Code
-	# -- Classes
-	data['classes_list']						=  grab_classes_list(x)
-	data['internal_new_classes_list']			=  grab_internal_new_classes_list(x)
-	data['external_classes_list']				=  grab_external_classes_list(x)
-	# -- Packages
-	data['internal_packages_list']				=  grab_internal_packages_list(x)
-	data['internal_new_packages_list']			=  grab_internal_new_packages_list(x)
-	data['external_packages_list']				=  grab_external_packages_list(x)
+	data.append(
+				{ "analysis_results" :
+					[
+						( "telephony_identifiers_leakage", 		gather_telephony_identifiers_leakage(x) ),
+						( "device_settings_harvesting", 		gather_device_settings_harvesting(x) ),
+						( "location_lookup", 					gather_location_lookup(x) ),
+						( "connection_interfaces_exfiltration", gather_connection_interfaces_exfiltration(x) ),
+						( "telephony_services_abuse", 			gather_telephony_services_abuse(x) ),										
+						( "audio_video_eavesdropping", 			gather_audio_video_eavesdropping(x) ),
+						( "suspicious_connection_establishment",gather_suspicious_connection_establishment(x) ),
+						( "PIM_data_leakage", 					gather_PIM_data_leakage(x) ),
+						( "code_execution", 					gather_code_execution(x) ),
+					],
+				}
+	)
 	
+	data.append(
+				{ "apk_file" :
+					[
+						( "apk_file_name", 					[grab_filename(a)] ),
+						( "SHA-1_hash", 					[grab_apk_file_sha1_hash(apk_file)] ),
+						( "file_list", 						grab_file_list(a) ),
+						( "certificate_information", 		grab_certificate_information(a) )
+					]
+				}
+	)	
 	
-	# Malicious Behaviours Detection
-	# -- Telephony identifiers leakage
-	data['telephony_identifiers_leakage']		= detect_Telephony_Operator_lookup(x)
-	data['telephony_identifiers_leakage'].extend( detect_Telephony_CellID_lookup(x) )
-	data['telephony_identifiers_leakage'].extend( detect_Telephony_LAC_lookup(x) )
-	data['telephony_identifiers_leakage'].extend( detect_Telephony_MCCMNC_lookup(x) )
-	data['telephony_identifiers_leakage'].extend( detect_Telephony_DeviceID_lookup(x) )
-	data['telephony_identifiers_leakage'].extend( detect_Telephony_IMSI_lookup(x) )
-	data['telephony_identifiers_leakage'].extend( detect_Telephony_SimSerialNumber_lookup(x) )
-	
-	
-	# -- Device settings harvesting
-	data['device_settings_harvesting']			= detect_Telephony_DeviceSoftwareVersion_lookup(x)
-	data['device_settings_harvesting']	.extend(  detect_Telephony_phone_state_lookup(x)  )
-	
-	
-	# -- Physical location lookup
-	data['location_lookup']						= detect_Location_lookup(x)
-	
-	
-	# -- Connection interfaces information exfiltration
-	data['connection_interfaces_exfiltration']	= detect_WiFi_Credentials_lookup(x)
-	
-	
-	# -- Telephony services abuse
-	data['telephony_services_abuse']			= detect_Telephony_Phone_Call_abuse(x)
-	data['telephony_services_abuse']	 .extend( detect_Telephony_SMS_abuse(x) )
-	
-	
-	# -- Audio/Video eavesdropping
-	data['media_recorder_abuse']				= detect_MediaRecorder_Voice_record(x)
-	data['media_recorder_abuse']		 .extend (detect_MediaRecorder_Video_capture(x) )
-	
-	# -- Suspicious connection establishment
-	data['suspicious_connection_establishment']	= detect_Socket_use(x)
-	
-	
-	# -- PIM data leakage
-	data['PIM_data_leakage']					= detect_ContactAccess_lookup(x)
-	data['PIM_data_leakage']	 		 .extend( detect_Telephony_SMS_read(x) )
-	
-	
-	# -- Native code execution
-	data['code_execution']						= detect_Library_loading(x)
-	data['code_execution']				 .extend( detect_UNIX_command_execution(x) )
-	
+	data.append(
+				{ "androidmanifest.xml" :
+					[
+						( "main_activity", 					[grab_main_activity(a)] ),
+						( "activities", 					grab_activities(a) ),
+						( "receivers", 						grab_services(a) ),
+						( "providers", 						grab_providers(a) ),
+						( "permissions", 					grab_permissions(a) ),
+						( "features", 						grab_features(a) ),
+						( "librairies", 					grab_libraries(a) )
+					]
+				}
+	)
+
+	data.append(
+				{ "apis_used" :
+					[
+						( "classes_list", 					grab_classes_list(x) ),
+						( "internal_classes_list", 			grab_internal_classes_list(x) ),
+						( "external_classes_list", 			grab_external_classes_list(x) ),
+						( "internal_packages_list", 		grab_internal_packages_list(x) ),
+						( "external_packages_list", 		grab_external_packages_list(x) )
+					]
+				}
+	)	
 	
 	return data

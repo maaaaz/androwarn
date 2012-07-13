@@ -86,3 +86,16 @@ def detect_Telephony_DeviceSoftwareVersion_lookup(x) :
 
 		
 	return formatted_str
+
+def gather_device_settings_harvesting(x) :
+	"""
+		@param x : a VMAnalysis instance
+	
+		@rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
+	"""
+	result = []
+	
+	result.extend( detect_Telephony_DeviceSoftwareVersion_lookup(x) )
+	result.extend( detect_Telephony_phone_state_lookup(x) )
+	
+	return result

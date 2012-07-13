@@ -27,7 +27,6 @@ from androguard.core.bytecodes.apk import *
 import re, logging
 from HTMLParser import HTMLParser
 
-
 # Logguer
 log = logging.getLogger('log')
 
@@ -59,6 +58,7 @@ def detector_tab_is_not_empty(list) :
 			return True
 	return False
 
+# Log extra information
 def log_result_path_information(res, res_prefix, res_type) :
 	"""
 		@param res : a result from the detector's result list
@@ -77,6 +77,7 @@ def log_result_path_information(res, res_prefix, res_type) :
 			#log.info("%s %s found '%s'\n\t=> %s %s %s %s " % (res_prefix, res_type, res_info, path.get_access_flag(), path.get_method().get_class_name(), path.get_method().get_name(), path.get_method().get_descriptor() ) )
 			log.info("%s %s found '%s'\n\t=> access_flag %s, index %s, method_index %s" % (res_prefix, res_type, res_info, access, idx, m_idx ) )
 
+# HTML Sanitizer
 class MLStripper(HTMLParser):
     def __init__(self):
         self.reset()
@@ -101,18 +102,36 @@ def strip_HTML_tags(html):
 	
 	return s.get_data()
 
-def dump_analysis_results(data) :
+# Dump
+def flush_simple_string(string, file) :
+	"""
+		@param string : a unique string
+		@param file : output file descriptor
+	"""
+	file.write("%s\n" % string)
+
+def dump_analysis_results(data, file_descriptor) :
 	"""
 		@param data : analysis results list
+		@param file_descriptor : dump output, file or sys.stdout
 	
 		@rtype : void - it only prints out the list
 	"""
-	for i in data :
-		print "[+] Item\t: '%s'" % i
-		print "[+] Data\t: %s" % data[i]
-		print "[+] Data type\t: %s" % type(data[i])
-		print
+	# Watch out for encoding error while priting
+	flush_simple_string("===== Androwarn Report =====", file_descriptor)
+	if data :
+		for item in data :
+			for category, element_tuple in item.iteritems() :
+				flush_simple_string("[+] %s" % category.encode('ascii','ignore').replace('_',' ').title(), file_descriptor)
+				for name,content in element_tuple :
+					if content :
+						flush_simple_string("\t[.] %s" % (str(name).encode('ascii','ignore').replace('_',' ').title().ljust(40)), file_descriptor)
+						for element in content :
+							flush_simple_string("\t\t- %s" % element.encode('ascii','ignore').replace('_',' ').title(), file_descriptor)
+						flush_simple_string("", file_descriptor)
+				flush_simple_string("", file_descriptor)
 
+# Classes harvesting
 def search_class(x, package_name) :
 	"""
 		@param x : a VMAnalysis instance

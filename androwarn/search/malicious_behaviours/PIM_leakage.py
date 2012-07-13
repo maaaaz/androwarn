@@ -44,6 +44,7 @@ def detect_ContactAccess_lookup(x) :
 	detector_1 = search_field(x, "Landroid/provider/ContactsContract$CommonDataKinds$Phone;")
 		
 	detectors = [detector_1]
+	#print "detectors %s" % detectors
 	
 	if detector_tab_is_not_empty(detectors) :
 		local_formatted_str = 'This application reads or edits contact data'
@@ -83,3 +84,17 @@ def detect_Telephony_SMS_read(x) :
 					log.warn("Detector result '%s' is not a PathVariable instance" % res) 
 		
 	return formatted_str
+
+
+def gather_PIM_data_leakage(x) :
+	"""
+		@param x : a VMAnalysis instance
+	
+		@rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
+	"""
+	result = []
+	
+	result.extend( detect_ContactAccess_lookup(x) )
+	result.extend( detect_Telephony_SMS_read(x) )
+		
+	return result

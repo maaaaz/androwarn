@@ -41,12 +41,11 @@ def detect_Library_loading(x) :
 		@rtype : a list of formatted strings
 	"""
 	formatted_str = []
-	
+
 	structural_analysis_results = x.tainted_packages.search_methods("Ljava/lang/System","loadLibrary", ".")
 	
 	for result in xrange(len(structural_analysis_results)) :
-		registers = data_flow_analysis(structural_analysis_results, result, x)	
-				
+		registers = data_flow_analysis(structural_analysis_results, result, x)		
 		local_formatted_str = "This application loads a native library" 
 		
 		# If we're lucky enough to directly have the library's name
@@ -82,3 +81,16 @@ def detect_UNIX_command_execution(x) :
 
 		
 	return formatted_str
+
+def gather_code_execution(x) :
+	"""
+		@param x : a VMAnalysis instance
+	
+		@rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
+	"""
+	result = []
+	
+	result.extend( detect_Library_loading(x) )
+	result.extend( detect_UNIX_command_execution(x) )
+		
+	return result

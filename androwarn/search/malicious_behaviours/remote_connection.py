@@ -56,3 +56,15 @@ def detect_Socket_use(x) :
 				formatted_str.append(local_formatted_str)		
 	
 	return formatted_str
+
+def gather_suspicious_connection_establishment(x) :	
+	"""
+		@param x : a VMAnalysis instance
+	
+		@rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
+	"""
+	result = []
+	
+	result.extend( detect_Socket_use(x) ) 
+		
+	return result

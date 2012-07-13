@@ -183,3 +183,21 @@ def detect_Telephony_SimSerialNumber_lookup(x) :
 
 		
 	return formatted_str
+
+def gather_telephony_identifiers_leakage(x) :
+	"""
+		@param x : a VMAnalysis instance
+	
+		@rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
+	"""
+	result = []
+	
+	result.extend( detect_Telephony_Operator_lookup(x) )
+	result.extend( detect_Telephony_CellID_lookup(x) )
+	result.extend( detect_Telephony_LAC_lookup(x) )
+	result.extend( detect_Telephony_MCCMNC_lookup(x) )
+	result.extend( detect_Telephony_DeviceID_lookup(x) )
+	result.extend( detect_Telephony_IMSI_lookup(x) )
+	result.extend( detect_Telephony_SimSerialNumber_lookup(x) )
+	
+	return result

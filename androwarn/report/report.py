@@ -114,31 +114,7 @@ data_level  = [
 
 			  ]
 			  
-def w_list(list, file) :
-	"""
-		@param list : a list
-		@param file : output file
-	"""	
-	if list :
-		for i in list :
-			file.write("- %s\n" % i)
 
-def w_title(string, file) :
-	"""
-		@param string : a string to be titled
-		@param file : output file
-	"""	
-	# Title it and replace underscores with spaces
-	string = string.replace('_', ' ')
-	string = ' '.join(word.capitalize() for word in string.split())
-	file.write("[+] %s:\n" % string)
-
-def w_simple_string(string, file) :
-	"""
-		@param string : a unique string
-		@param file : output file
-	"""
-	file.write("%s\n" % string)
 	
 def generate_report_txt(data,verbosity, report, output_file) :
 	"""
@@ -148,16 +124,10 @@ def generate_report_txt(data,verbosity, report, output_file) :
 		@param output_file : output file name
 	"""
 	output_file = "%s%s.txt" % (OUTPUT_DIR, output_file)
-	with open(output_file, 'w') as f_out :
-		w_simple_string("===== Androwarn Report =====", f_out)
-		for item in data_level :
-			key =  item.keys()[0]
-			if (item[key] <= int(verbosity)) and (key in data) and (len(data[key]) > 0):
-				w_title(key,f_out)
-				w_list(data[key], f_out)
-				w_simple_string('', f_out)
-			
-	f_out.close()
+	
+	with open(output_file, 'w') as fd :
+		dump_analysis_results(data, fd)
+	fd.close()
 	
 	print("[+] Analysis successfully completed and TXT file report available '%s'" % output_file)
 
@@ -168,22 +138,22 @@ def generate_report_html(data, verbosity, report, output_file) :
 		@param report : report type
 		@param output_file : output file name
 	"""
-	env = Environment( loader = FileSystemLoader(OUTPUT_DIR), trim_blocks=True, newline_sequence='\n')
+	env = Environment( loader = FileSystemLoader(OUTPUT_DIR), trim_blocks=False, newline_sequence='\n')
 	template = env.get_template(HTML_TEMPLATE_FILE)
 	
 	# In this case we are forced to dump the html into the Report folder as it contains css/img/ico
 	output_file = "%s%s.html" % (OUTPUT_DIR, output_file.split('/')[-1])
-	template.stream(data).dump(output_file, encoding='utf-8')
+	template.stream(data=data).dump(output_file, encoding='utf-8')
 	
 	print("[+] Analysis successfully completed and HTML file report available '%s'" % output_file)
 
-def generate_report(data, verbosity, report) :
+def generate_report(package_name, data, verbosity, report) :
 	"""
 		@param data : analysis result list
 		@param verbosity : desired verbosity
 		@param report : report type
 	"""	
-	output_file = data['application_package_name'][0]
+	output_file = package_name
 	
 	if cmp(report, REPORT_TXT) == 0 :
 		generate_report_txt(data,verbosity, report, output_file)

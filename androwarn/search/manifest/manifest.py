@@ -147,17 +147,22 @@ def grab_certificate_information(apk) :
 
 	
 	success, cert = grab_certificate(apk, cert_found)
-	cert_info = []
+	
 	
 	if success != True :
 		log.error("Can not read the certificate %s from the APK" % cert_found)
-		return cert_info
+		return []
 
+	cert_info_issuer  = ["Issuer:", "C=%s" % cert.issuerC(), "ST=%s" % cert.issuerS(), "L=%s" % cert.issuerL(), "O=%s" % cert.issuerO() , "OU=%s" % cert.issuerOU() , "CN=%s\n" % cert.issuerCN() ]
+	cert_info_subject  = ["Subject:", "C=%s" % cert.subjectC(), "ST=%s" % cert.subjectS(), "L=%s" % cert.subjectL(), "O=%s" % cert.subjectO() , "OU=%s" % cert.subjectOU() , "CN=%s\n" % cert.subjectCN() ]
 	
-	cert_info.append("Issuer:\n\tC=%s, ST=%s, L=%s, O=%s,\n\tOU=%s, CN=%s" % (cert.issuerC(), cert.issuerS(), cert.issuerL(), cert.issuerO(), cert.issuerOU(), cert.issuerCN()))
-	cert_info.append("Subject:\n\tC=%s, ST=%s, L=%s, O=%s,\n\tOU=%s, CN=%s" % (cert.subjectC(), cert.subjectS(), cert.subjectL(), cert.subjectO(), cert.subjectOU(), cert.subjectCN()))
-	cert_info.append("Serial number: %s" % cert.serialNumber())
-	cert_info.append("SHA-1 thumbprint: %s" % cert.sha1Thumbprint())
+	cert_info = []
+	
+	cert_info.extend(cert_info_issuer)
+	cert_info.extend(cert_info_subject)
+	
+	cert_info.append("Serial number: %s\n" % cert.serialNumber())
+	cert_info.append("SHA-1 thumbprint: %s\n" % cert.sha1Thumbprint())
 	
 	return cert_info
 ####################################

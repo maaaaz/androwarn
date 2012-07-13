@@ -21,7 +21,7 @@
 
 
 # Global imports
-import sys, os, re, logging
+import sys, re, logging
 
 # OptionParser imports
 from optparse import OptionParser
@@ -51,10 +51,11 @@ log.addHandler(handler)
 option_0 = { 'name' : ('-i', '--input'), 'help' : 'APK file to analyze', 'nargs' : 1 }
 option_1 = { 'name' : ('-v', '--verbose'), 'help' : 'Verbosity level { 1-3 }  ( ESSENTIAL, ADVANCED, EXPERT )', 'nargs' : 1 }
 option_2 = { 'name' : ('-r', '--report'), 'help' : 'Report type { txt, html }', 'nargs' : 1 }
-option_3 = { 'name' : ('-L', '--log-level'), 'help' : 'Log level { DEBUG, INFO, WARN, ERROR, CRITICAL }', 'nargs' : 1 }
-option_4 = { 'name' : ('-n', '--no-connection'), 'help' : 'Disable lookups on Google Play ', 'nargs' : 0 }
+option_3 = { 'name' : ('-d', '--display-report'), 'help' : 'Display analysis results to stdout', 'nargs' : 0 }
+option_4 = { 'name' : ('-L', '--log-level'), 'help' : 'Log level { DEBUG, INFO, WARN, ERROR, CRITICAL }', 'nargs' : 1 }
+option_5 = { 'name' : ('-n', '--no-connection'), 'help' : 'Disable lookups on Google Play', 'nargs' : 0 }
 
-options = [option_0, option_1, option_2, option_3, option_4]
+options = [option_0, option_1, option_2, option_3, option_4, option_5]
 
 
 def main(options, arguments) :
@@ -90,12 +91,15 @@ def main(options, arguments) :
 
 		a, d, x = AnalyzeAPK(APK_FILE)
 
+		package_name = grab_application_package_name(a)
+		
 		data = perform_analysis(APK_FILE, a, d, x, no_connection)
 		
-		#Brace yourself, a massive debug dump is coming
-		#dump_analysis_results(data) 
+		if (options.display_report != None) :
+			# Brace yourself, a massive debug dump is coming
+			dump_analysis_results(data,sys.stdout) 
 		
-		generate_report(data, verbosity, report)
+		generate_report(package_name, data, verbosity, report)
 
 if __name__ == "__main__" :
 	parser = OptionParser()
@@ -105,5 +109,4 @@ if __name__ == "__main__" :
 		parser.add_option(*param, **option)
 
 	options, arguments = parser.parse_args()
-	#sys.argv[:] = arguments
 	main(options, arguments)

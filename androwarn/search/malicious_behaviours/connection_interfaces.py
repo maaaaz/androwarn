@@ -63,3 +63,15 @@ def detect_WiFi_Credentials_lookup(x) :
 
 		
 	return formatted_str	
+
+def gather_connection_interfaces_exfiltration(x) :
+	"""
+		@param x : a VMAnalysis instance
+	
+		@rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
+	"""
+	result = []
+	
+	result.extend( detect_WiFi_Credentials_lookup(x) )
+	
+	return result
