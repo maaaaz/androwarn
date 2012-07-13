@@ -153,8 +153,8 @@ def grab_certificate_information(apk) :
 		log.error("Can not read the certificate %s from the APK" % cert_found)
 		return []
 
-	cert_info_issuer  = ["Issuer:", "C=%s" % cert.issuerC(), "ST=%s" % cert.issuerS(), "L=%s" % cert.issuerL(), "O=%s" % cert.issuerO() , "OU=%s" % cert.issuerOU() , "CN=%s\n" % cert.issuerCN() ]
-	cert_info_subject  = ["Subject:", "C=%s" % cert.subjectC(), "ST=%s" % cert.subjectS(), "L=%s" % cert.subjectL(), "O=%s" % cert.subjectO() , "OU=%s" % cert.subjectOU() , "CN=%s\n" % cert.subjectCN() ]
+	cert_info_issuer  = ["Issuer:", "C=%s" % cert.issuerC(), "ST=%s" % cert.issuerS(), "L=%s" % cert.issuerL(), "O=%s" % cert.issuerO() , "OU=%s" % cert.issuerOU() , "CN=%s\n\n" % cert.issuerCN() ]
+	cert_info_subject  = ["Subject:", "C=%s" % cert.subjectC(), "ST=%s" % cert.subjectS(), "L=%s" % cert.subjectL(), "O=%s" % cert.subjectO() , "OU=%s" % cert.subjectOU() , "CN=%s\n\n" % cert.subjectCN() ]
 	
 	cert_info = []
 	

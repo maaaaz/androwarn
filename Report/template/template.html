@@ -7,7 +7,7 @@
 {%- macro render_list_h_level(list, h_level) -%}
 {%- if list -%}
 	{%- for item in list -%}
-		<h{{h_level}}>{{ item|replace("\n","<br/><br/>") }}</h{{h_level}}>
+		<h{{h_level}}>{{ item|replace("\n","<br/>") }}</h{{h_level}}>
 	{%- endfor -%}
 {%- endif -%}
 {%- endmacro -%}

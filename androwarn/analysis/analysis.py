@@ -95,18 +95,18 @@ def AnalyzeDex(filename, raw=False) :
 # Consolidate all data
 def perform_analysis(apk_file, a, d, x, no_connection) :
 	"""
-		@param apk_file : apk file path
-		@param a 		: an APK instance, DalvikVMFormat, and VMAnalysis objects
-		@param d 		: a DalvikVMFormat instance
-		@param x 		: a VMAnalysis instance
+		@param apk_file 		: apk file path
+		@param a 				: an APK instance, DalvikVMFormat, and VMAnalysis objects
+		@param d 				: a DalvikVMFormat instance
+		@param x 				: a VMAnalysis instance
+		@param no_connection	: enable/disable online lookups
 	
 		@rtype : a list of dictionaries of strings lists [ { "Application_info": [("Application_name", ["com.test.test"]), ("Application_version", ["1.0", ".1"])] } ]
 	"""
-	
 	# application general information 
 	app_package_name = grab_application_package_name(a)
-	app_name, app_description, app_icon	= grab_application_name_description_icon(app_package_name, no_connection)
-	
+	app_name, app_desc, app_icon = grab_application_name_description_icon(app_package_name, no_connection)
+	app_description = [app_icon, app_desc]
 	
 	# data gathering
 	data = []
@@ -117,7 +117,7 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 						( "application_name", 				[app_name] ),
 						( "application_version", 			[grab_androidversion_name(a)] ),
 						( "package_name", 					[app_package_name] ),
-						( "description", 					[app_description] )#inserer icone dans desc
+						( "description", 					 app_description )#inserer icone dans desc
 					]
 				}
 	)
