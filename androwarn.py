@@ -96,7 +96,7 @@ def main(options, arguments) :
 		data = perform_analysis(APK_FILE, a, d, x, no_connection)
 		
 		if (options.display_report != None) :
-			# Brace yourself, a massive debug dump is coming
+			# Brace yourself, a massive dump is coming
 			dump_analysis_results(data,sys.stdout) 
 		
 		generate_report(package_name, data, verbosity, report)

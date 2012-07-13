@@ -122,12 +122,14 @@ def dump_analysis_results(data, file_descriptor) :
 	if data :
 		for item in data :
 			for category, element_tuple in item.iteritems() :
-				flush_simple_string("[+] %s" % category.encode('ascii','ignore').replace('_',' ').title(), file_descriptor)
+				if isinstance(category,str) :
+					flush_simple_string("[+] %s" % category.encode('ascii','ignore').replace('_',' ').title(), file_descriptor)
 				for name,content in element_tuple :
-					if content :
-						flush_simple_string("\t[.] %s" % (str(name).encode('ascii','ignore').replace('_',' ').title().ljust(40)), file_descriptor)
+					if content and isinstance(name,str) :
+						flush_simple_string("\t[.] %s" % (name.encode('ascii','ignore').replace('_',' ').title().ljust(40)), file_descriptor)
 						for element in content :
-							flush_simple_string("\t\t- %s" % element.encode('ascii','ignore').replace('_',' ').title(), file_descriptor)
+							if isinstance(element,str) :
+								flush_simple_string("\t\t- %s" % element.encode('ascii','ignore').replace('_',' ').title(), file_descriptor)
 						flush_simple_string("", file_descriptor)
 				flush_simple_string("", file_descriptor)
 
