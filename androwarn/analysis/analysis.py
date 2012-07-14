@@ -112,65 +112,65 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 	data = []
 	
 	data.append(
-				{ "application_information" :
+				{ 'application_information' :
 					[
-						( "application_name", 				[app_name] ),
-						( "application_version", 			[grab_androidversion_name(a)] ),
-						( "package_name", 					[app_package_name] ),
-						( "description", 					 app_description )#inserer icone dans desc
+						( 'application_name', 						[app_name] ),
+						( 'application_version', 					[grab_androidversion_name(a)] ),
+						( 'package_name', 							[app_package_name] ),
+						( 'description', 					 		 app_description )
 					]
 				}
 	)
 	
 	data.append(
-				{ "analysis_results" :
+				{ 'analysis_results' :
 					[
-						( "telephony_identifiers_leakage", 		gather_telephony_identifiers_leakage(x) ),
-						( "device_settings_harvesting", 		gather_device_settings_harvesting(x) ),
-						( "location_lookup", 					gather_location_lookup(x) ),
-						( "connection_interfaces_exfiltration", gather_connection_interfaces_exfiltration(x) ),
-						( "telephony_services_abuse", 			gather_telephony_services_abuse(x) ),										
-						( "audio_video_eavesdropping", 			gather_audio_video_eavesdropping(x) ),
-						( "suspicious_connection_establishment",gather_suspicious_connection_establishment(x) ),
-						( "PIM_data_leakage", 					gather_PIM_data_leakage(x) ),
-						( "code_execution", 					gather_code_execution(x) ),
+						( 'telephony_identifiers_leakage', 			 gather_telephony_identifiers_leakage(x) ),
+						( 'device_settings_harvesting', 			 gather_device_settings_harvesting(x) ),
+						( 'location_lookup', 						 gather_location_lookup(x) ),
+						( 'connection_interfaces_exfiltration', 	 gather_connection_interfaces_exfiltration(x) ),
+						( 'telephony_services_abuse', 				 gather_telephony_services_abuse(x) ),										
+						( 'audio_video_eavesdropping', 				 gather_audio_video_eavesdropping(x) ),
+						( 'suspicious_connection_establishment',	 gather_suspicious_connection_establishment(x) ),
+						( 'PIM_data_leakage', 						 gather_PIM_data_leakage(x) ),
+						( 'code_execution', 						 gather_code_execution(x) ),
 					],
 				}
 	)
 	
 	data.append(
-				{ "apk_file" :
+				{ 'apk_file' :
 					[
-						( "apk_file_name", 					[grab_filename(a)] ),
-						( "SHA-1_hash", 					[grab_apk_file_sha1_hash(apk_file)] ),
-						( "file_list", 						grab_file_list(a) ),
-						( "certificate_information", 		grab_certificate_information(a) )
+						( 'apk_file_name', 							[grab_filename(a)] ),
+						( 'SHA-1_hash', 							[grab_apk_file_sha1_hash(apk_file)] ),
+						( 'file_list', 								 grab_file_list(a) ),
+						( 'certificate_information', 				 grab_certificate_information(a) )
 					]
 				}
 	)	
 	
 	data.append(
-				{ "androidmanifest.xml" :
+				{ 'androidmanifest.xml' :
 					[
-						( "main_activity", 					[grab_main_activity(a)] ),
-						( "activities", 					grab_activities(a) ),
-						( "receivers", 						grab_services(a) ),
-						( "providers", 						grab_providers(a) ),
-						( "permissions", 					grab_permissions(a) ),
-						( "features", 						grab_features(a) ),
-						( "librairies", 					grab_libraries(a) )
+						( 'main_activity', 							[grab_main_activity(a)] ),
+						( 'activities', 							 grab_activities(a) ),
+						( 'receivers', 								 grab_services(a) ),
+						( 'providers', 								 grab_providers(a) ),
+						( 'permissions', 							 grab_permissions(a) ),
+						( 'features', 								 grab_features(a) ),
+						( 'libraries', 							 	 grab_libraries(a) )
 					]
 				}
 	)
 
 	data.append(
-				{ "apis_used" :
+				{ 'apis_used' :
 					[
-						( "classes_list", 					grab_classes_list(x) ),
-						( "internal_classes_list", 			grab_internal_classes_list(x) ),
-						( "external_classes_list", 			grab_external_classes_list(x) ),
-						( "internal_packages_list", 		grab_internal_packages_list(x) ),
-						( "external_packages_list", 		grab_external_packages_list(x) )
+						( 'classes_list', 							 grab_classes_list(x) ),
+						( 'internal_classes_list', 					 grab_internal_classes_list(x) ),
+						( 'external_classes_list', 					 grab_external_classes_list(x) ),
+						( 'internal_packages_list', 				 grab_internal_packages_list(x) ),
+						( 'external_packages_list', 				 grab_external_packages_list(x) )
 					]
 				}
 	)	

@@ -101,6 +101,18 @@ def strip_HTML_tags(html):
 	
 	return s.get_data()
 
+# Data tab cleaner
+def clean_list(list_to_clean,purge_list) :
+	"""
+		@param list_to_clean : a list to be cleaned up
+		@param purge_list : the list of elements to remove in the list
+	
+		@rtype : a cleaned list
+	"""
+	if list_to_clean and purge_list :
+		for i in reversed(purge_list) :
+			del list_to_clean[i]
+
 # Dump
 def flush_simple_string(string, file) :
 	"""
@@ -128,7 +140,7 @@ def dump_analysis_results(data, file_descriptor) :
 						flush_simple_string("\t[.] %s" % (name.encode('ascii','ignore').replace('_',' ').title().ljust(40)), file_descriptor)
 						for element in content :
 							if isinstance(element,str) :
-								flush_simple_string("\t\t- %s" % element.encode('ascii','ignore').replace('_',' ').title(), file_descriptor)
+								flush_simple_string("\t\t- %s" % element.encode('ascii','ignore'), file_descriptor)
 						flush_simple_string("", file_descriptor)
 				flush_simple_string("", file_descriptor)
 
