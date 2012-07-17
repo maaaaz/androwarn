@@ -47,7 +47,7 @@ def detect_Socket_use(x) :
 	for result in xrange(len(structural_analysis_results)) :
 		registers = data_flow_analysis(structural_analysis_results, result, x)
 
-		if len(registers) > 0 :
+		if len(registers) >= 2 :
 			remote_address 	= get_register_value(1, registers) # 1 is the index of the PARAMETER called in the method
 			remote_port		= get_register_value(2, registers)
 			

@@ -74,6 +74,10 @@ def detect_UNIX_command_execution(x) :
 		registers = data_flow_analysis(structural_analysis_results, result, x)
 				
 		local_formatted_str = "This application executes a UNIX command" 
+		
+		# If we're lucky enough to have the arguments
+		if len(registers) >= 2 :
+			local_formatted_str = "%s containing those arguments: '%s'" % (local_formatted_str, get_register_value(1, registers))
 
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :

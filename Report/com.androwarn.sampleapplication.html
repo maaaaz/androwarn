@@ -71,7 +71,7 @@
 			<li><a href="#connection-interfaces-exfiltration" data-toggle="tab">Connection Interfaces Exfiltration</a></li>
 			<li><a href="#telephony-services-abuse" data-toggle="tab">Telephony Services Abuse</a></li>
 			<li><a href="#audio-video-eavesdropping" data-toggle="tab">Audio Video Eavesdropping</a></li>
-			
+			<li><a href="#suspicious-connection-establishment" data-toggle="tab">Suspicious Connection Establishment</a></li>
 			<li><a href="#PIM-data-leakage" data-toggle="tab">Pim Data Leakage</a></li>
 			<li><a href="#code-execution" data-toggle="tab">Code Execution</a></li>
 			<li class="nav-header">Apk File</li>
@@ -152,6 +152,11 @@
 							<h3>This application records audio from the 'VOICE_CALL' source </h3><h3>This application captures video from the 'CAMERA' source</h3>
 						</div>
 					
+						<div class="tab-pane" id="suspicious-connection-establishment">
+							<h2>Suspicious Connection Establishment</h2>
+							<h3>This application opens a Socket and connects it to the remote address '192.168.56.101' on the '1337' port </h3><h3>This application opens a Socket and connects it to the remote address '192.168.56.101 Ljava/net/InetAddress;->getByName(Ljava/lang/String;)Ljava/net/InetAddress;' on the '1338' port </h3>
+						</div>
+					
 						<div class="tab-pane" id="PIM-data-leakage">
 							<h2>Pim Data Leakage</h2>
 							<h3>This application reads or edits contact data</h3><h3>This application reads the SMS inbox</h3>
@@ -159,7 +164,7 @@
 					
 						<div class="tab-pane" id="code-execution">
 							<h2>Code Execution</h2>
-							<h3>This application loads a native library: 'nativecode'</h3><h3>This application executes a UNIX command</h3>
+							<h3>This application loads a native library: 'nativecode'</h3><h3>This application executes a UNIX command containing those arguments: '/sdcard/'</h3>
 						</div>
 					
 						<div class="tab-pane" id="apk-file-name">

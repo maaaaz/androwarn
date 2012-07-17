@@ -53,7 +53,7 @@ def match_current_instruction(current_instruction, registers_found) :
 	
 		@rtype : the instruction name from the constants above, the local register number and its value, an updated version of the registers_found
 	"""
-	p_const 				= re.compile('^const(?:\/4|\/16|\/high16|-wide(?:\/16|\/32)|-wide\/high16|)? v([0-9]+), \#([+-][0-9]+(?:\.[0-9]+)?)$')
+	p_const 				= re.compile('^const(?:\/4|\/16|\/high16|-wide(?:\/16|\/32)|-wide\/high16|)? v([0-9]+), \#\+?(-?[0-9]+(?:\.[0-9]+)?)$')
 	p_const_string			= re.compile("^const-string(?:||-jumbo) v([0-9]+), '(.*)'$")
 	p_move					= re.compile('^move(?:|\/from16|-wide(?:\/from16|\/16)|-object(?:|\/from16|\/16))? v([0-9]+), (v[0-9]+)$')
 	p_move_result			= re.compile('^move(?:-result(?:|-wide|-object)|-exception)? v([0-9]+)$')
@@ -61,7 +61,7 @@ def match_current_instruction(current_instruction, registers_found) :
 	p_invoke 				= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) v([0-9]+), (L(?:.*);->.*)$')
 	p_invoke_2_registers 	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) v([0-9]+), v([0-9]+), (L(?:.*);->.*)$')
 	p_invoke_no_register	= re.compile('^invoke-(?:static|virtual|direct|super|interface|interface-range|virtual-quick|super-quick) (L(?:.*);->.*)$')
-	p_new_instance 			= re.compile('^new-instance v([0-9]+) , \[ type@ (?:[0-9]+) (L(?:.*);) \]$')
+	p_new_instance 			= re.compile('^new-instance v([0-9]+), (L(?:.*);)$')
 	
 	
 	# String concat
@@ -177,7 +177,7 @@ def match_current_instruction(current_instruction, registers_found) :
 	if p_new_instance.match(current_instruction) :
 		#print p_new_instance.match(current_instruction).groups()
 		
-		instruction_name = INVOKE
+		instruction_name = NEW_INSTANCE
 		
 		register_number = p_new_instance.match(current_instruction).groups()[0]
 		register_value = p_new_instance.match(current_instruction).groups()[1]
