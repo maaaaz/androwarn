@@ -231,6 +231,7 @@
 	<script>
 		$(function () {
 			$('#myTab a:last').tab('show');
+			$('.sidebar-nav a[href*=#]').click(function(){$('body').animate({ scrollTop: 0}, 200); });
 		})
 	</script>
 
