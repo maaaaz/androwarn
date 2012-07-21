@@ -55,7 +55,7 @@ def detect_WiFi_Credentials_lookup(x) :
 	for result in xrange(len(structural_analysis_results)) :
 		registers = data_flow_analysis(structural_analysis_results, result, x)	
 		
-		local_formatted_str = "This application reads WiFi credentials" 
+		local_formatted_str = "This application reads the WiFi credentials" 
 		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :

@@ -77,7 +77,7 @@ def detect_UNIX_command_execution(x) :
 		
 		# If we're lucky enough to have the arguments
 		if len(registers) >= 2 :
-			local_formatted_str = "%s containing those arguments: '%s'" % (local_formatted_str, get_register_value(1, registers))
+			local_formatted_str = "%s containing this argument: '%s'" % (local_formatted_str, get_register_value(1, registers))
 
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :

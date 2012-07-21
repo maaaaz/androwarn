@@ -109,7 +109,7 @@ def detect_Telephony_MCCMNC_lookup(x) :
 	for result in xrange(len(structural_analysis_results)) :
 		registers = data_flow_analysis(structural_analysis_results, result, x)	
 		
-		local_formatted_str = "This application reads the numeric name (MCC+MNC) of current registered operator." 
+		local_formatted_str = "This application reads the numeric name (MCC+MNC) of current registered operator" 
 		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :
@@ -131,7 +131,7 @@ def detect_Telephony_DeviceID_lookup(x) :
 	for result in xrange(len(structural_analysis_results)) :
 		registers = data_flow_analysis(structural_analysis_results, result, x)	
 		
-		local_formatted_str = "This application reads the unique device ID for example, the IMEI for GSM and the MEID or ESN for CDMA phones" 
+		local_formatted_str = "This application reads the unique device ID, i.e the IMEI for GSM and the MEID or ESN for CDMA phones" 
 		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :
@@ -153,7 +153,7 @@ def detect_Telephony_IMSI_lookup(x) :
 	for result in xrange(len(structural_analysis_results)) :
 		registers = data_flow_analysis(structural_analysis_results, result, x)	
 		
-		local_formatted_str = "This application reads the unique subscriber ID for example, the IMSI for a GSM phone" 
+		local_formatted_str = "This application reads the unique subscriber ID, for example, the IMSI for a GSM phone" 
 		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :

@@ -46,7 +46,7 @@ def detect_Location_lookup(x) :
 	for result in xrange(len(structural_analysis_results)) :
 		registers = data_flow_analysis(structural_analysis_results, result, x)	
 		
-		local_formatted_str = "This application reads location information from available providers" 
+		local_formatted_str = "This application reads location information from all available providers (WiFi, GPS etc.)" 
 		
 		# we want only one occurence
 		if not(local_formatted_str in formatted_str) :
