@@ -44,7 +44,6 @@ def detect_ContactAccess_lookup(x) :
 	detector_1 = search_field(x, "Landroid/provider/ContactsContract$CommonDataKinds$Phone;")
 		
 	detectors = [detector_1]
-	#print "detectors %s" % detectors
 	
 	if detector_tab_is_not_empty(detectors) :
 		local_formatted_str = 'This application reads or edits contact data'

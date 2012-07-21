@@ -41,28 +41,14 @@ def AnalyzeAPK(filename, raw=False, decompiler=None) :
 
 		@param filename : the filename of the android application or a buffer which represents the application
 		@param raw : True is you would like to use a buffer
-		@param decompiler : ded, dex2jad, dad
+		@param decompiler : ded, dex2jad, dad or None for smali dump only
 		
 		@rtype : return the APK, DalvikVMFormat, and VMAnalysis objects
 	"""
-	androconf.debug("APK ...")
 	a = APK(filename, raw)
 
 	d, dx = AnalyzeDex( a.get_dex(), raw=True )
-
-	if decompiler != None :
-	  androconf.debug("Decompiler ...")
-	  decompiler = decompiler.lower()
-	  if decompiler == "dex2jad" :
-		d.set_decompiler( DecompilerDex2Jad( d, androconf.CONF["PATH_DEX2JAR"], androconf.CONF["BIN_DEX2JAR"], androconf.CONF["PATH_JAD"], androconf.CONF["BIN_JAD"] ) )
-	  elif decompiler == "ded" :
-		d.set_decompiler( DecompilerDed( d, androconf.CONF["PATH_DED"], androconf.CONF["BIN_DED"] ) )
-	  elif decompiler == "dad" :
-		d.set_decompiler( DecompilerDAD( d, dx ) )
-	  else :
-		print "Unknown decompiler, use default", decompiler
-		d.set_decompiler( DecompilerDAD( d, dx ) )
-
+	
 	return a, d, dx
 
 def AnalyzeDex(filename, raw=False) :
@@ -70,21 +56,21 @@ def AnalyzeDex(filename, raw=False) :
 		Analyze an android dex file and setup all stuff for a more quickly analysis !
 
 		@param filename : the filename of the android dex file or a buffer which represents the dex file
-		@param raw : True is you would like to use a buffe
+		@param raw : True is you would like to use a buffer
 
 		@rtype : return the DalvikVMFormat, and VMAnalysis objects
 	"""
-	androconf.debug("DalvikVMFormat ...")
+	# DalvikVMFormat
 	d = None
 	if raw == False :
 		d = DalvikVMFormat( open(filename, "rb").read() )
 	else :
 		d = DalvikVMFormat( filename )
 
-	androconf.debug("EXPORT VM to python namespace")
+	# EXPORT VM to python namespace
 	#ExportVMToPython( d )
 
-	androconf.debug("VMAnalysis ...")
+	# VMAnalysis
 	dx = VMAnalysis( d )
 	#dx = uVMAnalysis( d )
 
@@ -99,9 +85,9 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 		@param a 				: an APK instance, DalvikVMFormat, and VMAnalysis objects
 		@param d 				: a DalvikVMFormat instance
 		@param x 				: a VMAnalysis instance
-		@param no_connection	: enable/disable online lookups
+		@param no_connection	: boolean value, enable/disable online lookups
 	
-		@rtype : a list of dictionaries of strings lists [ { "Application_info": [("Application_name", ["com.test.test"]), ("Application_version", ["1.0", ".1"])] } ]
+		@rtype : a list of dictionaries of strings lists [ { "application_information": [ ("application_name", ["com.test"]), ("application_version", ["1.0"]) ] }, { ... }]
 	"""
 	# application general information 
 	app_package_name = grab_application_package_name(a)

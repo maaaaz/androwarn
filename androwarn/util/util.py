@@ -44,7 +44,7 @@ def convert_dex_to_canonical(dex_name) :
 		final_part.append(str(last_part))
 		final_name = '.'.join(str(i) for i in final_part)
 	else :
-		return "[!] Conversion to canonical name failed : \"" + dex_name + "\" is not a valid library dex name"
+		return "[!] Conversion to canonical dotted name failed : \"" + dex_name + "\" is not a valid library dex name"
 	return final_name
 
 def detector_tab_is_not_empty(list) :
@@ -74,7 +74,8 @@ def log_result_path_information(res, res_prefix, res_type) :
 		for path in res.get_paths() :
 			access, idx = path[0]
 			m_idx = path[1]
-			log.info("%s %s found '%s'\n\t=> access_flag %s, index %s, method_index %s" % (res_prefix, res_type, res_info, access, idx, m_idx ) )
+			log.info("'%s' %s found '%s'" % (res_prefix, res_type, res_info ) )
+			log.debug("\t=> access_flag %s, index %s, method_index %s" % (access, idx, m_idx))
 
 # HTML Sanitizer
 class MLStripper(HTMLParser):
@@ -190,5 +191,19 @@ def search_class_in_the_list(canonical_class_list,canonical_class_name):
 	l = []
 	ex = re.compile( canonical_class_name )
 	l = filter(ex.search, canonical_class_list)
+	
+	return l
+
+def search_package_in_the_list(canonical_package_list,canonical_package_name):
+	"""
+		@param canonical_package_list : a canonical list of package
+		@param canonical_package_name : a regexp for the name of the package
+
+	
+		@rtype : a list of packages names
+	"""
+	l = []
+	ex = re.compile( canonical_package_name )   
+	l = filter(ex.search, canonical_package_list)
 	
 	return l

@@ -273,9 +273,9 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 					#print "index_to_be_changed %s" % list_index_to_be_changed
 					del(relevant_registers[int(local_register_value)]) 
 					relevant_registers.insert(list_index_to_be_changed, local_register_number)
-					log.info("New relevant_registers %s" % relevant_registers)
+					log.debug("New relevant_registers %s" % relevant_registers)
 				except :
-					log.warn("'%s' does not exist anymore in the relevant_registers list" % local_register_value)
+					log.debug("'%s' does not exist anymore in the relevant_registers list" % local_register_value)
 			
 			if (cmp(instruction_name, MOVE_RESULT) == 0) and (local_register_number in relevant_registers):
 				try:
@@ -293,10 +293,10 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 						del(relevant_registers[int(list_index_to_be_changed)])
 						relevant_registers.insert(list_index_to_be_changed, p_local_register_number)
 					
-					log.info("New relevant_registers %s" % relevant_registers)
+					log.debug("New relevant_registers %s" % relevant_registers)
 				
 				except:
-					log.warn("'%s' does not exist anymore in the relevant_registers list" % local_register_value)
+					log.debug("'%s' does not exist anymore in the relevant_registers list" % local_register_value)
 
 			i = i - 1
 		
@@ -305,7 +305,7 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 			
 		
 		final_answer = all_relevant_registers_filled(registers_found,relevant_registers)
-		log.info("Are all relevant registers filled ? %s" % str(final_answer))
+		log.debug("Are all relevant registers filled ? %s" % str(final_answer))
 		
 		for i in relevant_registers :			
 			try:
@@ -320,7 +320,7 @@ def backtrace_registers_before_call(x, method, index_to_find) :
 			
 			except KeyError:
 				registers_final = []
-				log.warn("KeyError exception : The value of the register # %s could not be found for the relevant registers %s" % (register_number, relevant_registers))
+				log.debug("KeyError exception : The value of the register # %s could not be found for the relevant registers %s" % (register_number, relevant_registers))
 				break
 				
 		
@@ -454,7 +454,15 @@ def data_flow_analysis(tab, result, x) :
 	method_call_index_to_find = tab[result].get_idx()
 	
 	registers = backtrace_registers_before_call(x, method, method_call_index_to_find)
-	log.info("Class '%s' - Method '%s' - register state before call %s" % (tab[result].get_class_name(),tab[result].get_name(), registers))
-			
+	#log.info("Class '%s' - Method '%s' - register state before call %s" % (tab[result].get_class_name(),tab[result].get_name(), registers))
+	
+	class_str 	= "Class '%s'" % tab[result].get_class_name()
+	method_str 	= "Method '%s'" % tab[result].get_name()
+	regs_str 	= "Register state before call %s" %  registers
+	
+	formatted_str = "{0:50}- {1:35}- {2:30}".format(class_str,method_str, regs_str)
+	 
+	log.info(formatted_str)
+		
 	return registers	
 #########################

@@ -228,18 +228,4 @@ def grab_external_packages_list(x) :
 	list.sort()		
 	return list
 
-
-def search_package_in_the_list(canonical_package_list,canonical_package_name):
-	"""
-		@param canonical_package_list : a canonical list of package
-		@param canonical_package_name : a regexp for the name of the package
-
-	
-		@rtype : a list of packages names
-	"""
-	l = []
-	ex = re.compile( canonical_package_name )   
-	l = filter(ex.search, canonical_package_list)
-	
-	return l
 ##########################################
