@@ -48,7 +48,10 @@ def detect_WiFi_Credentials_lookup(x) :
 		
 		@rtype : a list of formatted strings
 	"""
+	# This functions aims some HTC android devices 
 	# Several HTC devices suffered from a bug allowing to dump wpa_supplicant.conf file containing clear text credentials
+	# http://www.kb.cert.org/vuls/id/763355
+	
 	formatted_str = []
 	
 	structural_analysis_results = x.tainted_packages.search_methods("Landroid/net/wifi/WifiConfiguration","toString", ".")

@@ -47,7 +47,7 @@ def detect_Telephony_SMS_abuse(x) :
 	for result in xrange(len(structural_analysis_results)) :
 		registers = data_flow_analysis(structural_analysis_results, result, x)		
 		
-		if len(registers) > 0 :
+		if len(registers) > 3 :
 			target_phone_number = get_register_value(1, registers)
 			sms_message 		= get_register_value(3, registers)
 			
