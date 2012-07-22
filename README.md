@@ -77,7 +77,7 @@ You're welcome, any help is appreciated :)
 Contact
 ------
 * Thomas Debize < tdebize at mail d0t com >
-* [IRC](irc://irc.freenode.net/#androwarn) (irc://irc.freenode.net/androwarn)
+* Join [#androwarn](irc://irc.freenode.net/androwarn) on Freenode
 
 Copyright and license
 ---------------------
