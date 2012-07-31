@@ -21,6 +21,8 @@
 
 # Global imports
 import logging
+from io import BytesIO
+from xml.etree.ElementTree import ElementTree
 
 # Androguard imports
 from androguard.core.analysis import analysis
@@ -56,6 +58,47 @@ def detect_Telephony_SMS_abuse(x) :
 				formatted_str.append(local_formatted_str)
 	return formatted_str
 
+def detect_SMS_interception(a,x) :
+	"""
+		@param a : an APK  instance
+		@param x : a VMAnalysis instance
+		
+		@rtype : a list of formatted strings
+	"""
+	formatted_str = []
+	tree = ElementTree()
+	
+	manifest = AXMLPrinter( a.zip.read("AndroidManifest.xml") ).getBuff()
+	
+	tree.parse(BytesIO(manifest))
+	
+	root = tree.getroot()
+				
+	for parent, child, grandchild in get_parent_child_grandchild(root):
+		
+		# Criteria 1: "android.provider.Telephony.SMS_RECEIVED" + "intentfilter 'android:priority' a high number" => SMS interception
+		if '{http://schemas.android.com/apk/res/android}name' in grandchild.attrib.keys() :
+			
+			if grandchild.attrib['{http://schemas.android.com/apk/res/android}name'] == "android.provider.Telephony.SMS_RECEIVED" :
+				
+				if child.tag == 'intentfilter' and '{http://schemas.android.com/apk/res/android}priority' in child.attrib.keys() :
+					formatted_str.append("This application intercepts your SMS")
+					
+					# Grab the interceptor's class name
+					class_name = parent.attrib['{http://schemas.android.com/apk/res/android}name']
+					package_name = a.package
+					
+					# Convert("com.test" + "." + "interceptor") to "Lcom/test/interceptor"
+					class_name = convert_canonical_to_dex(package_name + "." + class_name[1:])
+					
+					# Criteria 2: if we can find 'abortBroadcast()' call => notification deactivation
+					structural_analysis_results = x.tainted_packages.search_methods(class_name,"abortBroadcast", ".")
+					if structural_analysis_results :
+						formatted_str.append("This application disables incoming SMS notifications")
+					
+		
+	return formatted_str
+
 def detect_Telephony_Phone_Call_abuse(x) :
 	"""
 		@param x : a VMAnalysis instance
@@ -83,8 +126,9 @@ def detect_Telephony_Phone_Call_abuse(x) :
 	return formatted_str
 
 
-def gather_telephony_services_abuse(x) :
+def gather_telephony_services_abuse(a,x) :
 	"""
+		@param a : an APK  instance
 		@param x : a VMAnalysis instance
 	
 		@rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
@@ -92,6 +136,7 @@ def gather_telephony_services_abuse(x) :
 	result = []
 	
 	result.extend( detect_Telephony_Phone_Call_abuse(x) )
+	result.extend( detect_SMS_interception(a,x) )
 	result.extend( detect_Telephony_SMS_abuse(x) )
 	
 	return result

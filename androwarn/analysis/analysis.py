@@ -115,7 +115,7 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 						( 'device_settings_harvesting', 			 gather_device_settings_harvesting(x) ),
 						( 'location_lookup', 						 gather_location_lookup(x) ),
 						( 'connection_interfaces_exfiltration', 	 gather_connection_interfaces_exfiltration(x) ),
-						( 'telephony_services_abuse', 				 gather_telephony_services_abuse(x) ),										
+						( 'telephony_services_abuse', 				 gather_telephony_services_abuse(a,x) ),										
 						( 'audio_video_eavesdropping', 				 gather_audio_video_eavesdropping(x) ),
 						( 'suspicious_connection_establishment',	 gather_suspicious_connection_establishment(x) ),
 						( 'PIM_data_leakage', 						 gather_PIM_data_leakage(x) ),

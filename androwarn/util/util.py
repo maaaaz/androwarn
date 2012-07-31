@@ -47,6 +47,9 @@ def convert_dex_to_canonical(dex_name) :
 		return "[!] Conversion to canonical dotted name failed : \"" + dex_name + "\" is not a valid library dex name"
 	return final_name
 
+def convert_canonical_to_dex(canonical_name) :
+	return 'L' + canonical_name.replace('.', '/')
+
 def detector_tab_is_not_empty(list) :
 	"""
 		@param list : a list of result
@@ -207,3 +210,15 @@ def search_package_in_the_list(canonical_package_list,canonical_package_name):
 	l = filter(ex.search, canonical_package_list)
 	
 	return l
+
+# XML parsing
+def get_parent_child_grandchild(tree):
+	"""
+		@param tree : xml root Element
+	
+		@rtype : parent, child and grandchild Element
+	"""
+	for parent in tree.iter() :
+		for child in parent :
+			for grandchild in child :
+				yield parent, child, grandchild
