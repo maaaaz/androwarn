@@ -78,7 +78,10 @@ def main(options, arguments) :
 		
 		# Report Type	
 		if (options.report != None) and (options.report in REPORT_TYPE) :
+			report_wanted = True
 			report = options.report
+		elif (options.report == None) and (options.display_report != None) :
+			report_wanted = False
 		else :
 			parser.error("Please specify a valid report type")
 
@@ -99,7 +102,8 @@ def main(options, arguments) :
 			# Brace yourself, a massive dump is coming
 			dump_analysis_results(data,sys.stdout) 
 		
-		generate_report(package_name, data, verbosity, report)
+		if report_wanted :
+			generate_report(package_name, data, verbosity, report)
 
 if __name__ == "__main__" :
 	parser = OptionParser()
