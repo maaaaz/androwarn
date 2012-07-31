@@ -34,25 +34,39 @@ from androwarn.util.util import *
 log = logging.getLogger('log')
 
 # APK and Manifest related functions #
-def grab_apk_file_sha1_hash(apk_file) :
+def grab_apk_file_hashes(apk_file) :
 	"""
 		@param apk_file : apk file path (not an apk instance)
 	
-		@rtype : the hexified string SHA1 hash
-	"""	
+		@rtype : a list of several hexified hashes
+	"""
+	results = []
+		
 	block_size=2**20
+	
+	md5 = hashlib.md5()
 	sha1 = hashlib.sha1()
+	sha256 = hashlib.sha256()
 	
 	f = open(apk_file,'rb')
-	
+
 	while True:
 		data = f.read(block_size)
 		if not data:
 			break
+		md5.update(data)
 		sha1.update(data)
-	f.close()
-	return sha1.hexdigest()
+		sha256.update(data)
 	
+	f.close()
+	
+	results.append("MD5: %s" % md5.hexdigest())
+	results.append("SHA1: %s" % sha1.hexdigest())
+	results.append("SHA256: %s" % sha256.hexdigest())
+	
+	return results
+	
+
 def grab_filename(apk) :
 	"""
 		@param apk : an APK instance

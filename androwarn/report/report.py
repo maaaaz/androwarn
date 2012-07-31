@@ -89,8 +89,8 @@ def filter_analysis_results(data, verbosity) :
 					 'code_execution'						: 1 ,
 					
 					# APK 
-					 'apk_file_name'						: 1 ,
-					 'SHA-1_hash'							: 1 ,
+					 'file_name'							: 1 ,
+					 'fingerprint'							: 1 ,
 					 'file_list'							: 2 ,
 					 'certificate_information'				: 2 ,
 					

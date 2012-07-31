@@ -127,8 +127,8 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 	data.append(
 				{ 'apk_file' :
 					[
-						( 'apk_file_name', 							[grab_filename(a)] ),
-						( 'SHA-1_hash', 							[grab_apk_file_sha1_hash(apk_file)] ),
+						( 'file_name', 								[grab_filename(a)] ),
+						( 'fingerprint', 							 grab_apk_file_hashes(apk_file) ),
 						( 'file_list', 								 grab_file_list(a) ),
 						( 'certificate_information', 				 grab_certificate_information(a) )
 					]
