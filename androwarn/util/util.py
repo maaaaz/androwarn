@@ -218,7 +218,7 @@ def get_parent_child_grandchild(tree):
 	
 		@rtype : parent, child and grandchild Element
 	"""
-	for parent in tree.iter() :
+	for parent in tree.getiterator() :
 		for child in parent :
 			for grandchild in child :
 				yield parent, child, grandchild
