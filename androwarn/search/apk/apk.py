@@ -61,8 +61,8 @@ def grab_apk_file_hashes(apk_file) :
 	f.close()
 	
 	results.append("MD5: %s" % md5.hexdigest())
-	results.append("SHA1: %s" % sha1.hexdigest())
-	results.append("SHA256: %s" % sha256.hexdigest())
+	results.append("SHA-1: %s" % sha1.hexdigest())
+	results.append("SHA-256: %s" % sha256.hexdigest())
 	
 	return results
 	
