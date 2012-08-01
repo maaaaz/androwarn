@@ -33,156 +33,56 @@ from androwarn.util.util import *
 # Logguer
 log = logging.getLogger('log')
 
-def detect_Telephony_Operator_lookup(x) :
+def detect_telephony_gsm_GsmCellLocation(x):
 	"""
 		@param x : a VMAnalysis instance
-		
-		@rtype : a list of formatted strings
-	"""
-	formatted_str = []
 	
-	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getNetworkOperatorName", ".")
-	for result in xrange(len(structural_analysis_results)) :
-		registers = data_flow_analysis(structural_analysis_results, result, x)	
-		
-		local_formatted_str = "This application reads the operator name" 
-		
-		# we want only one occurence
-		if not(local_formatted_str in formatted_str) :
-			formatted_str.append(local_formatted_str)
+		@rtype : a list strings for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
+	"""
+	
+	class_listing = [
+			("getLac()",	"This application reads the Location Area Code value"),
+			("getCid()",	"This application reads the Cell ID value")
+	]
+	
+	class_name = 'Landroid/telephony/gsm/GsmCellLocation'
+	
+	return bulk_structural_analysis(class_name, class_listing, x)
 
-		
-	return formatted_str	
-
-def detect_Telephony_CellID_lookup(x) :
+def detect_Telephony_Manager_Leakages(x) :
 	"""
 		@param x : a VMAnalysis instance
-		
-		@rtype : a list of formatted strings
-	"""
-	formatted_str = []
 	
-	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/gsm/GsmCellLocation","getCid", ".")
-	for result in xrange(len(structural_analysis_results)) :
-		registers = data_flow_analysis(structural_analysis_results, result, x)		
-		
-		local_formatted_str = "This application reads the Cell ID value" 
-		
-		# we want only one occurence
-		if not(local_formatted_str in formatted_str) :
-			formatted_str.append(local_formatted_str)
-
-		
-	return formatted_str
-
-def detect_Telephony_LAC_lookup(x) :
+		@rtype : a list strings for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
 	"""
-		@param x : a VMAnalysis instance
-		
-		@rtype : a list of formatted strings
-	"""
-	formatted_str = []
 	
-	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/gsm/GsmCellLocation","getLac", ".")
-	for result in xrange(len(structural_analysis_results)) :
-		registers = data_flow_analysis(structural_analysis_results, result, x)	
-		
-		local_formatted_str = "This application reads the Location Area Code value" 
-		
-		# we want only one occurence
-		if not(local_formatted_str in formatted_str) :
-			formatted_str.append(local_formatted_str)
-
-		
-	return formatted_str
-
-def detect_Telephony_MCCMNC_lookup(x) :
-	"""
-		@param x : a VMAnalysis instance
-		
-		@rtype : a list of formatted strings
-	"""
-	formatted_str = []
+	class_listing = [
+			("getCallState()", 				"This application reads the the call state on the device"),
+			("getCellLocation()", 			"This application reads the current location of the device"),
+			("getDataActivity()", 			"This application reads the type of activity on a data connection (cellular)"),
+			("getDataState()", 				"This application reads the current data connection state (cellular)"),
+			("getDeviceId()", 				"This application reads the unique device ID, i.e the IMEI for GSM and the MEID or ESN for CDMA phones"),
+			("getDeviceSoftwareVersion()", 	"This application reads the software version number for the device, for example, the IMEI/SV for GSM phones"),
+			("getLine1Number()", 			"This application reads the phone number string for line 1, for example, the MSISDN for a GSM phone"),
+			("getNeighboringCellInfo()", 	"This application reads the neighboring cell information of the device"),
+			("getNetworkCountryIso()", 		"This application reads the ISO country code equivalent of the current registered operator's MCC (Mobile Country Code)"),
+			("getNetworkOperator()", 		"This application reads the numeric name (MCC+MNC) of current registered operator"),
+			("getNetworkOperatorName()", 	"This application reads the operator name"),
+			("getNetworkType()", 			"This application reads the radio technology (network type) currently in use on the device for data transmission"),
+			("getPhoneType()", 				"This application reads the device phone type value"),
+			("getSimCountryIso()", 			"This application reads the ISO country code equivalent for the SIM provider's country code"),
+			("getSimOperator()", 			"This application reads the MCC+MNC (mobile country code + mobile network code) of the provider of the SIM"),
+			("getSimOperatorName()", 		"This application reads the Service Provider Name (SPN)"),
+			("getSimSerialNumber()", 		"This application reads the SIM's serial number"),
+			("getSimState()", 				"This application reads the constant indicating the state of the device SIM card"),
+			("getSubscriberId()", 			"This application reads the unique subscriber ID, for example, the IMSI for a GSM phone"),
+			("getVoiceMailAlphaTag()", 		"This application reads the alphabetic identifier associated with the voice mail number"),
+			("getVoiceMailNumber()", 		"This application reads the voice mail number")
+	]
 	
-	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getNetworkOperator", ".")
+	class_name = 'Landroid/telephony/TelephonyManager'
 	
-	for result in xrange(len(structural_analysis_results)) :
-		registers = data_flow_analysis(structural_analysis_results, result, x)	
-		
-		local_formatted_str = "This application reads the numeric name (MCC+MNC) of current registered operator" 
-		
-		# we want only one occurence
-		if not(local_formatted_str in formatted_str) :
-			formatted_str.append(local_formatted_str)
-
-		
-	return formatted_str
-	
-def detect_Telephony_DeviceID_lookup(x) :
-	"""
-		@param x : a VMAnalysis instance
-		
-		@rtype : a list of formatted strings
-	"""
-	formatted_str = []
-	
-	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getDeviceId", ".")
-	
-	for result in xrange(len(structural_analysis_results)) :
-		registers = data_flow_analysis(structural_analysis_results, result, x)	
-		
-		local_formatted_str = "This application reads the unique device ID, i.e the IMEI for GSM and the MEID or ESN for CDMA phones" 
-		
-		# we want only one occurence
-		if not(local_formatted_str in formatted_str) :
-			formatted_str.append(local_formatted_str)
-
-		
-	return formatted_str
-
-def detect_Telephony_IMSI_lookup(x) :
-	"""
-		@param x : a VMAnalysis instance
-		
-		@rtype : a list of formatted strings
-	"""
-	formatted_str = []
-	
-	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getSubscriberId", ".")
-	
-	for result in xrange(len(structural_analysis_results)) :
-		registers = data_flow_analysis(structural_analysis_results, result, x)	
-		
-		local_formatted_str = "This application reads the unique subscriber ID, for example, the IMSI for a GSM phone" 
-		
-		# we want only one occurence
-		if not(local_formatted_str in formatted_str) :
-			formatted_str.append(local_formatted_str)
-
-		
-	return formatted_str
-
-def detect_Telephony_SimSerialNumber_lookup(x) :
-	"""
-		@param x : a VMAnalysis instance
-		
-		@rtype : a list of formatted strings
-	"""
-	formatted_str = []
-	
-	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getSimSerialNumber", ".")
-	
-	for result in xrange(len(structural_analysis_results)) :
-		registers = data_flow_analysis(structural_analysis_results, result, x)	
-		
-		local_formatted_str = "This application reads the SIM's serial number" 
-		
-		# we want only one occurence
-		if not(local_formatted_str in formatted_str) :
-			formatted_str.append(local_formatted_str)
-
-		
-	return formatted_str
+	return bulk_structural_analysis(class_name, class_listing, x)
 
 def gather_telephony_identifiers_leakage(x) :
 	"""
@@ -191,13 +91,8 @@ def gather_telephony_identifiers_leakage(x) :
 		@rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
 	"""
 	result = []
-	
-	result.extend( detect_Telephony_Operator_lookup(x) )
-	result.extend( detect_Telephony_CellID_lookup(x) )
-	result.extend( detect_Telephony_LAC_lookup(x) )
-	result.extend( detect_Telephony_MCCMNC_lookup(x) )
-	result.extend( detect_Telephony_DeviceID_lookup(x) )
-	result.extend( detect_Telephony_IMSI_lookup(x) )
-	result.extend( detect_Telephony_SimSerialNumber_lookup(x) )
+
+	result.extend( detect_Telephony_Manager_Leakages(x) )
+	result.extend( detect_telephony_gsm_GsmCellLocation(x) )
 	
 	return result

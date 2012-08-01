@@ -222,3 +222,19 @@ def get_parent_child_grandchild(tree):
 		for child in parent :
 			for grandchild in child :
 				yield parent, child, grandchild
+
+# Bulk structural analysis
+def bulk_structural_analysis(class_name, list, x) :
+	"""
+		@param list : a list of tuple (class function name, class function description)
+	
+		@rtype : a list of strings related to the findings
+	"""
+	formatted_str = []
+	
+	for method_name, description in list :
+		structural_analysis_results = x.tainted_packages.search_methods(class_name,method_name, ".")
+		if structural_analysis_results :
+			formatted_str.append(description)
+	
+	return formatted_str

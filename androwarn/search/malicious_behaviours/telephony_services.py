@@ -20,7 +20,7 @@
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global imports
-import logging
+import sys, logging
 from io import BytesIO
 from xml.etree.ElementTree import ElementTree
 
@@ -68,35 +68,38 @@ def detect_SMS_interception(a,x) :
 	formatted_str = []
 	tree = ElementTree()
 	
-	manifest = AXMLPrinter( a.zip.read("AndroidManifest.xml") ).getBuff()
+	try :
+		manifest = AXMLPrinter( a.zip.read("AndroidManifest.xml") ).getBuff()
 	
-	tree.parse(BytesIO(manifest))
-	
-	root = tree.getroot()
-				
-	for parent, child, grandchild in get_parent_child_grandchild(root):
+		tree.parse(BytesIO(manifest))
 		
-		# Criteria 1: "android.provider.Telephony.SMS_RECEIVED" + "intentfilter 'android:priority' a high number" => SMS interception
-		if '{http://schemas.android.com/apk/res/android}name' in grandchild.attrib.keys() :
+		root = tree.getroot()
+					
+		for parent, child, grandchild in get_parent_child_grandchild(root):
 			
-			if grandchild.attrib['{http://schemas.android.com/apk/res/android}name'] == "android.provider.Telephony.SMS_RECEIVED" :
+			# Criteria 1: "android.provider.Telephony.SMS_RECEIVED" + "intentfilter 'android:priority' a high number" => SMS interception
+			if '{http://schemas.android.com/apk/res/android}name' in grandchild.attrib.keys() :
 				
-				if child.tag == 'intentfilter' and '{http://schemas.android.com/apk/res/android}priority' in child.attrib.keys() :
-					formatted_str.append("This application intercepts your SMS")
+				if grandchild.attrib['{http://schemas.android.com/apk/res/android}name'] == "android.provider.Telephony.SMS_RECEIVED" :
 					
-					# Grab the interceptor's class name
-					class_name = parent.attrib['{http://schemas.android.com/apk/res/android}name']
-					package_name = a.package
+					if child.tag == 'intentfilter' and '{http://schemas.android.com/apk/res/android}priority' in child.attrib.keys() :
+						formatted_str.append("This application intercepts your incoming SMS")
+						
+						# Grab the interceptor's class name
+						class_name = parent.attrib['{http://schemas.android.com/apk/res/android}name']
+						package_name = a.package
+						
+						# Convert("com.test" + "." + "interceptor") to "Lcom/test/interceptor"
+						class_name = convert_canonical_to_dex(package_name + "." + class_name[1:])
+						
+						# Criteria 2: if we can find 'abortBroadcast()' call => notification deactivation
+						structural_analysis_results = x.tainted_packages.search_methods(class_name,"abortBroadcast", ".")
+						if structural_analysis_results :
+							formatted_str.append("This application disables incoming SMS notifications")
 					
-					# Convert("com.test" + "." + "interceptor") to "Lcom/test/interceptor"
-					class_name = convert_canonical_to_dex(package_name + "." + class_name[1:])
-					
-					# Criteria 2: if we can find 'abortBroadcast()' call => notification deactivation
-					structural_analysis_results = x.tainted_packages.search_methods(class_name,"abortBroadcast", ".")
-					if structural_analysis_results :
-						formatted_str.append("This application disables incoming SMS notifications")
-					
-		
+	except Exception, e :
+		log.error("detect_SMS_interception(): %s" % e)	
+	
 	return formatted_str
 
 def detect_Telephony_Phone_Call_abuse(x) :
