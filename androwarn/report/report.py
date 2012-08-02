@@ -111,7 +111,8 @@ def filter_analysis_results(data, verbosity) :
 					 'internal_classes_list'				: 3 ,
 					 'external_classes_list'				: 3 ,
 					 'internal_packages_list'				: 3 ,
-					 'external_packages_list'				: 3 
+					 'external_packages_list'				: 3 ,
+					 'intents_sent'							: 3 
 	}
 
 	if data :

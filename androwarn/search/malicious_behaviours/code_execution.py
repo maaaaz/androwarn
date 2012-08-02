@@ -33,7 +33,6 @@ from androwarn.util.util import *
 # Logguer
 log = logging.getLogger('log')
 
-
 def detect_Library_loading(x) :
 	"""
 		@param x : a VMAnalysis instance

@@ -156,7 +156,8 @@ def perform_analysis(apk_file, a, d, x, no_connection) :
 						( 'internal_classes_list', 					 grab_internal_classes_list(x) ),
 						( 'external_classes_list', 					 grab_external_classes_list(x) ),
 						( 'internal_packages_list', 				 grab_internal_packages_list(x) ),
-						( 'external_packages_list', 				 grab_external_packages_list(x) )
+						( 'external_packages_list', 				 grab_external_packages_list(x) ),
+						( 'intents_sent',							 grab_intents_sent(x) )
 					]
 				}
 	)	

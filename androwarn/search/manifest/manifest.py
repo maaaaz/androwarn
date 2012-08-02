@@ -161,8 +161,8 @@ def grab_certificate_information(apk) :
 	cert_info.extend(cert_info_issuer)
 	cert_info.extend(cert_info_subject)
 	
-	cert_info.append("Serial number: %s\n" % cert.serialNumber())
-	cert_info.append("SHA-1 thumbprint: %s\n" % cert.sha1Thumbprint())
+	cert_info.append("Serial number: %s" % cert.serialNumber())
+	cert_info.append("SHA-1 thumbprint: %s" % cert.sha1Thumbprint())
 	
 	return cert_info
 ####################################

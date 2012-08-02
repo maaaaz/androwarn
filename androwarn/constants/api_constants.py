@@ -36,3 +36,22 @@ MediaRecorder_VideoSource = {
 								0x0: 'DEFAULT',
 								0x1: 'CAMERA'
 							}
+
+PackageManager_PackageInfo = {
+								0x1: 	'GET_ACTIVITIES',
+								0x4000:	'GET_CONFIGURATIONS',
+								0x200:	'GET_DISABLED_COMPONENTS',
+								0x100:	'GET_GIDS',
+								0x10:	'GET_INSTRUMENTATION',
+								0x20:	'GET_INTENT_FILTERS',
+								0x80:	'GET_META_DATA',
+								0x1000:	'GET_PERMISSIONS',
+								0x8:	'GET_PROVIDERS',
+								0x2:	'GET_RECEIVERS',
+								0x40:	'GET_RESOLVED_FILTER',
+								0x4:	'GET_SERVICES',
+								0x400:	'GET_SHARED_LIBRARY_FILES',
+								0x40:	'GET_SIGNATURES',
+								0x2000: 'GET_UNINSTALLED_PACKAGES',
+								0x800: 	'GET_URI_PERMISSION_PATTERNS'
+							}

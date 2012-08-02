@@ -31,10 +31,8 @@ from androwarn.core.core import *
 from androwarn.constants.api_constants import *
 from androwarn.util.util import *
 
-
 # Logguer
 log = logging.getLogger('log')
-
 
 # -- Voice Record -- #
 def detect_MediaRecorder_Voice_record(x) :

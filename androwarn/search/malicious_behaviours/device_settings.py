@@ -29,15 +29,7 @@ from androguard.core.bytecodes.apk import *
 # Androwarn modules import
 from androwarn.core.core import *
 from androwarn.util.util import *
-
-# Constants 
-ERROR_INDEX_NOT_FOUND = -2
-
-REQUEST_TIMEOUT = 4
-ERROR_APP_DESC_NOT_FOUND = 'N/A'
-
-CONNECTION_DISABLED = 0
-CONNECTION_ENABLED = 1
+from androwarn.constants.api_constants import *
 
 # Logguer
 log = logging.getLogger('log')
@@ -59,7 +51,34 @@ def detect_log(x) :
 			tag 	= get_register_value(0, registers)
 			message = get_register_value(1, registers)
 			
-			local_formatted_str = "This application logs the message '%s' under the tag '%s'" % (message, tag)
+			if isnt_all_regs_values([tag,message]) :
+				local_formatted_str = "This application logs the message '%s' under the tag '%s'" % (message, tag)
+				if not(local_formatted_str in formatted_str) :
+					formatted_str.append(local_formatted_str)
+	
+	return formatted_str
+
+def detect_get_package_info(x) :
+	"""
+		@param x : a VMAnalysis instance
+		
+		@rtype : a list of formatted strings
+	"""
+	formatted_str = []
+	
+	structural_analysis_results = x.tainted_packages.search_methods("Landroid/content/pm/PackageManager","getPackageInfo", ".")
+	
+	for result in xrange(len(structural_analysis_results)) :
+		registers = data_flow_analysis(structural_analysis_results, result, x)		
+
+		if len(registers) >= 2 :
+			package_name = get_register_value(1, registers)
+			flag = get_register_value(2, registers)
+			
+			# Recover OR bitwise options set from the integer value, for instance 'GET_ACTIVITIES | GET_RECEIVERS'
+			flags = recover_bitwise_flag_settings(flag, PackageManager_PackageInfo)
+			
+			local_formatted_str = "This application retrieves '%s' information about the '%s' application installed on the system" % (flags, package_name)
 			if not(local_formatted_str in formatted_str) :
 				formatted_str.append(local_formatted_str)
 	
@@ -74,5 +93,6 @@ def gather_device_settings_harvesting(x) :
 	result = []
 	
 	result.extend( detect_log(x) )
+	result.extend( detect_get_package_info(x) )
 	
 	return result

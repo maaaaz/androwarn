@@ -228,4 +228,25 @@ def grab_external_packages_list(x) :
 	list.sort()		
 	return list
 
+def grab_intents_sent(x) :
+	"""
+		@param x : a VMAnalysis instance
+		
+		@rtype : a list of formatted strings
+	"""
+	formatted_str = []
+	
+	structural_analysis_results = x.tainted_packages.search_methods("Landroid/content/Intent","<init>", ".")
+	
+	for result in xrange(len(structural_analysis_results)) :
+		registers = data_flow_analysis(structural_analysis_results, result, x)
+
+		if len(registers) >= 2 :
+			intent_name = get_register_value(1, registers)
+
+			local_formatted_str = "%s" % (intent_name)
+			if not(local_formatted_str in formatted_str) :
+				formatted_str.append(local_formatted_str)
+	
+	return formatted_str
 ##########################################

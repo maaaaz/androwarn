@@ -23,6 +23,9 @@
 from androguard.core.analysis import analysis
 from androguard.core.bytecodes.apk import *
 
+# Androwarn modules import
+from androwarn.constants.api_constants import *
+
 # Global imports
 import re, logging
 from HTMLParser import HTMLParser
@@ -238,3 +241,38 @@ def bulk_structural_analysis(class_name, list, x) :
 			formatted_str.append(description)
 	
 	return formatted_str
+
+# OR Bitwise option recovery
+def recover_bitwise_flag_settings(flag, constants_dict) :
+	"""
+		@param flag : an integer value to be matched with bitwise OR options set
+		@param constants_dict : a dictionary containing each options' integer value
+	
+		@rtype : a string summing up settings
+	"""
+	recover = ''
+	options = []
+	
+	for option_value in constants_dict :
+		if (int(flag) & option_value) == option_value :
+			options.append(constants_dict[option_value])
+			
+	recover = ', '.join(i for i in options)
+	
+	return recover
+
+# Check if extracted values are ALL register numbers, following the pattern 'v[0-9]+', as they obviously are register number and thus useless
+def isnt_all_regs_values(list) :
+	"""
+		@param list : a list of strings, extracted from the data flow analysis
+	
+		@rtype : a boolean, True if there's at least 1 non-register number value, Else False
+	"""
+	result = False
+	p_reg = re.compile ('^v[0-9]+$')
+	
+	for i in list :
+		if not(p_reg.match(i)) :
+			result = True
+	
+	return result
