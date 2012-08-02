@@ -41,6 +41,22 @@ CONNECTION_ENABLED = 1
 
 # Logguer
 log = logging.getLogger('log')
+
+def detect_Connectivity_Manager_leakages(x):
+	"""
+		@param x : a VMAnalysis instance
+	
+		@rtype : a list strings for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
+	"""
+	
+	class_listing = [
+			("getActiveNetworkInfo()",		"This application reads details about the currently active data network"),
+			("isActiveNetworkMetered()", 	"This application tries to find out if the currently active data network is metered")
+	]
+	
+	class_name = 'Landroid/net/ConnectivityManager'
+	
+	return bulk_structural_analysis(class_name, class_listing, x)
  
 def detect_WiFi_Credentials_lookup(x) :
 	"""
@@ -76,5 +92,6 @@ def gather_connection_interfaces_exfiltration(x) :
 	result = []
 	
 	result.extend( detect_WiFi_Credentials_lookup(x) )
+	result.extend( detect_Connectivity_Manager_leakages(x) )
 	
 	return result

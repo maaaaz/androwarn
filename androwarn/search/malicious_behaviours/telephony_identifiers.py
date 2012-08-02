@@ -57,7 +57,7 @@ def detect_Telephony_Manager_Leakages(x) :
 	"""
 	
 	class_listing = [
-			("getCallState()", 				"This application reads the the call state on the device"),
+			("getCallState()", 				"This application reads the phone's current state"),
 			("getCellLocation()", 			"This application reads the current location of the device"),
 			("getDataActivity()", 			"This application reads the type of activity on a data connection"),
 			("getDataState()", 				"This application reads the current data connection state"),

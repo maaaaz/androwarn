@@ -42,7 +42,7 @@ CONNECTION_ENABLED = 1
 # Logguer
 log = logging.getLogger('log')
 
-def detect_Telephony_phone_state_lookup(x) :
+def detect_log(x) :
 	"""
 		@param x : a VMAnalysis instance
 		
@@ -50,41 +50,19 @@ def detect_Telephony_phone_state_lookup(x) :
 	"""
 	formatted_str = []
 	
-	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getCallState", ".")
+	structural_analysis_results = x.tainted_packages.search_methods("Landroid/util/Log","d|e|i|v|w|wtf", ".")
 	
 	for result in xrange(len(structural_analysis_results)) :
-		registers = data_flow_analysis(structural_analysis_results, result, x)
-				
-		local_formatted_str = "This application reads the phone's current state" 
-		
-		# we want only one occurence
-		if not(local_formatted_str in formatted_str) :
-			formatted_str.append(local_formatted_str)
+		registers = data_flow_analysis(structural_analysis_results, result, x)		
 
-		
-	return formatted_str
-
-
-def detect_Telephony_DeviceSoftwareVersion_lookup(x) :
-	"""
-		@param x : a VMAnalysis instance
-		
-		@rtype : a list of formatted strings
-	"""
-	formatted_str = []
+		if len(registers) >= 2 :
+			tag 	= get_register_value(0, registers)
+			message = get_register_value(1, registers)
+			
+			local_formatted_str = "This application logs the message '%s' under the tag '%s'" % (message, tag)
+			if not(local_formatted_str in formatted_str) :
+				formatted_str.append(local_formatted_str)
 	
-	structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/TelephonyManager","getDeviceSoftwareVersion", ".")
-	
-	for result in xrange(len(structural_analysis_results)) :
-		registers = data_flow_analysis(structural_analysis_results, result, x)	
-		
-		local_formatted_str = "This application reads the software version number for the device, for example, the IMEI/SV for GSM phones" 
-		
-		# we want only one occurence
-		if not(local_formatted_str in formatted_str) :
-			formatted_str.append(local_formatted_str)
-
-		
 	return formatted_str
 
 def gather_device_settings_harvesting(x) :
@@ -95,7 +73,6 @@ def gather_device_settings_harvesting(x) :
 	"""
 	result = []
 	
-	result.extend( detect_Telephony_DeviceSoftwareVersion_lookup(x) )
-	result.extend( detect_Telephony_phone_state_lookup(x) )
+	result.extend( detect_log(x) )
 	
 	return result
