@@ -124,7 +124,9 @@ def grab_certificate(apk, filename) :
 		import chilkat
 		cert = chilkat.CkCert()
 		f = apk.get_file( filename )
-		success = cert.LoadFromBinary(f, len(f))
+		bytedata = chilkat.CkByteData()
+		bytedata.append2(f, len(f))
+		success = cert.LoadFromBinary(bytedata)
 		return success, cert
 	except ImportError :
 		log.error("The Chilkat module is not installed, you will not have information about the certificate in the generated report")
