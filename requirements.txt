@@ -1,0 +1,4 @@
+argparse
+jinja2
+asn1crypto
+play_scraper

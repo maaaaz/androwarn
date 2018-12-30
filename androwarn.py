@@ -19,25 +19,21 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
+#from __future__ import absolute_import
 
 # Global imports
-import sys, re, logging
-
-# OptionParser imports
-from optparse import OptionParser
-
-# Androguard imports
-PATH_INSTALL = "./androguard/"
-sys.path.append(PATH_INSTALL)
+import sys
+import os
+import re
+import logging
+import argparse
 
 # Androwarn modules import
-PATH_INSTALL = "./"
-sys.path.append(PATH_INSTALL)
-from androwarn.core.core import *
-from androwarn.search.search import *
-from androwarn.util.util import *
-from androwarn.report.report import *
-from androwarn.analysis.analysis import *
+from warn.core import *
+from warn.search.search import *
+from warn.util.util import *
+from warn.report.report import *
+from warn.analysis.analysis import *
 
 # Logger definition
 log = logging.getLogger('log')
@@ -48,69 +44,42 @@ handler.setFormatter(formatter)
 log.addHandler(handler)
 
 # Options definition
-option_0 = { 'name' : ('-i', '--input'), 'help' : 'APK file to analyze', 'nargs' : 1 }
-option_1 = { 'name' : ('-v', '--verbose'), 'help' : 'Verbosity level { 1-3 } (ESSENTIAL, ADVANCED, EXPERT)', 'nargs' : 1 }
-option_2 = { 'name' : ('-r', '--report'), 'help' : 'Report type { txt, html }', 'nargs' : 1 }
-option_3 = { 'name' : ('-d', '--display-report'), 'help' : 'Display analysis results to stdout', 'action' : 'count' }
-option_4 = { 'name' : ('-L', '--log-level'), 'help' : 'Log level { DEBUG, INFO, WARN, ERROR, CRITICAL }', 'nargs' : 1 }
-option_5 = { 'name' : ('-n', '--no-connection'), 'help' : 'Disable online lookups on Google Play', 'action' : 'count'}
+parser = argparse.ArgumentParser()
 
-options = [option_0, option_1, option_2, option_3, option_4, option_5]
+# Options definition
+parser.add_argument('-i', '--input', help='APK file to analyze', required=True, type=str)
+parser.add_argument('-o', '--output', help='Output report file (default "./<apk_package_name>.<report_type>")', type=str)
+parser.add_argument('-v', '--verbose', help='Verbosity level { 1-3 } (ESSENTIAL, ADVANCED, EXPERT) (default 1)', type=int, choices=[1,2,3], default=1)
+parser.add_argument('-r', '--report', help='Report type { "txt", "html" } (default "html")', choices=['txt', 'html'], type=str, default='html')
+parser.add_argument('-d', '--display-report', help='Display analysis results to stdout', action='store_true', default=False)
+parser.add_argument('-L', '--log-level', help='Log level { DEBUG, INFO, WARN, ERROR, CRITICAL } (default "ERROR")', type=str, choices=['debug','info','warn','error','critical','DEBUG', 'INFO','WARN','ERROR','CRITICAL'], default="ERROR")
+parser.add_argument('-w', '--with-playstore-lookup', help='Enable online lookups on Google Play', action='store_true', default=False)
 
+def main():
+    global parser
+    options = parser.parse_args()
+    log.debug("[+] options: %s'" % options)
+    
+    # Log_Level
+    try :
+        log.setLevel(options.log_level.upper())
+    except :
+        parser.error("Please specify a valid log level")
 
-def main(options, arguments) :
+    # Input 
+    APK_FILE = options.input
+    
+    a, d, x = AnalyzeAPK(APK_FILE)
+    
+    package_name = grab_application_package_name(a)
+    
+    data = perform_analysis(APK_FILE, a, d, x, options.with_playstore_lookup)
+    
+    if options.display_report:
+        # Brace yourself, a massive dump is coming
+        dump_analysis_results(data,sys.stdout) 
+    
+    generate_report(package_name, data, options.verbose, options.report, options.output)
 
-			
-	if (options.input != None) :
-		
-		# Log_Level
-		if options.log_level != None :
-			try :
-				log.setLevel(options.log_level)
-			except :
-				parser.error("Please specify a valid log level")
-		
-		# Verbose
-		if (options.verbose != None) and (options.verbose in VERBOSE_LEVEL) :
-			verbosity = options.verbose
-		else :
-			parser.error("Please specify a valid verbose level")
-		
-		# Report Type	
-		if (options.report != None) and (options.report in REPORT_TYPE) :
-			report_wanted = True
-			report = options.report
-		elif (options.report == None) and (options.display_report != None) :
-			report_wanted = False
-		else :
-			parser.error("Please specify a valid report type")
-
-		# Online Lookups enabled	
-		no_connection = {True : CONNECTION_DISABLED, False : CONNECTION_ENABLED}[options.no_connection != None] 
-
-		# Input	
-		APK_FILE = options.input
-
-
-		a, d, x = AnalyzeAPK(APK_FILE)
-
-		package_name = grab_application_package_name(a)
-		
-		data = perform_analysis(APK_FILE, a, d, x, no_connection)
-		
-		if (options.display_report != None) :
-			# Brace yourself, a massive dump is coming
-			dump_analysis_results(data,sys.stdout) 
-		
-		if report_wanted :
-			generate_report(package_name, data, verbosity, report)
-
-if __name__ == "__main__" :
-	parser = OptionParser()
-	for option in options :
-		param = option['name']
-		del option['name']
-		parser.add_option(*param, **option)
-
-	options, arguments = parser.parse_args()
-	main(options, arguments)
+if __name__ == "__main__":
+    main()
