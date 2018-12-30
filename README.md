@@ -73,7 +73,7 @@ optional arguments:
 $ python androwarn.py -i my_application_to_be_analyzed.apk -r html -v 3
 ```
 
-By default, the report is generated in the current folder.
+By default, the report is generated in the current folder.  
 An HTML report is now contained in a standalone file, CSS/JS resources are inlined.
 
 
@@ -93,6 +93,7 @@ Dependencies and installation
 
 Changelog
 ---------
+* version 1.3 - 2018/12/30: few fixes
 * version 1.2 - 2018/12/30: few fixes
 * version 1.1 - 2018/12/29: fixing few bugs, removing Chilkat dependencies and pip packaging
 * version 1.0 - from 2012 to 2013

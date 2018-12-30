@@ -423,7 +423,7 @@ def get_register_value(index, registers) :
         @rtype : a value casted in string
     """
     # Index - 1, list starts at index 0
-    if index <= len(registers) :
+    if index < len(registers) :
         dict = registers[index]
         return dict.values()[0]
     else :
