@@ -1,0 +1,240 @@
+{%- macro render_string_h_level(string, h_level) -%}
+{%- if string -%}
+    <h{{h_level}}>{{ string|replace("\n","<br/><br/>") }}</h{{h_level}}>
+{%- endif -%}
+{%- endmacro -%} 
+
+{%- macro render_list_h_level(list, h_level) -%}
+{%- if list -%}
+    {%- for item in list -%}
+        <h{{h_level}}>{{ item|replace("\n","<br/>") }}</h{{h_level}}>
+    {%- endfor -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro render_application_name(data) -%}
+{%- if data -%}
+    {%- for key, value in data[0]["application_information"] -%}
+        {%- if key == "package_name" -%}
+            {{ value[0]|striptags }}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro render_menu(data) -%}
+{%- if data -%}
+    {%- for item in data -%}
+        {%- for nav_menu_header, nav_menu_item in item.iteritems() -%}
+            <li class="nav-header">{{ nav_menu_header|replace('_', ' ')|title }}</li>
+            {% for name,content in nav_menu_item -%}
+                {%- if content -%}
+                    {%- if name == "application_name" -%}
+                        <li class="active"><a href="#{{ name|replace('_', '-') }}" data-toggle="tab">{{ name|replace('_', ' ')|title }}</a></li>
+                    {%- else -%}
+                        <li><a href="#{{ name|replace('_', '-') }}" data-toggle="tab">{{ name|replace('_', ' ')|title }}</a></li>
+                    {%- endif -%}
+                {%- endif %}
+            {% endfor %}
+        {%- endfor -%}
+    {%- endfor -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro render_content(data) -%}
+{%- if data -%}
+    {%- for item in data -%}
+        {%- for nav_menu_header, nav_menu_item in item.iteritems() -%}
+                {%- for name,content in nav_menu_item %}
+                    {%- if content -%}
+                        {%- if name == "application_name" %}
+                        <div class="tab-pane active" id="{{ name|replace('_', '-') }}">
+                        {%- else %}
+                        <div class="tab-pane" id="{{ name|replace('_', '-') }}">
+                        {%- endif %}
+                            {{ render_string_h_level(name|replace('_', ' ')|title, 2) }}
+                            {{ render_list_h_level(content, 3) }}
+                        </div>
+                    {% endif -%}
+                {% endfor -%}
+        {%- endfor -%}
+    {%- endfor -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{% macro render_indent_res(res) %}
+{% include res %}
+{% endmacro %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Androwarn report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <style type="text/css">
+    {{ render_indent_res('css/bootstrap.css') | indent(width=8) }}
+    
+    body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+    }
+    .sidebar-nav {
+        padding: 9px 0;
+    }
+    </style>
+    
+    <style type="text/css">
+    {{ render_indent_res('css/bootstrap-responsive.css') | indent(width=8) }}
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link href="data:image/x-icon;base64,AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMMuXKCvKlVgrypVcK8qVXCvKlVwrypVcK8qVXCvK
+lVwrypVcK8qVXCvKlVwrypVcK8qVXCvKlVwrypVcK8qVXCvKlVwrypVcK8qVXCvKlVwrypVcK8qV
+XCvKlVwrypVcK8qVXCvKlVwrypVaL8uXLgAAAAAAAAAAMsyYCmDXsKO77t3/6fn0/+369v/t+vb/
+7fr2/+369v/t+vb/7fr2/+369v/t+vb/7fr2/+369v/t+vb/7fr2/+369v/t+vb/7fr2/+369v/t
++vb/7fr2/+369v/t+vb/7fr2/+369v/t+vb/7fr2/+r59P/A79//Z9mzsTHLmA5J0aR05fjy////
+////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////t+vb/
+U9Sph3/fv7n///////////////////////////////////////////////////////////7//v+n
+5db/edjB//H7+P/3/Pv/gNrE/5vi0f/+/v7/////////////////////////////////////////
+//////////////////+Q48jDeN27s///////////////////////////////////////////////
+/////////////f7+/1LMr/86xaT/xO7k/9bz7P85xaT/SMmq//j9+///////////////////////
+/////////////////////////////////////4jhw8FF0KJu6vn0////////////////////////
+///////////////////////////////9/v7/Usyv/zrFpP/D7eP/1fPr/znFpP9Iyar/+P37////
+///////////////////////////////////////////////////z/Pn/UdOogzDLmBKW5Mrn////
+////////////////////////////////////////////9fz6/8vv5/9My6z/OsWk/5/j0/+t59n/
+OsWk/0TIqf/G7uX/8fv4/////////////////////////////////////////////////6To0fEw
+y5ccAAAAADvOnWbh9/D///////////////////////////////////////7+/v9t1Lz/OsWk/zrG
+pP87xqX/Osak/zrGpP87xqX/Osal/zrGpP9e0LX//f7+////////////////////////////////
+///////r+vX/RNChegAAAAAAAAAAMsuYBoHfwNX+/v7///////////////////////H7+P+c4tH/
+4fbx/1XNsP87xqX/O8al/zvGpf87xqX/O8al/zvGpf87xqX/O8al/0vLrP/k9/L/m+LR/+v59v//
+/////////////////////////47ixuMzzJgKAAAAAAAAAAAAAAAANsyaSszy5f//////////////
+////////oePU/zrFpP962ML/Vs6x/zvGpf87xqX/O8al/zvGpf87xqX/O8al/zvGpf87xqX/S8us
+/4bbx/87xqX/kd7M///////////////////////Y9ev/Ps6eXAAAAAAAAAAAAAAAAAAAAAAzzJkC
+bdq2uf3+/v////////////////+b4tH/O8al/3bXwP9WzrH/O8al/zvGpf87xqX/O8al/zvGpf87
+xqX/O8al/zvGpf9My6z/gNrE/zvGpf+M3cr//////////////////v///3vevckzzJkGAAAAAAAA
+AAAAAAAAAAAAAAAAAAAvy5cutuza+////////////////5vi0f87xqX/dtfA/1bOsf87xqX/O8al
+/zvGpf87xqX/O8al/zvGpf87xqX/O8al/0zLrP+A2sT/O8al/4zdyv/////////////////F8OL/
+L8uXQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABd1q6b9fz6////////////m+LR/zvGpf92
+18D/Vs6x/zvGpf87xqX/O8al/zvGpf87xqX/O8al/zvGpf87xqX/TMus/4DaxP87xqX/jN3K////
+////////+v38/2jZs68zzJkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/Llxyi59Dv////
+//////+b4tH/O8al/3bXwP9WzrH/O8al/zvGpf87xqX/O8al/zvGpf87xqX/O8al/zvGpf9My6z/
+gNrE/zvGpf+M3cr///////////+x69j3MMuXKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAEfRo3zs+vX//////7Ho2/85xaT/h9zI/1TNsP85xaT/OcWk/znFpP85xaT/OcWk/znF
+pP85xaT/OcWk/0rKrP+V4M7/OcWk/6Dj0///////9Pz5/1LUqJMzzJkCAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAM8yZCo3ixuP+/v7//f7+/9jz7f/3/Pv/m+LR/43ey/+N3sv/
+jd7L/43ey/+N3sv/jd7L/43ey/+N3sv/lN/O//f8+//X8+z/+/79//////+a5s3tM8yZFAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPs+fXtr17P////////////7+
+/v9p07r/O8al/zrFpP87xqX/O8al/zvGpf87xqX/OsWk/zvGpf9bz7P//f7+////////////5fjy
+/0fRo3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzzJkG
+e969yf7+/v///////////7rr3/86xaT/idzI/0/Lrv87xqX/O8al/0PIqf+V4M7/OsWk/6rm2P//
+//////////////+I4cPZM8yZCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAxy5hCxvDi/////////////f7+/47ey/9Ax6f/O8al/zvGpf87xqX/O8al
+/0HHp/9+2cT//P79////////////1fTq/zXMmlYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABp2bSv+v38/////////////v7+/53i0v9r
+1Lv/Scqr/0jJq/9n07n/kt/N//3+/v////////////z+/f903LnDM8yZAgAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADHLmCqx69j3////
+///////z+/n/yu/m//7+/v/4/fz/+Pz7//7+/v/S8ur/6vn1////////////wO/f+zTMmToAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAFPUqZH0/Pn///////7+/v/+/v7///////////////////////7+/v/+/v7///////n9
+/P9f16+lM8yZAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAMcuYFJzmze//////////////////////////////////////
+////////////////qunU9zDLlyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARtCicuX48v//////////////
+/////////////////////////////+769v9R06iHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAxy5gM
+iuHF2///////////////////////////////////////////l+XL5zDLmBQAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAA0zJlU1fTq/////////////////////////////////+H38P88zp1oAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADPMmQJv27e/+f38///////////////////////8
+/v3/et69zzPMmQYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDLlx6G4MLd+f38
+////////////+/79/5HjyOcwy5coAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAADDLlxxp2bSvpejS+6fp0/1w27e3MMuXJgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////
+//////+AAAABgAAAAAAAAAAAAAAAgAAAAIAAAAHAAAADwAAAA+AAAAfgAAAH8AAAD/AAAA/4AAAf
+/AAAH/wAAD/+AAB//gAAf/8AAP//AAD//4AB//+AAf//wAP//+AD///gB///8A////AP///4H///
+/D////////////8=" rel="shortcut icon" type="image/x-icon">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand">Androwarn Report</a>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li><a>{{ render_application_name(data) }}</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+
+            <div class="span3">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                    {{ render_menu(data) }}         
+                    </ul>
+                </div><!--/.well -->
+            </div><!--/span-->
+
+            <div class="span9">
+                <div class="hero-unit" id="Package_name">
+                    <div class="tab-content">
+                    {{ render_content(data) }}
+                    </div>
+                </div>
+            </div><!--/span-->
+
+        </div><!--/row-->
+    <hr>
+
+    <footer>
+        <p>&copy; Androwarn</p>
+    </footer>
+
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <script>
+        {{ render_indent_res('js/jquery.js') | indent(width=8) }}
+    </script>
+    
+    <script>
+        {{ render_indent_res('js/bootstrap-tab.js') | indent(width=8) }}
+    </script>
+    
+    <script>
+        $(function () {
+            $('#myTab a:last').tab('show');
+            $('.sidebar-nav a[href*=#]').click(function(){$('body').animate({ scrollTop: 0}, 200); });
+        })
+    </script>
+
+  </body>
+</html>

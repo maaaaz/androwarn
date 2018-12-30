@@ -74,6 +74,8 @@ $ python androwarn.py -i my_application_to_be_analyzed.apk -r html -v 3
 ```
 
 By default, the report is generated in the current folder.
+An HTML report is now contained in a standalone file, CSS/JS resources are inlined.
+
 
 Sample application
 ------------------
