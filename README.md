@@ -37,16 +37,19 @@ Features
 * Report generation according to several formats
     - Plaintext `txt`
     - Formatted `html` from a Bootstrap template
+    - JSON
 
 
 Usage
 -----
 ### Options
 ```
-usage: androwarn.py [-h] -i INPUT [-o OUTPUT] [-v {1,2,3}] [-r {txt,html}]
-                    [-d]
-                    [-L {debug,info,warn,error,critical,DEBUG,INFO,WARN,ERROR,CRITICAL}]
-                    [-w]
+usage: androwarn [-h] -i INPUT [-o OUTPUT] [-v {1,2,3}] [-r {txt,html,json}]
+                 [-d]
+                 [-L {debug,info,warn,error,critical,DEBUG,INFO,WARN,ERROR,CRITICAL}]
+                 [-w]
+
+version: 1.4
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -54,16 +57,15 @@ optional arguments:
                         APK file to analyze
   -o OUTPUT, --output OUTPUT
                         Output report file (default
-                        "./<apk_package_name>.<report_type>")
+                        "./<apk_package_name>_<timestamp>.<report_type>")
   -v {1,2,3}, --verbose {1,2,3}
-                        Verbosity level { 1-3 } (ESSENTIAL, ADVANCED, EXPERT)
+                        Verbosity level (ESSENTIAL 1, ADVANCED 2, EXPERT 3)
                         (default 1)
-  -r {txt,html}, --report {txt,html}
-                        Report type { "txt", "html" } (default "html")
+  -r {txt,html,json}, --report {txt,html,json}
+                        Report type (default "html")
   -d, --display-report  Display analysis results to stdout
   -L {debug,info,warn,error,critical,DEBUG,INFO,WARN,ERROR,CRITICAL}, --log-level {debug,info,warn,error,critical,DEBUG,INFO,WARN,ERROR,CRITICAL}
-                        Log level { DEBUG, INFO, WARN, ERROR, CRITICAL }
-                        (default "ERROR")
+                        Log level (default "ERROR")
   -w, --with-playstore-lookup
                         Enable online lookups on Google Play
 ```
@@ -86,13 +88,14 @@ The APK is available in the `_SampleApplication/bin/` folder and the HTML report
 
 Dependencies and installation
 -----------------------------
-* Python 2.7 + jinja2 + asn1crypto + play-scraper
+* Python 2.7 + androguard + jinja2 + play_scraper + argparse
 * The **easiest way** to setup everything: `pip install androwarn` and then directly use `$ androwarn`
 * Or git clone that repository and `pip install -r requirements.txt`
 
 
 Changelog
 ---------
+* version 1.4 - 2019/04/01: code cleanup and use of the latest androguard version
 * version 1.3 - 2018/12/30: few fixes
 * version 1.2 - 2018/12/30: few fixes
 * version 1.1 - 2018/12/29: fixing few bugs, removing Chilkat dependencies and pip packaging
@@ -123,5 +126,5 @@ If not, see http://www.gnu.org/licenses/.
 
 Greetings
 -------------
-* [StÃ©phane Coulondre](http://stephane.coulondre.info), for supervising my Final Year project
+* [Stéphane Coulondre](http://stephane.coulondre.info), for supervising my Final Year project
 * [Anthony Desnos](https://sites.google.com/site/anthonydesnos/home), for his amazing [Androguard](https://code.google.com/p/androguard) project and his help through my Final Year project

@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -23,16 +23,15 @@
 import sys
 import logging
 import os
+import time
+import textwrap
+import json
 
 # Jinja2 module import
 try :
     from jinja2 import Environment, PackageLoader, FileSystemLoader, Template
 except ImportError :
     sys.exit("[!] The Jinja2 module is not installed, please install it and try again")
-
-# Androwarn modules import
-from warn.search.search import *
-from warn.util.util import *
 
 # Logguer
 log = logging.getLogger('log')
@@ -44,12 +43,57 @@ TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'report
 # Constants
 REPORT_TXT = 'txt'
 REPORT_HTML = 'html'
-REPORT_TYPE = [REPORT_TXT, REPORT_HTML]
+REPORT_JSON = 'json'
 
-VERBOSE_ESSENTIAL = '1'
-VERBOSE_ADVANCED = '2'
-VERBOSE_EXPERT = '3'
-VERBOSE_LEVEL = [VERBOSE_ESSENTIAL, VERBOSE_ADVANCED, VERBOSE_EXPERT]
+# Data tab cleaner
+def clean_list(list_to_clean,purge_list) :
+    """
+        @param list_to_clean : a list to be cleaned up
+        @param purge_list : the list of elements to remove in the list
+    
+        @rtype : a cleaned list
+    """
+    if list_to_clean and purge_list :
+        for i in reversed(purge_list) :
+            del list_to_clean[i]
+
+# Dump
+def flush_simple_string(string, file) :
+    """
+        @param string : a unique string
+        @param file : output file descriptor
+    """
+    file.write("%s\n" % string)
+
+def dump_analysis_results(data, file_descriptor) :
+    """
+        @param data : analysis results list
+        @param file_descriptor : dump output, file or sys.stdout
+    
+        @rtype : void - it only prints out the list
+    """
+    # Watch out for encoding error while priting
+    flush_simple_string("===== Androwarn Report =====", file_descriptor)
+    if data:
+        for item in data:
+            for category, element_tuple in item.iteritems():
+                
+                if isinstance(category,str):
+                    flush_simple_string("[+] %s" % category.encode('ascii','ignore').replace('_',' ').title(), file_descriptor)
+                
+                for name,content in element_tuple :
+                    if content and isinstance(name,str):
+                        flush_simple_string("\t[.] %s" % (name.encode('ascii','ignore').replace('_',' ').title().ljust(40)), file_descriptor)
+                        
+                        for element in content:
+                            if isinstance(element,str) or isinstance(element,unicode):
+                                prefix = "\t\t - "
+                                wrapper = textwrap.TextWrapper(initial_indent=prefix, width=200, subsequent_indent="\t\t   ")
+                                flush_simple_string(wrapper.fill(element.encode('ascii','ignore')), file_descriptor)
+                        
+                        flush_simple_string("", file_descriptor)
+                flush_simple_string("", file_descriptor)
+
 
 def filter_analysis_results(data, verbosity) :
     
@@ -99,6 +143,7 @@ def filter_analysis_results(data, verbosity) :
                     
                     # Manifest
                      'main_activity'                        : 3 ,
+                     'sdk_versions'                         : 3 ,
                      'activities'                           : 3 ,
                      'services'                             : 3 ,
                      'receivers'                            : 3 ,
@@ -112,8 +157,7 @@ def filter_analysis_results(data, verbosity) :
                      'classes_list'                         : 3 ,
                      'internal_classes_list'                : 3 ,
                      'external_classes_list'                : 3 ,
-                     'internal_packages_list'               : 3 ,
-                     'external_packages_list'               : 3 ,
+                     'classes_hierarchy'                    : 3 ,
                      'intents_sent'                         : 3 
     }
 
@@ -130,6 +174,7 @@ def filter_analysis_results(data, verbosity) :
                     # if the defined level for an item is above the user's chosen verbosity, remove it
                     if (name in data_level) and (int(data_level[name]) > int(verbosity)) :
                         purge_tuple.append(tuple_index)
+                    
                     elif not(name in data_level) :
                         log.error("'%s' item has no defined level of verbosity", name)
                 
@@ -140,11 +185,9 @@ def filter_analysis_results(data, verbosity) :
                 purge_category.append(category_index)
         
         clean_list(data,purge_category)
-                    
-                
+        
     return data
 
-    
 def generate_report_txt(data,verbosity, report, output_file) :
     """
         @param data : analysis result list
@@ -161,6 +204,22 @@ def generate_report_txt(data,verbosity, report, output_file) :
     
     print("[+] Analysis successfully completed and TXT file report available '%s'" % output_file)
 
+def generate_report_json(data,verbosity, report, output_file) :
+    """
+        @param data : analysis result list
+        @param verbosity : desired verbosity
+        @param report : report type
+        @param output_file : output file name
+    """
+    output, extension = os.path.splitext(output_file)
+    output_file = output_file + ".json" if ".json" not in extension.lower() else output_file
+    
+    with open(output_file, 'w') as f_out:
+        json.dump(data, f_out)
+    f_out.close()
+    
+    print("[+] Analysis successfully completed and JSON file report available '%s'" % output_file)
+
 def generate_report_html(data, verbosity, report, output_file) :
     """
         @param data : analysis result list
@@ -168,7 +227,7 @@ def generate_report_html(data, verbosity, report, output_file) :
         @param report : report type
         @param output_file : output file name
     """
-    env = Environment( loader = FileSystemLoader(TEMPLATE_DIR), trim_blocks=False, newline_sequence='\n')
+    env = Environment(loader = FileSystemLoader(TEMPLATE_DIR), trim_blocks=False, newline_sequence='\n')
     template = env.get_template(HTML_TEMPLATE_FILE)
     
     output, extension = os.path.splitext(output_file)
@@ -184,7 +243,7 @@ def generate_report(package_name, data, verbosity, report, output) :
         @param verbosity : desired verbosity
         @param report : report type
     """
-    output_file = os.path.join(os.getcwdu(), package_name) if not(output) else output
+    output_file = os.path.join(os.getcwdu(), package_name + "_%s" % str(int(time.time()))) if not(output) else output
     
     filter_analysis_results(data,verbosity)
     
@@ -193,3 +252,6 @@ def generate_report(package_name, data, verbosity, report, output) :
     
     if cmp(report, REPORT_HTML) == 0:
         generate_report_html(data,verbosity, report, output_file)
+    
+    if cmp(report, REPORT_JSON) == 0:
+        generate_report_json(data,verbosity, report, output_file)

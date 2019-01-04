@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -22,10 +22,6 @@
 # Global imports
 import logging
 
-# Androguard imports
-from guard.core.analysis import analysis
-from guard.core.bytecodes.apk import *
-
 # Androwarn modules import
 from warn.core.core import *
 from warn.util.util import *
@@ -35,7 +31,7 @@ log = logging.getLogger('log')
 
 def detect_Connectivity_Manager_leakages(x):
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
     
         @rtype : a list strings for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """
@@ -47,11 +43,11 @@ def detect_Connectivity_Manager_leakages(x):
     
     class_name = 'Landroid/net/ConnectivityManager'
     
-    return bulk_structural_analysis(class_name, class_listing, x)
+    return structural_analysis_search_method_bulk(class_name, class_listing, x)
  
 def detect_WiFi_Credentials_lookup(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of formatted strings
     """
@@ -61,10 +57,8 @@ def detect_WiFi_Credentials_lookup(x) :
     
     formatted_str = []
     
-    structural_analysis_results = x.tainted_packages.search_methods("Landroid/net/wifi/WifiConfiguration","toString", ".")
-    for result in xrange(len(structural_analysis_results)) :
-        registers = data_flow_analysis(structural_analysis_results, result, x)  
-        
+    structural_analysis_results = structural_analysis_search_method("Landroid/net/wifi/WifiConfiguration", "toString", x)
+    for registers in data_flow_analysis(structural_analysis_results, x):
         local_formatted_str = "This application reads the WiFi credentials" 
         
         # we want only one occurence
@@ -76,7 +70,7 @@ def detect_WiFi_Credentials_lookup(x) :
 
 def gather_connection_interfaces_exfiltration(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
     
         @rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """

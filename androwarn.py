@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2018 Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -19,8 +19,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
-#from __future__ import absolute_import
-
 # Global imports
 import sys
 import os
@@ -29,11 +27,10 @@ import logging
 import argparse
 
 # Androwarn modules import
-from warn.core import *
-from warn.search.search import *
-from warn.util.util import *
-from warn.report.report import *
-from warn.analysis.analysis import *
+from androguard.misc import AnalyzeAPK
+from warn.search.search import grab_application_package_name
+from warn.analysis.analysis import perform_analysis
+from warn.report.report import generate_report
 
 # Logger definition
 log = logging.getLogger('log')
@@ -43,16 +40,20 @@ handler = logging.StreamHandler()
 handler.setFormatter(formatter)
 log.addHandler(handler)
 
+# Script version
+VERSION = '1.4'
+print '[+] Androwarn version %s\n' % VERSION
+
 # Options definition
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="version: " + VERSION)
 
 # Options definition
 parser.add_argument('-i', '--input', help='APK file to analyze', required=True, type=str)
-parser.add_argument('-o', '--output', help='Output report file (default "./<apk_package_name>.<report_type>")', type=str)
-parser.add_argument('-v', '--verbose', help='Verbosity level { 1-3 } (ESSENTIAL, ADVANCED, EXPERT) (default 1)', type=int, choices=[1,2,3], default=1)
-parser.add_argument('-r', '--report', help='Report type { "txt", "html" } (default "html")', choices=['txt', 'html'], type=str, default='html')
+parser.add_argument('-o', '--output', help='Output report file (default "./<apk_package_name>_<timestamp>.<report_type>")', type=str)
+parser.add_argument('-v', '--verbose', help='Verbosity level (ESSENTIAL 1, ADVANCED 2, EXPERT 3) (default 1)', type=int, choices=[1,2,3], default=1)
+parser.add_argument('-r', '--report', help='Report type (default "html")', choices=['txt', 'html', 'json'], type=str, default='html')
 parser.add_argument('-d', '--display-report', help='Display analysis results to stdout', action='store_true', default=False)
-parser.add_argument('-L', '--log-level', help='Log level { DEBUG, INFO, WARN, ERROR, CRITICAL } (default "ERROR")', type=str, choices=['debug','info','warn','error','critical','DEBUG', 'INFO','WARN','ERROR','CRITICAL'], default="ERROR")
+parser.add_argument('-L', '--log-level', help='Log level (default "ERROR")', type=str, choices=['debug','info','warn','error','critical','DEBUG', 'INFO','WARN','ERROR','CRITICAL'], default="ERROR")
 parser.add_argument('-w', '--with-playstore-lookup', help='Enable online lookups on Google Play', action='store_true', default=False)
 
 def main():
@@ -66,15 +67,15 @@ def main():
     except :
         parser.error("Please specify a valid log level")
 
-    # Input 
-    APK_FILE = options.input
-    
-    a, d, x = AnalyzeAPK(APK_FILE)
-    
+    # Input
+    print "[+] Loading the APK file..."
+    a, d, x = AnalyzeAPK(options.input)
     package_name = grab_application_package_name(a)
     
-    data = perform_analysis(APK_FILE, a, d, x, options.with_playstore_lookup)
+    # Analysis
+    data = perform_analysis(options.input, a, d, x, options.with_playstore_lookup)
     
+    # Synthesis
     if options.display_report:
         # Brace yourself, a massive dump is coming
         dump_analysis_results(data,sys.stdout) 

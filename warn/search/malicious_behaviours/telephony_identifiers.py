@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -22,12 +22,7 @@
 # Global imports
 import logging
 
-# Androguard imports
-from guard.core.analysis import analysis
-from guard.core.bytecodes.apk import *
-
 # Androwarn modules import
-from warn.core.core import *
 from warn.util.util import *
 
 # Logguer
@@ -35,7 +30,7 @@ log = logging.getLogger('log')
 
 def detect_telephony_gsm_GsmCellLocation(x):
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
     
         @rtype : a list strings for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """
@@ -47,11 +42,11 @@ def detect_telephony_gsm_GsmCellLocation(x):
     
     class_name = 'Landroid/telephony/gsm/GsmCellLocation'
     
-    return bulk_structural_analysis(class_name, class_listing, x)
+    return structural_analysis_search_method_bulk(class_name, class_listing, x)
 
 def detect_Telephony_Manager_Leakages(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
     
         @rtype : a list strings for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """
@@ -82,11 +77,11 @@ def detect_Telephony_Manager_Leakages(x) :
     
     class_name = 'Landroid/telephony/TelephonyManager'
     
-    return bulk_structural_analysis(class_name, class_listing, x)
+    return structural_analysis_search_method_bulk(class_name, class_listing, x)
 
 def gather_telephony_identifiers_leakage(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
     
         @rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """

@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -20,227 +20,66 @@
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global imports
-import re, logging
-
-# Androguard imports
-from guard.core.analysis import analysis
-from guard.core.bytecodes.apk import *
+import re
+import logging
 
 # Androwarn modules import
 from warn.core.core import *
 from warn.util.util import *
 
-
 # Logguer
 log = logging.getLogger('log')
 
-
-# Some aliases to the original functions
-
-# Classes and Packages related functions #
-# -- Classes -- #
-def grab_classes_list(x) :
+# Classes related functions #
+def grab_classes_list(d, x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of the canonical name (ex "android.widget.GridView") of all the classes used
     """
-    tainted_list = x.get_tainted_packages().get_packages()
-    list = []
-    for item in tainted_list:
-        instance, name = item
-        if re.match( '^L[a-zA-Z]+(?:\/[a-zA-Z]+)*(.)*;$', name) :
-            global_part = name[1:-1].split('/')
-            
-            final_part = global_part[:-1]
-            last_part = global_part[-1].split('$')[0]
-            final_part.append(str(last_part))
-            
-            final_name = '.'.join(str(i) for i in final_part)
-            
-            # Do not include one-char classes name and check if the name is already in the list
-            if(len(final_name) > 1 and not(final_name in list)) : 
-                list.append(final_name)
-    list.sort()     
-    return list
+    result = map(lambda i: convert_dex_to_canonical(i.get_vm_class().get_name()), x.get_classes())
+    result.sort()     
+    return result
 
-def grab_internal_classes_list(x) :
+def grab_internal_classes_list(d, x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of the canonical name (ex "android.widget.GridView") of the internal classes used
     """
-    tainted_list = x.get_tainted_packages().get_internal_packages()
-    list = []
-    for item in tainted_list:
-        name = item.get_method().get_class_name()
-        if re.match( '^L[a-zA-Z]+(?:\/[a-zA-Z]+)*(.)*;$', name) :
-            global_part = name[1:-1].split('/')
-            final_part = global_part[:-1]
-            last_part = global_part[-1].split('$')[0]
-            final_part.append(str(last_part))
-            final_name = '.'.join(str(i) for i in final_part)
-            
-            # Do not include one-char classes name and check if the name is already in the list
-            if(len(final_name) > 1 and not(final_name in list)) : 
-                list.append(final_name)
-            
-    list.sort()     
-    return list
-
-def grab_internal_new_classes_list(x) :
-    """
-        @param x : a VMAnalysis instance
-        
-        @rtype : a list of the canonical name (ex "android.widget.GridView") of the internal new classes used
-    """
-    tainted_list = x.get_tainted_packages().get_internal_new_packages()
-    list = []
-    for item in tainted_list:
-        name = item.get_method().get_class_name()
-        if re.match( '^L[a-zA-Z]+(?:\/[a-zA-Z]+)*(.)*;$', name) :
-            global_part = name[1:-1].split('/')
-            final_part = global_part[:-1]
-            last_part = global_part[-1].split('$')[0]
-            final_part.append(str(last_part))
-            final_name = '.'.join(str(i) for i in final_part)
-            
-            # Do not include one-char classes name and check if the name is already in the list
-            if(len(final_name) > 1 and not(final_name in list)) : 
-                list.append(final_name)
-            
-    list.sort()     
-    return list
-
-def grab_external_classes_list(x) :
-    """
-        @param x : a VMAnalysis instance
-        
-        @rtype : a list of the canonical name (ex "android.widget.GridView") of the external packages used
-    """
-    tainted_list = x.get_tainted_packages().get_external_packages()
-    list = []
-    for item in tainted_list:
-        name = item.get_method().get_class_name()
-        if re.match( '^L[a-zA-Z]+(?:\/[a-zA-Z]+)*(.)*;$', name) :
-            global_part = name[1:-1].split('/')
-            final_part = global_part[:-1]
-            last_part = global_part[-1].split('$')[0]
-            final_part.append(str(last_part))
-            final_name = '.'.join(str(i) for i in final_part)
-            
-            # Do not include one-char classes name and check if the name is already in the list
-            if(len(final_name) > 1 and not(final_name in list)) : 
-                list.append(final_name)
-            
-    list.sort()     
-    return list
-
-# -- Packages -- #
-def grab_packages_list(x) :
-    """
-        @param x : a VMAnalysis instance
-        
-        @rtype : a list of the canonical name (ex "android.widget.GridView") of all the packages used
-    """
-    tainted_list = x.get_tainted_packages().get_packages()
-    list = []
-    for item in tainted_list:
-        instance, name = item
-        if re.match( '^L[a-zA-Z]+(?:\/[a-zA-Z]+)*(.)*;$', name) :
-            global_part = name[1:-1].split('/')
-            final_part = global_part[:-1]
-            final_name = '.'.join(str(i) for i in final_part)
-
-            # Do not include one-char classes name and check if the name is already in the list
-            if(len(final_name) > 1 and not(final_name in list)) : 
-                list.append(final_name)
-            
-    list.sort()     
-    return list
-
-
-def grab_internal_packages_list(x) :
-    """
-        @param x : a VMAnalysis instance
-        
-        @rtype : a list of the canonical name (ex "android.widget.GridView") of the internal classes used
-    """
-    tainted_list = x.get_tainted_packages().get_internal_packages()
-    list = []
-    for item in tainted_list:
-        name = item.get_method().get_class_name()
-        if re.match( '^L[a-zA-Z]+(?:\/[a-zA-Z]+)*(.)*;$', name) :
-            global_part = name[1:-1].split('/')
-            final_part = global_part[:-1]
-            final_name = '.'.join(str(i) for i in final_part)
-            
-            # Do not include one-char classes name and check if the name is already in the list
-            if(len(final_name) > 1 and not(final_name in list)) : 
-                list.append(final_name)
-            
-    list.sort()     
-    return list
-
-
-def grab_internal_new_packages_list(x) :
-    """
-        @param x : a VMAnalysis instance
-        
-        @rtype : a list of the canonical name (ex "android.widget.GridView") of the internal new classes used
-    """
-    tainted_list = x.get_tainted_packages().get_internal_new_packages()
-    list = []
-    for item in tainted_list:
-        name = item.get_method().get_class_name()
-        if re.match( '^L[a-zA-Z]+(?:\/[a-zA-Z]+)*(.)*;$', name) :
-            global_part = name[1:-1].split('/')
-            final_part = global_part[:-1]
-            final_name = '.'.join(str(i) for i in final_part)
-            
-            # Do not include one-char classes name and check if the name is already in the list
-            if(len(final_name) > 1 and not(final_name in list)) : 
-                list.append(final_name)
-            
-    list.sort()     
-    return list
-
-
-def grab_external_packages_list(x) :
-    """
-        @param x : a VMAnalysis instance
     
+    result = map(lambda i: convert_dex_to_canonical(i.get_vm_class().get_name()), x.get_internal_classes())
+    result.sort()     
+    return result
+
+def grab_external_classes_list(d, x) :
+    """
+        @param x : a Analysis instance
+        
         @rtype : a list of the canonical name (ex "android.widget.GridView") of the external packages used
     """
-    tainted_list = x.get_tainted_packages().get_external_packages()
-    list = []
-    for item in tainted_list:
-        name = item.get_method().get_class_name()
-        if re.match( '^L[a-zA-Z]+(?:\/[a-zA-Z]+)*(.)*;$', name) :
-            global_part = name[1:-1].split('/')
-            final_part = global_part[:-1]
-            final_name = '.'.join(str(i) for i in final_part)
-            
-            # Do not include one-char classes name and check if the name is already in the list
-            if(len(final_name) > 1 and not(final_name in list)) : 
-                list.append(final_name)
-            
-    list.sort()     
-    return list
+    result = map(lambda i: convert_dex_to_canonical(i.get_vm_class().get_name()), x.get_external_classes())
+    result.sort()     
+    return result
+
+def grab_classes_hierarchy(d, x):
+    result = []
+    for i in d:
+        result = result + i.print_classes_hierarchy()
+    
+    return result
 
 def grab_intents_sent(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of formatted strings
     """
     formatted_str = []
     
-    structural_analysis_results = x.tainted_packages.search_methods("Landroid/content/Intent","<init>", ".")
+    structural_analysis_results = structural_analysis_search_method("Landroid/content/Intent","<init>", x)
     
-    for result in xrange(len(structural_analysis_results)) :
-        registers = data_flow_analysis(structural_analysis_results, result, x)
-
+    for registers in data_flow_analysis(structural_analysis_results, x):
         if len(registers) >= 2 :
             intent_name = get_register_value(1, registers)
 
@@ -249,4 +88,3 @@ def grab_intents_sent(x) :
                 formatted_str.append(local_formatted_str)
     
     return formatted_str
-##########################################

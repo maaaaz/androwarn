@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 
 # This file maps the integer values with the constant names for several android classes
 
-MediaRecorder_AudioSource = {
+MediaRecorder_AudioSource =  {
                                 0x0: 'DEFAULT',
                                 0x1: 'MIC',
                                 0x2: 'VOICE_UPLINK',
@@ -30,12 +30,12 @@ MediaRecorder_AudioSource = {
                                 0x5: 'CAMCORDER',
                                 0x6: 'VOICE_RECOGNITION',
                                 0x7: 'VOICE_COMMUNICATION'
-                            }
+                             }
 
-MediaRecorder_VideoSource = {
+MediaRecorder_VideoSource =  {
                                 0x0: 'DEFAULT',
                                 0x1: 'CAMERA'
-                            }
+                             }
 
 PackageManager_PackageInfo = {
                                 0x1:    'GET_ACTIVITIES',

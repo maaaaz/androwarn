@@ -1,4 +1,4 @@
+androguard >= 3.2.1
 argparse
 jinja2
-asn1crypto
 play_scraper

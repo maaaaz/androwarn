@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -23,14 +23,6 @@
 import os
 import hashlib
 import logging
-
-# Androguard imports
-from guard.core.analysis import analysis
-from guard.core.bytecodes.apk import *
-
-# Androwarn modules import
-from warn.core.core import *
-from warn.util.util import *
 
 # Logguer
 log = logging.getLogger('log')
@@ -66,7 +58,6 @@ def grab_apk_file_hashes(apk_file) :
     results.append("SHA-256: %s" % sha256.hexdigest())
     
     return results
-    
 
 def grab_filename(apk) :
     """
@@ -75,4 +66,4 @@ def grab_filename(apk) :
         @rtype : the APK's filename
     """
     # Grab only the name.apk, not the full path provided
-    return os.path.basename(apk.filename)
+    return os.path.basename(apk.get_filename())

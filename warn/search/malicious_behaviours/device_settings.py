@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -22,10 +22,6 @@
 # Global imports
 import logging
 
-# Androguard imports
-from guard.core.analysis import analysis
-from guard.core.bytecodes.apk import *
-
 # Androwarn modules import
 from warn.core.core import *
 from warn.util.util import *
@@ -36,17 +32,16 @@ log = logging.getLogger('log')
 
 def detect_log(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of formatted strings
     """
     formatted_str = []
     
-    structural_analysis_results = x.tainted_packages.search_methods("Landroid/util/Log","d|e|i|v|w|wtf", ".")
-    
-    for result in xrange(len(structural_analysis_results)) :
-        registers = data_flow_analysis(structural_analysis_results, result, x)      
+    structural_analysis_results = structural_analysis_search_method("Landroid/util/Log", "d|e|i|v|w|wtf", x)
+    registers = data_flow_analysis(structural_analysis_results, x)
 
+    for registers in data_flow_analysis(structural_analysis_results, x):
         if len(registers) >= 2 :
             tag     = get_register_value(0, registers)
             message = get_register_value(1, registers)
@@ -60,17 +55,14 @@ def detect_log(x) :
 
 def detect_get_package_info(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of formatted strings
     """
     formatted_str = []
     
-    structural_analysis_results = x.tainted_packages.search_methods("Landroid/content/pm/PackageManager","getPackageInfo", ".")
-    
-    for result in xrange(len(structural_analysis_results)) :
-        registers = data_flow_analysis(structural_analysis_results, result, x)      
-
+    structural_analysis_results = structural_analysis_search_method("Landroid/content/pm/PackageManager","getPackageInfo", x)
+    for registers in data_flow_analysis(structural_analysis_results, x):
         if len(registers) >= 2 :
             package_name = get_register_value(1, registers)
             flag = get_register_value(2, registers)
@@ -86,7 +78,7 @@ def detect_get_package_info(x) :
 
 def gather_device_settings_harvesting(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
     
         @rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """

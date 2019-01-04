@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -35,11 +35,11 @@ from warn.search.application.application import *
 from warn.search.manifest.manifest import *
 
 from warn.search.malicious_behaviours.Audio_video_interception import *
+from warn.search.malicious_behaviours.telephony_identifiers import *
+from warn.search.malicious_behaviours.device_settings import *
 from warn.search.malicious_behaviours.code_execution import *
 from warn.search.malicious_behaviours.connection_interfaces import *
-from warn.search.malicious_behaviours.device_settings import *
+from warn.search.malicious_behaviours.telephony_services import *
 from warn.search.malicious_behaviours.Geolocation_information import *
 from warn.search.malicious_behaviours.PIM_leakage import *
 from warn.search.malicious_behaviours.remote_connection import *
-from warn.search.malicious_behaviours.telephony_identifiers import *
-from warn.search.malicious_behaviours.telephony_services import *

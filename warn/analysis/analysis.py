@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -20,87 +20,37 @@
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global imports
-import sys, logging
-
-# Androguard import
-from guard.core.bytecode import *
-from guard.core.bytecodes.dvm import *
-from guard.core.bytecodes.apk import *
+import sys
+import logging
 
 # Androwarn modules import
-from warn.core.core import *
 from warn.search.search import *
-from warn.util.util import *
 
 # Logguer
 log = logging.getLogger('log')
-
-def AnalyzeAPK(filename, raw=False, decompiler=None) :
-    """
-        Analyze an android application and setup all stuff for a more quickly analysis !
-
-        @param filename : the filename of the android application or a buffer which represents the application
-        @param raw : True is you would like to use a buffer
-        @param decompiler : ded, dex2jad, dad or None for smali dump only
-        
-        @rtype : return the APK, DalvikVMFormat, and VMAnalysis objects
-    """
-    a = APK(filename, raw)
-
-    d, dx = AnalyzeDex( a.get_dex(), raw=True )
-    
-    return a, d, dx
-
-def AnalyzeDex(filename, raw=False) :
-    """
-        Analyze an android dex file and setup all stuff for a more quickly analysis !
-
-        @param filename : the filename of the android dex file or a buffer which represents the dex file
-        @param raw : True is you would like to use a buffer
-
-        @rtype : return the DalvikVMFormat, and VMAnalysis objects
-    """
-    # DalvikVMFormat
-    d = None
-    if raw == False :
-        d = DalvikVMFormat( open(filename, "rb").read() )
-    else :
-        d = DalvikVMFormat( filename )
-
-    # EXPORT VM to python namespace
-    #ExportVMToPython( d )
-
-    # VMAnalysis
-    dx = VMAnalysis( d )
-    #dx = uVMAnalysis( d )
-
-    d.set_vmanalysis( dx )
-    
-    return d, dx
 
 # Consolidate all data
 def perform_analysis(apk_file, a, d, x, online_lookup) :
     """
         @param apk_file         : apk file path
-        @param a                : an APK instance, DalvikVMFormat, and VMAnalysis objects
+        @param a                : a APK instance
         @param d                : a DalvikVMFormat instance
-        @param x                : a VMAnalysis instance
-        @param online_lookup    : boolean value, enable/disable online lookups
+        @param x                : a Analysis instance
+        @param online_lookup    : boolean value, enable/disable online lookup
     
         @rtype : a list of dictionaries of strings lists [ { "application_information": [ ("application_name", ["com.test"]), ("application_version", ["1.0"]) ] }, { ... }]
     """
     # application general information 
     app_package_name = grab_application_package_name(a)
-    app_name, app_desc, app_icon = grab_application_name_description_icon(app_package_name, online_lookup)
+    app_desc, app_icon = grab_application_name_description_icon(app_package_name, online_lookup)
     app_description = [app_icon, app_desc]
     
     # data gathering
     data = []
-    
     data.append(
                 { 'application_information' :
                     [
-                        ( 'application_name',                       [app_name] ),
+                        ( 'application_name',                       [grab_application_name(a)] ),
                         ( 'application_version',                    [grab_androidversion_name(a)] ),
                         ( 'package_name',                           [app_package_name] ),
                         ( 'description',                             app_description )
@@ -115,11 +65,11 @@ def perform_analysis(apk_file, a, d, x, online_lookup) :
                         ( 'device_settings_harvesting',              gather_device_settings_harvesting(x) ),
                         ( 'location_lookup',                         gather_location_lookup(x) ),
                         ( 'connection_interfaces_exfiltration',      gather_connection_interfaces_exfiltration(x) ),
-                        ( 'telephony_services_abuse',                gather_telephony_services_abuse(a,x) ),                                        
+                        ( 'telephony_services_abuse',                gather_telephony_services_abuse(a,x) ),
                         ( 'audio_video_eavesdropping',               gather_audio_video_eavesdropping(x) ),
                         ( 'suspicious_connection_establishment',     gather_suspicious_connection_establishment(x) ),
                         ( 'PIM_data_leakage',                        gather_PIM_data_leakage(x) ),
-                        ( 'code_execution',                          gather_code_execution(x) ),
+                        ( 'code_execution',                          gather_code_execution(x) )
                     ],
                 }
     )
@@ -139,8 +89,10 @@ def perform_analysis(apk_file, a, d, x, online_lookup) :
                 { 'androidmanifest.xml' :
                     [
                         ( 'main_activity',                          [grab_main_activity(a)] ),
+                        ( 'sdk_versions',                            grab_sdk_versions(a) ),
                         ( 'activities',                              grab_activities(a) ),
-                        ( 'receivers',                               grab_services(a) ),
+                        ( 'services',                                grab_services(a) ),
+                        ( 'receivers',                               grab_receivers(a) ),
                         ( 'providers',                               grab_providers(a) ),
                         ( 'permissions',                             grab_permissions(a) ),
                         ( 'features',                                grab_features(a) ),
@@ -152,11 +104,9 @@ def perform_analysis(apk_file, a, d, x, online_lookup) :
     data.append(
                 { 'apis_used' :
                     [
-                        ( 'classes_list',                            grab_classes_list(x) ),
-                        ( 'internal_classes_list',                   grab_internal_classes_list(x) ),
-                        ( 'external_classes_list',                   grab_external_classes_list(x) ),
-                        ( 'internal_packages_list',                  grab_internal_packages_list(x) ),
-                        ( 'external_packages_list',                  grab_external_packages_list(x) ),
+                        ( 'classes_list',                            grab_classes_list(d, x) ),
+                        ( 'internal_classes_list',                   grab_internal_classes_list(d, x) ),
+                        ( 'classes_hierarchy',                       grab_classes_hierarchy(d, x) ),
                         ( 'intents_sent',                            grab_intents_sent(x) )
                     ]
                 }

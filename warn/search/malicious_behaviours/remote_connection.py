@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -22,11 +22,6 @@
 # Global imports
 import logging
 
-# Androguard imports
-from guard.core.analysis import analysis
-from guard.core.bytecodes.apk import *
-
-
 # Androwarn modules import
 from warn.core.core import *
 from warn.util.util import *
@@ -36,17 +31,15 @@ log = logging.getLogger('log')
 
 def detect_Socket_use(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of formatted strings
     """
     formatted_str = []
     
-    structural_analysis_results = x.tainted_packages.search_methods("Ljava/net/Socket","<init>", ".")
+    structural_analysis_results = structural_analysis_search_method("Ljava/net/Socket", "<init>", x)
     
-    for result in xrange(len(structural_analysis_results)) :
-        registers = data_flow_analysis(structural_analysis_results, result, x)
-
+    for registers in data_flow_analysis(structural_analysis_results, x):
         if len(registers) >= 2 :
             remote_address  = get_register_value(1, registers) # 1 is the index of the PARAMETER called in the method
             remote_port     = get_register_value(2, registers)
@@ -59,7 +52,7 @@ def detect_Socket_use(x) :
 
 def gather_suspicious_connection_establishment(x) : 
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
     
         @rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """

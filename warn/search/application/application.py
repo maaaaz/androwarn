@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -20,16 +20,8 @@
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global imports
-import re, logging, urllib2, hashlib
-from urllib2 import urlopen, HTTPError
-
-# Androguard imports
-from guard.core.analysis import analysis
-from guard.core.bytecodes.apk import *
-
-# Androwarn modules import
-from warn.core.core import *
-from warn.util.util import *
+import re
+import logging
 
 # Play-scraper import
 try :
@@ -43,24 +35,30 @@ ERROR_APP_DESC_NOT_FOUND = 'N/A'
 # Logguer
 log = logging.getLogger('log')
 
+def grab_application_name(apk) :
+    """
+        @param apk : an APK instance
+        
+        @rtype : the application common name
+    """
+    return apk.get_app_name()
 
-# Some aliases to the original functions
 def grab_application_package_name(apk) :
     """
         @param apk : an APK instance
         
         @rtype : the package name
     """
-    return apk.package
+    return apk.get_package()
 
 def grab_application_name_description_icon(package_name, online_lookup) :
     """
         @param package_name : package name
     
-        @rtype : (name, description, icon) string tuple
+        @rtype : (description, icon) string tuple
     """
     if not(online_lookup):
-        return ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND     
+        return ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND     
     try :
         
         app_details = play_scraper.details(package_name)
@@ -69,11 +67,11 @@ def grab_application_name_description_icon(package_name, online_lookup) :
             desc = app_details['description'] if 'description' in app_details else ERROR_APP_DESC_NOT_FOUND
             icon_link = app_details['icon'] if 'icon' in app_details else ERROR_APP_DESC_NOT_FOUND
             
-            return (name, desc, ERROR_APP_DESC_NOT_FOUND)
+            return desc, "Icon link: %s" % icon_link
         
         else:
             log.warn("'%s' application's description and icon could not be found in the page" % str(package_name))
-            return ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND
+            return ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND
     
     except ValueError:
         log.warn("'%s' application name does not exist on Google Play" % str(package_name))
@@ -85,12 +83,12 @@ def grab_androidversion_code(apk) :
         
         @rtype : the android version code
     """
-    return apk.androidversion["Code"]
+    return apk.get_androidversion_code()
 
 def grab_androidversion_name(apk) :
     """
         @param apk : an APK instance
         
-        @rtype : the android version name 
+        @rtype : the android version name
     """
-    return apk.androidversion["Name"]
+    return apk.get_androidversion_name()

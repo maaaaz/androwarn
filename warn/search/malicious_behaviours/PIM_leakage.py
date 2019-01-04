@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -22,12 +22,7 @@
 # Global imports
 import logging
 
-# Androguard imports
-from guard.core.analysis import analysis
-from guard.core.bytecodes.apk import *
-
 # Androwarn modules import
-from warn.core.core import *
 from warn.util.util import *
 
 # Logguer
@@ -35,59 +30,41 @@ log = logging.getLogger('log')
 
 def detect_ContactAccess_lookup(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of formatted strings
     """
     formatted_str = []
     
-    detector_1 = search_field(x, "Landroid/provider/ContactsContract$CommonDataKinds$Phone;")
-        
-    detectors = [detector_1]
+    detectors = structural_analysis_search_field("Landroid/provider/ContactsContract$CommonDataKinds$Phone;", x)
     
-    if detector_tab_is_not_empty(detectors) :
-        local_formatted_str = 'This application reads or edits contact data'
-        formatted_str.append(local_formatted_str)
+    if detectors:
+        formatted_str.append('This application reads or edits contact data')
+        log_result_path_information(detectors)
         
-        for res in detectors :
-            if res :
-                try :
-                    log_result_path_information(res, "Contact access", "field")
-                except :
-                    log.warn("Detector result '%s' is not a PathVariable instance" % res)
-                    
     return formatted_str
 
 
 def detect_Telephony_SMS_read(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of formatted strings
     """
     formatted_str = []
     
-    detector_1 = search_string(x, "content://sms/inbox")
-        
-    detectors = [detector_1]
+    detectors = structural_analysis_search_string("content://sms/inbox", x)
     
-    if detector_tab_is_not_empty(detectors) :
-        local_formatted_str = 'This application reads the SMS inbox'
-        formatted_str.append(local_formatted_str)
-        
-        for res in detectors :
-            if res :
-                try :
-                    log_result_path_information(res, "SMS Inbox", "string")
-                except :
-                    log.warn("Detector result '%s' is not a PathVariable instance" % res) 
+    if detectors:
+        formatted_str.append('This application reads the SMS inbox')
+        log_result_path_information(detectors)
         
     return formatted_str
 
 
 def gather_PIM_data_leakage(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
     
         @rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """

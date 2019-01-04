@@ -3,7 +3,7 @@
 
 # This file is part of Androwarn.
 #
-# Copyright (C) 2012, Thomas Debize <tdebize at mail.com>
+# Copyright (C) 2012, 2019, Thomas Debize <tdebize at mail.com>
 # All rights reserved.
 #
 # Androwarn is free software: you can redistribute it and/or modify
@@ -20,13 +20,10 @@
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global imports
-import sys, logging
+import sys
+import logging
 from io import BytesIO
 from xml.etree.ElementTree import ElementTree
-
-# Androguard imports
-from guard.core.analysis import analysis
-from guard.core.bytecodes.apk import *
 
 # Androwarn modules import
 from warn.core.core import *
@@ -38,17 +35,15 @@ log = logging.getLogger('log')
 # -- SMS Abuse -- #
 def detect_Telephony_SMS_abuse(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of formatted strings
     """
     formatted_str = []
     
-    structural_analysis_results = x.tainted_packages.search_methods("Landroid/telephony/SmsManager","sendTextMessage", ".")
+    structural_analysis_results = structural_analysis_search_method("Landroid/telephony/SmsManager","sendTextMessage", x)
     
-    for result in xrange(len(structural_analysis_results)) :
-        registers = data_flow_analysis(structural_analysis_results, result, x)      
-        
+    for registers in data_flow_analysis(structural_analysis_results, x):   
         if len(registers) > 3 :
             target_phone_number = get_register_value(1, registers)
             sms_message         = get_register_value(3, registers)
@@ -61,7 +56,7 @@ def detect_Telephony_SMS_abuse(x) :
 def detect_SMS_interception(a,x) :
     """
         @param a : an APK  instance
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of formatted strings
     """
@@ -69,10 +64,8 @@ def detect_SMS_interception(a,x) :
     tree = ElementTree()
     
     try :
-        manifest = AXMLPrinter( a.zip.read("AndroidManifest.xml") ).getBuff()
-    
+        manifest  = a.get_android_manifest_axml().get_xml()
         tree.parse(BytesIO(manifest))
-        
         root = tree.getroot()
                     
         for parent, child, grandchild in get_parent_child_grandchild(root):
@@ -87,13 +80,13 @@ def detect_SMS_interception(a,x) :
                         
                         # Grab the interceptor's class name
                         class_name = parent.attrib['{http://schemas.android.com/apk/res/android}name']
-                        package_name = a.package
+                        package_name = a.get_package()
                         
                         # Convert("com.test" + "." + "interceptor") to "Lcom/test/interceptor"
                         class_name = convert_canonical_to_dex(package_name + "." + class_name[1:])
                         
                         # Criteria 2: if we can find 'abortBroadcast()' call => notification deactivation
-                        structural_analysis_results = x.tainted_packages.search_methods(class_name,"abortBroadcast", ".")
+                        structural_analysis_results = structural_analysis_search_method(class_name, "abortBroadcast", x)
                         if structural_analysis_results :
                             formatted_str.append("This application disables incoming SMS notifications")
                     
@@ -104,27 +97,20 @@ def detect_SMS_interception(a,x) :
 
 def detect_Telephony_Phone_Call_abuse(x) :
     """
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
         
         @rtype : a list of formatted strings
     """
     formatted_str = []
     
-    detector_1 = search_string(x, "android.intent.action.CALL")
-    detector_2 = search_string(x, "android.intent.action.DIAL")
-        
-    detectors = [detector_1, detector_2]
+    detector_1 = structural_analysis_search_string("android.intent.action.CALL", x)
+    detector_2 = structural_analysis_search_string("android.intent.action.DIAL", x)
     
-    if detector_tab_is_not_empty(detectors) :
-        local_formatted_str = 'This application makes phone calls'
-        formatted_str.append(local_formatted_str)
-        
-        for res in detectors :
-            if res :
-                try :
-                    log_result_path_information(res, "Call Intent", "string")
-                except :
-                    log.warn("Detector result '%s' is not a PathVariable instance" % res)
+    detectors = detector_1 + detector_2
+    
+    if detectors:
+        formatted_str.append('This application makes phone calls')
+        log_result_path_information(detectors)
         
     return formatted_str
 
@@ -132,7 +118,7 @@ def detect_Telephony_Phone_Call_abuse(x) :
 def gather_telephony_services_abuse(a,x) :
     """
         @param a : an APK  instance
-        @param x : a VMAnalysis instance
+        @param x : a Analysis instance
     
         @rtype : a list strings for the concerned category, for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """
