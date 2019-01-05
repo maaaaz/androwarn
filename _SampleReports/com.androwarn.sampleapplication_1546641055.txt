@@ -1,0 +1,257 @@
+===== Androwarn Report =====
+[+] Application Information
+	[.] Application Name                        
+		 - SampleApplication
+
+	[.] Application Version                     
+		 - 1.0
+
+	[.] Package Name                            
+		 - com.androwarn.sampleapplication
+
+	[.] Description                             
+		 - N/A
+		 - N/A
+
+
+[+] Analysis Results
+	[.] Telephony Identifiers Leakage           
+		 - This application reads the phone's current state
+		 - This application reads the current location of the device
+		 - This application reads the type of activity on a data connection
+		 - This application reads the current data connection state
+		 - This application reads the unique device ID, i.e the IMEI for GSM and the MEID or ESN for CDMA phones
+		 - This application reads the software version number for the device, for example, the IMEI/SV for GSM phones
+		 - This application reads the phone number string for line 1, for example, the MSISDN for a GSM phone
+		 - This application reads the neighboring cell information of the device
+		 - This application reads the ISO country code equivalent of the current registered operator's MCC (Mobile Country Code)
+		 - This application reads the numeric name (MCC+MNC) of current registered operator
+		 - This application reads the operator name
+		 - This application reads the radio technology (network type) currently in use on the device for data transmission
+		 - This application reads the device phone type value
+		 - This application reads the ISO country code equivalent for the SIM provider's country code
+		 - This application reads the MCC+MNC of the provider of the SIM
+		 - This application reads the Service Provider Name (SPN)
+		 - This application reads the SIM's serial number
+		 - This application reads the constant indicating the state of the device SIM card
+		 - This application reads the unique subscriber ID, for example, the IMSI for a GSM phone
+		 - This application reads the alphabetic identifier associated with the voice mail number
+		 - This application reads the voice mail number
+		 - This application reads the Location Area Code value
+		 - This application reads the Cell ID value
+
+	[.] Device Settings Harvesting              
+		 - This application logs the message 'Call Activity Failed' under the tag 'MakeCall'
+		 - This application logs the message 'pdus ' under the tag 'Incoming SMSMessage'
+		 - This application logs the message 'Broadcast Aborted' under the tag 'Incoming SMSMessage'
+		 - This application logs the message '4' under the tag 'ReadContacts'
+		 - This application logs the message '1 SMS Message Received' under the tag 'Incoming SMSMessage'
+		 - This application logs the message '9' under the tag 'AddContact'
+		 - This application logs the message '8' under the tag 'DeleteContact'
+		 - This application logs the message 'Landroid/os/RemoteException;->getMessage()Ljava/lang/String;' under the tag 'AddContact'
+		 - This application logs the message 'There isnt any memory card' under the tag 'RecordAudio'
+		 - This application logs the message 'Ljava/net/UnknownHostException;->getMessage()Ljava/lang/String;' under the tag 'String Socket'
+		 - This application logs the message 'I/O Problem before recording' under the tag 'RecordAudio'
+		 - This application logs the message '8' under the tag 'FileNotFoundException'
+		 - This application logs the message 'Ljava/io/IOException;->getMessage()Ljava/lang/String;' under the tag 'Inet Socket'
+		 - This application logs the message 'Landroid/content/OperationApplicationException;->getMessage()Ljava/lang/String;' under the tag 'AddContact'
+		 - This application logs the message 'Ljava/io/IOException;->getMessage()Ljava/lang/String;' under the tag 'String Socket'
+		 - This application logs the message 'Landroid/content/OperationApplicationException;->getMessage()Ljava/lang/String;' under the tag 'DeleteContact'
+		 - This application logs the message 'Ljava/net/UnknownHostException;->getMessage()Ljava/lang/String;' under the tag 'Inet Socket'
+		 - This application logs the message 'Landroid/os/RemoteException;->getMessage()Ljava/lang/String;' under the tag 'DeleteContact'
+		 - This application logs the message 'Failed to prepare the audio recorder handler' under the tag 'RecordAudio'
+		 - This application logs the message 'Failed to prepare the video recorder handler' under the tag 'CaptureVideo'
+		 - This application logs the message 'Impossible to write on the sdcard' under the tag 'RecordAudio'
+		 - This application logs the message 'Ljava/lang/StringBuffer;->toString()Ljava/lang/String;' under the tag 'UNIX Command'
+		 - This application logs the message 'Ljava/lang/StringBuilder;->toString()Ljava/lang/String;' under the tag 'GetLocationInformation'
+		 - This application logs the message 'Ljava/util/Arrays;->toString([Ljava/lang/Object;)Ljava/lang/String;' under the tag 'UNIX Command'
+		 - This application logs the message 'Landroid/net/wifi/WifiConfiguration;->toString()Ljava/lang/String;' under the tag 'ReadWiFiCredentials'
+
+	[.] Location Lookup                         
+		 - This application reads location information from all available providers (WiFi, GPS etc.)
+
+	[.] Connection Interfaces Exfiltration      
+		 - This application reads the WiFi credentials
+		 - This application reads details about the currently active data network
+		 - This application tries to find out if the currently active data network is metered
+
+	[.] Telephony Services Abuse                
+		 - This application makes phone calls
+		 - This application intercepts your incoming SMS
+		 - This application disables incoming SMS notifications
+		 - This application sends an SMS message 'Premium SMS' to the '12345' phone number
+
+	[.] Audio Video Eavesdropping               
+		 - This application records audio from the 'VOICE_CALL' source
+		 - This application captures video from the 'CAMERA' source
+
+	[.] Suspicious Connection Establishment     
+		 - This application opens a Socket and connects it to the remote address '192.168.56.101' on the '1337' port
+		 - This application opens a Socket and connects it to the remote address '192.168.56.101 Ljava/net/InetAddress;->getByName(Ljava/lang/String;)Ljava/net/InetAddress;' on the '1338' port
+
+	[.] Pim Data Leakage                        
+		 - This application reads or edits contact data
+		 - This application reads the SMS inbox
+
+	[.] Code Execution                          
+		 - This application loads a native library: 'nativecode'
+		 - This application executes a UNIX command containing this argument: '/sdcard/'
+
+
+[+] Apk File
+	[.] File Name                               
+		 - SampleApplication.apk
+
+	[.] Fingerprint                             
+		 - MD5: bebecf3d5f13f41affb5ab9da8f7e391
+		 - SHA-1: f99d85a4e877dcc27c889c88a27e833d592baf71
+		 - SHA-256: 5c63eefedb5aeebecb65cde43a373f6bf07c058cd186633604a36425b98d3c27
+
+	[.] File List                               
+		 - META-INF/MANIFEST.MF
+		 - META-INF/MAZ.SF
+		 - META-INF/MAZ.RSA
+		 - META-INF/CERT.SF
+		 - META-INF/CERT.RSA
+		 - res/layout/main.xml
+		 - AndroidManifest.xml
+		 - resources.arsc
+		 - classes.dex
+		 - lib/x86/libnativecode.so
+		 - lib/armeabi/libnativecode.so
+
+	[.] Certificate Information                 
+		 - APK is signed: True
+		 - Certificate #0
+		 - Issuer:
+		 - Common Name: MaZ, Organizational Unit: LOL, Organization: LOL, Locality: Lyon, State/Province: Rhone, Country: FR
+		 - Subject:
+		 - Common Name: MaZ, Organizational Unit: LOL, Organization: LOL, Locality: Lyon, State/Province: Rhone, Country: FR
+		 - Serial number: 1335346154
+		 - Hash algorithm: sha1
+		 - Signature algorithm: rsassa_pkcs1v15
+		 - SHA-1 thumbprint: 01f5f074538200ebdccbf88b1acf12c082352159
+		 - SHA-256 thumbprint: dc6c0cc3290bc0b75a99bed3d08d968d90f7e2b060b5502e9ede823ee7b52981
+
+		 - Certificate #1
+		 - Issuer:
+		 - Common Name: Android Debug, Organization: Android, Country: US
+		 - Subject:
+		 - Common Name: Android Debug, Organization: Android, Country: US
+		 - Serial number: 1335345740
+		 - Hash algorithm: sha1
+		 - Signature algorithm: rsassa_pkcs1v15
+		 - SHA-1 thumbprint: 372d8f6bafe4e15ab9c231157234ef544a2a01d0
+		 - SHA-256 thumbprint: 48a69301da60404257f3cac79a3d4e2d153798118ee2bae7cf1a042bac85f8a8
+
+
+
+[+] Androidmanifest.Xml
+	[.] Main Activity                           
+		 - com.androwarn.sampleapplication.SampleApplication
+
+	[.] Sdk Versions                            
+		 - Declared target SDK: None
+		 - Effective target SDK: 3
+		 - Min SDK: 3
+		 - Max SDK: None
+
+	[.] Activities                              
+		 - com.androwarn.sampleapplication.SampleApplication
+
+	[.] Receivers                               
+		 - com.androwarn.sampleapplication.BusterReceiver
+
+	[.] Permissions                             
+		 - Asked: android.permission.READ_PHONE_STATE android.permission.ACCESS_NETWORK_STATE android.permission.RECORD_AUDIO android.permission.WRITE_EXTERNAL_STORAGE android.permission.CALL_PHONE
+		   android.permission.ACCESS_FINE_LOCATION android.permission.ACCESS_COARSE_LOCATION android.permission.READ_CONTACTS android.permission.WRITE_CONTACTS android.permission.INTERNET
+		   android.permission.RECORD_VIDEO android.permission.CAMERA android.permission.RECEIVE_SMS android.permission.READ_SMS android.permission.WRITE_SMS android.permission.SEND_SMS
+		 - Implied: [['android.permission.READ_EXTERNAL_STORAGE', None], ['android.permission.READ_CALL_LOG', None], ['android.permission.WRITE_CALL_LOG', None]]
+		 - Declared: []
+
+	[.] Features                                
+		 - android.hardware.telephony
+
+
+[+] Apis Used
+	[.] Classes List                            
+		 - android.app.Activity
+		 - android.content.BroadcastReceiver
+		 - android.content.ContentProviderOperation
+		 - android.content.ContentProviderOperation
+		 - android.content.ContentResolver
+		 - android.content.ContentValues
+		 - android.content.Intent
+		 - android.content.OperationApplicationException
+		 - android.database.Cursor
+		 - android.location.Location
+		 - android.location.LocationManager
+		 - android.media.MediaRecorder
+		 - android.net.Uri
+		 - android.net.wifi.WifiConfiguration
+		 - android.os.Bundle
+		 - android.os.Environment
+		 - android.os.RemoteException
+		 - android.telephony.SmsManager
+		 - android.telephony.TelephonyManager
+		 - android.telephony.gsm.GsmCellLocation
+		 - android.telephony.gsm.SmsMessage
+		 - android.util.Log
+		 - com.androwarn.sampleapplication.BusterReceiver
+		 - com.androwarn.sampleapplication.NativeCode
+		 - com.androwarn.sampleapplication.R
+		 - com.androwarn.sampleapplication.R
+		 - com.androwarn.sampleapplication.R
+		 - com.androwarn.sampleapplication.R
+		 - com.androwarn.sampleapplication.SampleApplication
+		 - java.io.BufferedReader
+		 - java.io.File
+		 - java.io.FileNotFoundException
+		 - java.io.FileOutputStream
+		 - java.io.IOException
+		 - java.io.InputStreamReader
+		 - java.io.OutputStream
+		 - java.lang.Integer
+		 - java.lang.NullPointerException
+		 - java.lang.NumberFormatException
+		 - java.lang.Object
+		 - java.lang.Process
+		 - java.lang.Runtime
+		 - java.lang.RuntimeException
+		 - java.lang.String
+		 - java.lang.StringBuffer
+		 - java.lang.StringBuilder
+		 - java.lang.System
+		 - java.net.InetAddress
+		 - java.net.Socket
+		 - java.net.UnknownHostException
+		 - java.util.ArrayList
+		 - java.util.Arrays
+		 - java.util.Iterator
+		 - java.util.List
+
+	[.] Internal Classes List                   
+		 - com.androwarn.sampleapplication.BusterReceiver
+		 - com.androwarn.sampleapplication.NativeCode
+		 - com.androwarn.sampleapplication.R
+		 - com.androwarn.sampleapplication.R
+		 - com.androwarn.sampleapplication.R
+		 - com.androwarn.sampleapplication.R
+		 - com.androwarn.sampleapplication.SampleApplication
+
+	[.] Classes Hierarchy                       
+		 - android/content/BroadcastReceiver
+		 -          com/androwarn/sampleapplication/BusterReceiver
+		 - java/lang/Object
+		 -          com/androwarn/sampleapplication/NativeCode
+		 -          com/androwarn/sampleapplication/R$attr
+		 -          com/androwarn/sampleapplication/R$layout
+		 -          com/androwarn/sampleapplication/R$string
+		 -          com/androwarn/sampleapplication/R
+		 - android/app/Activity
+		 -          com/androwarn/sampleapplication/SampleApplication
+
+	[.] Intents Sent                            
+		 - android.intent.action.CALL
+
+
