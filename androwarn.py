@@ -41,7 +41,7 @@ handler.setFormatter(formatter)
 log.addHandler(handler)
 
 # Script version
-VERSION = '1.4'
+VERSION = '1.5'
 print '[+] Androwarn version %s\n' % VERSION
 
 # Options definition

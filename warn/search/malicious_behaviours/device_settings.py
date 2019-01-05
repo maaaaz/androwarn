@@ -75,6 +75,21 @@ def detect_get_package_info(x) :
                 formatted_str.append(local_formatted_str)
     
     return formatted_str
+    
+def detect_package_manager_calls(x) :
+    """
+        @param x : a Analysis instance
+        
+        @rtype : a list of formatted strings
+    """
+    method_listing = [
+            ("getInstalledPackages",        "This application lists applications installed on the system"),
+            ("getSharedLibraries",          "This application lists shared libraries on the system")
+    ]
+    
+    class_name = "Landroid/content/pm/PackageManager"
+    
+    return structural_analysis_search_method_bulk(class_name, method_listing, x)
 
 def gather_device_settings_harvesting(x) :
     """
@@ -86,5 +101,6 @@ def gather_device_settings_harvesting(x) :
     
     result.extend( detect_log(x) )
     result.extend( detect_get_package_info(x) )
-    
+    result.extend( detect_package_manager_calls(x) )
+
     return result

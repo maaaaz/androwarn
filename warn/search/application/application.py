@@ -75,7 +75,7 @@ def grab_application_name_description_icon(package_name, online_lookup) :
     
     except ValueError:
         log.warn("'%s' application name does not exist on Google Play" % str(package_name))
-        return ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND
+        return ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND
 
 def grab_androidversion_code(apk) :
     """

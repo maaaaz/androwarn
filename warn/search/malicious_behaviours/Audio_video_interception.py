@@ -43,13 +43,17 @@ def detect_MediaRecorder_Voice_record(x) :
     
     for registers in data_flow_analysis(structural_analysis_results, x):
         if registers:
-            audio_source_int    = int(get_register_value(1, registers)) # 1 is the index of the PARAMETER called in the method
-            audio_source_name   = get_constants_name_from_value(MediaRecorder_AudioSource, audio_source_int)
+            local_formatted_str = "This application records audio"
+            try:
+                audio_source_int    = int(get_register_value(1, registers))
+                audio_source_name   = get_constants_name_from_value(MediaRecorder_AudioSource, audio_source_int)
+                local_formatted_str = local_formatted_str + " from the '%s' source " % audio_source_name    
+            except:
+                pass
             
-            local_formatted_str = "This application records audio from the '%s' source " % audio_source_name
             if not(local_formatted_str in formatted_str) :
-                formatted_str.append(local_formatted_str)
-       
+                    formatted_str.append(local_formatted_str)
+                
     return formatted_str
 
 # -- Video Record -- #
@@ -65,13 +69,18 @@ def detect_MediaRecorder_Video_capture(x) :
     
     for registers in data_flow_analysis(structural_analysis_results, x):
         if registers:
-            video_source_int    = int(get_register_value(1, registers)) # 1 is the index of the PARAMETER called in the method
-            video_source_name   = get_constants_name_from_value(MediaRecorder_VideoSource, video_source_int)
+            local_formatted_str = "This application captures video"
+            try:
+                video_source_int    = int(get_register_value(1, registers)) # 1 is the index of the PARAMETER called in the method
+                video_source_name   = get_constants_name_from_value(MediaRecorder_VideoSource, video_source_int)
             
-            local_formatted_str = "This application captures video from the '%s' source" % video_source_name
+                local_formatted_str = local_formatted_str + " from the '%s' source" % video_source_name
+                
+            except:
+                pass
+            
             if not(local_formatted_str in formatted_str) :
-                formatted_str.append(local_formatted_str)
-    
+                    formatted_str.append(local_formatted_str)
 
     return formatted_str
 

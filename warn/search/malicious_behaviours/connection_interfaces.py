@@ -36,14 +36,14 @@ def detect_Connectivity_Manager_leakages(x):
         @rtype : a list strings for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """
     
-    class_listing = [
+    method_listing = [
             ("getActiveNetworkInfo()",      "This application reads details about the currently active data network"),
             ("isActiveNetworkMetered()",    "This application tries to find out if the currently active data network is metered")
     ]
     
     class_name = 'Landroid/net/ConnectivityManager'
     
-    return structural_analysis_search_method_bulk(class_name, class_listing, x)
+    return structural_analysis_search_method_bulk(class_name, method_listing, x)
  
 def detect_WiFi_Credentials_lookup(x) :
     """
@@ -61,7 +61,6 @@ def detect_WiFi_Credentials_lookup(x) :
     for registers in data_flow_analysis(structural_analysis_results, x):
         local_formatted_str = "This application reads the WiFi credentials" 
         
-        # we want only one occurence
         if not(local_formatted_str in formatted_str) :
             formatted_str.append(local_formatted_str)
 

@@ -35,14 +35,14 @@ def detect_telephony_gsm_GsmCellLocation(x):
         @rtype : a list strings for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """
     
-    class_listing = [
+    method_listing = [
             ("getLac()",    "This application reads the Location Area Code value"),
             ("getCid()",    "This application reads the Cell ID value")
     ]
     
     class_name = 'Landroid/telephony/gsm/GsmCellLocation'
     
-    return structural_analysis_search_method_bulk(class_name, class_listing, x)
+    return structural_analysis_search_method_bulk(class_name, method_listing, x)
 
 def detect_Telephony_Manager_Leakages(x) :
     """
@@ -51,7 +51,7 @@ def detect_Telephony_Manager_Leakages(x) :
         @rtype : a list strings for exemple [ 'This application makes phone calls', "This application sends an SMS message 'Premium SMS' to the '12345' phone number" ]
     """
     
-    class_listing = [
+    method_listing = [
             ("getCallState()",              "This application reads the phone's current state"),
             ("getCellLocation()",           "This application reads the current location of the device"),
             ("getDataActivity()",           "This application reads the type of activity on a data connection"),
@@ -77,7 +77,7 @@ def detect_Telephony_Manager_Leakages(x) :
     
     class_name = 'Landroid/telephony/TelephonyManager'
     
-    return structural_analysis_search_method_bulk(class_name, class_listing, x)
+    return structural_analysis_search_method_bulk(class_name, method_listing, x)
 
 def gather_telephony_identifiers_leakage(x) :
     """

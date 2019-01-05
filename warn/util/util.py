@@ -97,8 +97,20 @@ def get_parent_child_grandchild(tree):
             for grandchild in child :
                 yield parent, child, grandchild
 
+# Single structural analysis
+def structural_analysis_search_method(class_name, method_name, x):
+    return x.find_methods(classname=class_name, methodname=method_name)
+
+def structural_analysis_search_string(pattern, x):
+    result = list(x.find_strings(pattern))
+    log_result_path_information(result)
+    return result
+
+def structural_analysis_search_field(pattern, x):
+    return list(x.find_fields(fieldname=pattern))
+
 # Bulk structural analysis
-def structural_analysis_search_method_bulk(class_name, list, x) :
+def structural_analysis_search_method_bulk(class_name, method_listing, x):
     """
         @param list : a list of tuple (class function name, class function description)
     
@@ -106,22 +118,22 @@ def structural_analysis_search_method_bulk(class_name, list, x) :
     """
     formatted_str = []
     
-    for method_name, description in list:
-        structural_analysis_results = structural_analysis_search_method(class_name, method_name, x)
-        if structural_analysis_results :
-            formatted_str.append(description)
+    for method_name, description in method_listing:
+        if list(structural_analysis_search_method(class_name, method_name, x)):
+            if description not in formatted_str:
+                formatted_str.append(description)
     
     return formatted_str
+
+def structural_analysis_search_string_bulk(string_listing, x):
+    formatted_str = []
+    for string_name, description in string_listing:
+        if structural_analysis_search_string(string_name, x):
+            if description not in formatted_str:
+                formatted_str.append(description)
+            
+    return formatted_str
     
-def structural_analysis_search_method(class_name, method_name, x):
-    return x.find_methods(classname=class_name, methodname=method_name)
-
-def structural_analysis_search_string(pattern, x):
-    return list(x.find_strings(pattern))
-
-def structural_analysis_search_field(pattern, x):
-    return x.find_fields(fieldname=pattern)
-
 # OR Bitwise option recovery
 def recover_bitwise_flag_settings(flag, constants_dict) :
     """
