@@ -128,5 +128,5 @@ If not, see http://www.gnu.org/licenses/.
 
 Greetings
 -------------
-* [Stphane Coulondre](http://stephane.coulondre.info), for supervising my Final Year project
+* [Stéphane Coulondre](http://stephane.coulondre.info), for supervising my Final Year project
 * [Anthony Desnos](https://sites.google.com/site/anthonydesnos/home), for his amazing [Androguard](https://github.com/androguard/androguard) project and his help through my Final Year project
