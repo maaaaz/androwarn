@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -59,9 +59,11 @@ def grab_application_name_description_icon(package_name, online_lookup) :
     """
     if not(online_lookup):
         return ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND     
+    
     try :
         
         app_details = play_scraper.details(package_name)
+        
         if app_details:
             name = app_details['title'] if 'title' in app_details else ERROR_APP_DESC_NOT_FOUND
             desc = app_details['description'] if 'description' in app_details else ERROR_APP_DESC_NOT_FOUND
@@ -70,11 +72,11 @@ def grab_application_name_description_icon(package_name, online_lookup) :
             return desc, "Icon link: %s" % icon_link
         
         else:
-            log.warn("'%s' application's description and icon could not be found in the page" % str(package_name))
+            log.warning("'%s' application's description and icon could not be found in the page" % str(package_name))
             return ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND
     
     except ValueError:
-        log.warn("'%s' application name does not exist on Google Play" % str(package_name))
+        log.warning("'%s' application name does not exist on Google Play" % str(package_name))
         return ERROR_APP_DESC_NOT_FOUND, ERROR_APP_DESC_NOT_FOUND
 
 def grab_androidversion_code(apk) :

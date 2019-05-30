@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -26,6 +26,7 @@ import os
 import time
 import textwrap
 import json
+import codecs
 
 # Jinja2 module import
 try :
@@ -76,20 +77,20 @@ def dump_analysis_results(data, file_descriptor) :
     flush_simple_string("===== Androwarn Report =====", file_descriptor)
     if data:
         for item in data:
-            for category, element_tuple in item.iteritems():
+            for category, element_tuple in item.items():
                 
-                if isinstance(category,str):
-                    flush_simple_string("[+] %s" % category.encode('ascii','ignore').replace('_',' ').title(), file_descriptor)
+                if isinstance(category, str):
+                    flush_simple_string("[+] %s" % category.replace('_',' ').title(), file_descriptor)
                 
                 for name,content in element_tuple :
-                    if content and isinstance(name,str):
-                        flush_simple_string("\t[.] %s" % (name.encode('ascii','ignore').replace('_',' ').title().ljust(40)), file_descriptor)
+                    if content and isinstance(name, str):
+                        flush_simple_string("\t[.] %s" % name.replace('_',' ').title().ljust(40), file_descriptor)
                         
                         for element in content:
                             if isinstance(element,str) or isinstance(element,unicode):
                                 prefix = "\t\t - "
                                 wrapper = textwrap.TextWrapper(initial_indent=prefix, width=200, subsequent_indent="\t\t   ")
-                                flush_simple_string(wrapper.fill(element.encode('ascii','ignore')), file_descriptor)
+                                flush_simple_string(wrapper.fill(element), file_descriptor)
                         
                         flush_simple_string("", file_descriptor)
                 flush_simple_string("", file_descriptor)
@@ -165,7 +166,7 @@ def filter_analysis_results(data, verbosity) :
         purge_category = []
         
         for category_index, item in enumerate(data) :
-            for category, element_tuple in item.iteritems() :
+            for category, element_tuple in item.items() :
                 purge_tuple = []
                 
                 for tuple_index, tuple in enumerate(element_tuple) :
@@ -227,6 +228,7 @@ def generate_report_html(data, verbosity, report, output_file) :
         @param report : report type
         @param output_file : output file name
     """
+    global HTML_TEMPLATE_FILE
     env = Environment(loader = FileSystemLoader(TEMPLATE_DIR), trim_blocks=False, newline_sequence='\n')
     template = env.get_template(HTML_TEMPLATE_FILE)
     
@@ -243,15 +245,21 @@ def generate_report(package_name, data, verbosity, report, output) :
         @param verbosity : desired verbosity
         @param report : report type
     """
-    output_file = os.path.join(os.getcwdu(), package_name + "_%s" % str(int(time.time()))) if not(output) else output
+    if (sys.version_info < (3, 0)):
+        os_getcwd = os.getcwdu
+    
+    else:
+        os_getcwd = os.getcwd
+    
+    output_file = os.path.join(os_getcwd(), package_name + "_%s" % str(int(time.time()))) if not(output) else output
     
     filter_analysis_results(data,verbosity)
     
-    if cmp(report, REPORT_TXT) == 0:
+    if report == REPORT_TXT:
         generate_report_txt(data,verbosity, report, output_file)
     
-    if cmp(report, REPORT_HTML) == 0:
+    if report == REPORT_HTML:
         generate_report_html(data,verbosity, report, output_file)
     
-    if cmp(report, REPORT_JSON) == 0:
+    if report == REPORT_JSON:
         generate_report_json(data,verbosity, report, output_file)

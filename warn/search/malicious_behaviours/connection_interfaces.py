@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -65,7 +65,7 @@ def detect_WiFi_Credentials_lookup(x) :
             formatted_str.append(local_formatted_str)
 
         
-    return formatted_str    
+    return sorted(formatted_str)
 
 def gather_connection_interfaces_exfiltration(x) :
     """

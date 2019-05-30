@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -18,6 +18,10 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
+
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
 # Global imports
 import re
@@ -49,7 +53,7 @@ def match_current_instruction(current_instruction, registers_found) :
         @rtype : the instruction name from the constants above, the local register number and its value, an updated version of the registers_found
     """
     p_const                 = re.compile('^const(?:\/4|\/16|\/high16|-wide(?:\/16|\/32)|-wide\/high16|)? v([0-9]+), \+?(-?[0-9]+(?:\.[0-9]+)?)$')
-    p_const_string          = re.compile("^const-string(?:||-jumbo) v([0-9]+), u'(.*)'$")
+    p_const_string          = re.compile("^const-string(?:||-jumbo) v([0-9]+), u?'(.*)'$")
     p_move                  = re.compile('^move(?:|\/from16|-wide(?:\/from16|\/16)|-object(?:|\/from16|\/16))? v([0-9]+), (v[0-9]+)$')
     p_move_result           = re.compile('^move(?:-result(?:|-wide|-object)|-exception)? v([0-9]+)$')
     p_aput                  = re.compile('^aput(?:-wide|-object|-boolean|-byte|-char|-short|) v([0-9]+), v([0-9]+), v([0-9]+)$')
@@ -60,7 +64,7 @@ def match_current_instruction(current_instruction, registers_found) :
     
     
     # String concat
-    current_instruction = "{} {}".format(current_instruction.get_name().decode('utf-8'),current_instruction.get_output())
+    current_instruction = "{} {}".format(current_instruction.get_name(), current_instruction.get_output())
     
     # Returned values init
     instruction_name = ''
@@ -69,7 +73,7 @@ def match_current_instruction(current_instruction, registers_found) :
     
     
     if p_const_string.match(current_instruction):
-        #print p_const_string.match(current_instruction).groups()
+        #print(p_const_string.match(current_instruction).groups())
         
         instruction_name = CONST_STRING
         
@@ -88,7 +92,7 @@ def match_current_instruction(current_instruction, registers_found) :
 
 
     if p_const.match(current_instruction):
-        #print p_const.match(current_instruction).groups()
+        #print(p_const.match(current_instruction).groups())
         
         instruction_name = CONST
         
@@ -103,7 +107,7 @@ def match_current_instruction(current_instruction, registers_found) :
 
 
     if p_move.match(current_instruction):
-        #print p_move.match(current_instruction).groups()
+        #print(p_move.match(current_instruction).groups())
         
         instruction_name = MOVE
         
@@ -118,7 +122,7 @@ def match_current_instruction(current_instruction, registers_found) :
 
 
     if p_move_result.match(current_instruction):
-        #print p_move_result.match(current_instruction).groups()
+        #print(p_move_result.match(current_instruction).groups())
         
         instruction_name = MOVE_RESULT
         
@@ -132,7 +136,7 @@ def match_current_instruction(current_instruction, registers_found) :
         local_register_value = register_value 
 
     if p_invoke.match(current_instruction):
-        #print p_invoke.match(current_instruction).groups()
+        #print(p_invoke.match(current_instruction).groups())
         
         instruction_name = INVOKE
         
@@ -146,7 +150,7 @@ def match_current_instruction(current_instruction, registers_found) :
         local_register_value = register_value       
     
     if p_invoke_no_register.match(current_instruction):
-        #print p_invoke.match(current_instruction).groups()
+        #print(p_invoke.match(current_instruction).groups())
         
         instruction_name = INVOKE_NO_REGISTER
         
@@ -157,7 +161,7 @@ def match_current_instruction(current_instruction, registers_found) :
         local_register_value = register_value
     
     if p_invoke_2_registers.match(current_instruction):
-        #print p_invoke.match(current_instruction).groups()
+        #print(p_invoke.match(current_instruction).groups())
         
         instruction_name = INVOKE_NO_REGISTER
         
@@ -168,7 +172,7 @@ def match_current_instruction(current_instruction, registers_found) :
         local_register_value = register_value       
         
     if p_new_instance.match(current_instruction):
-        #print p_new_instance.match(current_instruction).groups()
+        #print(p_new_instance.match(current_instruction).groups())
         
         instruction_name = NEW_INSTANCE
         
@@ -182,7 +186,7 @@ def match_current_instruction(current_instruction, registers_found) :
         local_register_value = register_value
     
     if p_aput.match(current_instruction):
-        #print p_aput.match(current_instruction).groups()
+        #print(p_aput.match(current_instruction).groups())
         
         instruction_name = APUT
         
@@ -209,7 +213,7 @@ def backtrace_registers_before_call(x, method, calling_index) :
     
     bc = method.get_code().get_bc()
     instruction_list = list(bc.get_instructions())
-
+    
     found_index = bc.off_to_pos(calling_index)
     
     if (found_index < 0) :
@@ -229,12 +233,12 @@ def backtrace_registers_before_call(x, method, calling_index) :
         # start index
         i = int(found_index) - 1 
 
-        while ((all_relevant_registers_filled(registers_found,relevant_registers) != True) and (i >= 0)) :
+        while ((all_relevant_registers_filled(registers_found, relevant_registers) != True) and (i >= 0)) :
             current_instruction = instruction_list[i]
-
+            
             instruction_name, local_register_number, local_register_value, registers_found = match_current_instruction(current_instruction, registers_found)
             
-            if cmp(instruction_name, APUT) == 0:
+            if instruction_name == APUT:
                 try :
                     list_index_to_be_changed = relevant_registers.index(str(local_register_value))
                     del(relevant_registers[int(local_register_value)]) 
@@ -243,12 +247,12 @@ def backtrace_registers_before_call(x, method, calling_index) :
                 except :
                     log.debug("'%s' does not exist anymore in the relevant_registers list" % local_register_value)
             
-            if (cmp(instruction_name, MOVE_RESULT) == 0) and (local_register_number in relevant_registers):
+            if (instruction_name == MOVE_RESULT) and (local_register_number in relevant_registers):
                 try:
                     past_instruction = instruction_list[i-1]
                     p_instruction_name, p_local_register_number, p_local_register_value, registers_found =  match_current_instruction(past_instruction, registers_found)
                     
-                    if cmp(p_instruction_name, INVOKE_NO_REGISTER) == 0:
+                    if p_instruction_name == INVOKE_NO_REGISTER:
                         registers_found[local_register_number] = p_local_register_value
                     
                     else:
@@ -344,7 +348,7 @@ def relevant_registers_for_the_method(instruction) :
             if int(register_start_number) > int(register_end_number) :
                 log.error("invoke-kind/range incoherent: # of the start register is lower than the end one")
             else :
-                relevant_registers = [ str(i) for i in xrange(int(register_start_number), int(register_end_number))]
+                relevant_registers = [ str(i) for i in range(int(register_start_number), int(register_end_number))]
                 # +1 because range does not provide the higher boundary value
         
     return relevant_registers
@@ -375,7 +379,7 @@ def get_register_value(index, registers) :
     # Index - 1, list starts at index 0
     if index < len(registers) :
         dict = registers[index]
-        return dict.values()[0]
+        return list(dict.values())[0]
     else :
         return ERROR_VALUE_NOT_FOUND
 
@@ -403,6 +407,7 @@ def data_flow_analysis(results, x) :
     """
     for result in results:
         found_calls = result.get_xref_from()
+        
         for parent_class, parent_method, calling_offset in found_calls:
             registers = backtrace_registers_before_call(x, parent_method, calling_offset)
     
@@ -411,6 +416,6 @@ def data_flow_analysis(results, x) :
             regs_str    = "Register state before call %s" %  registers
             
             formatted_str = "{0:50}- {1:35}- {2:30}".format(class_str,method_str, regs_str)
-             
+            
             log.debug(formatted_str)
             yield registers

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -22,9 +22,9 @@
 # Global imports
 import re
 import logging
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 
-# Logguer
+# Logger
 log = logging.getLogger('log')
 
 def convert_dex_to_canonical(dex_name) :
@@ -92,7 +92,7 @@ def get_parent_child_grandchild(tree):
     
         @rtype : parent, child and grandchild Element
     """
-    for parent in tree.getiterator() :
+    for parent in tree.iter() :
         for child in parent :
             for grandchild in child :
                 yield parent, child, grandchild
@@ -123,7 +123,7 @@ def structural_analysis_search_method_bulk(class_name, method_listing, x):
             if description not in formatted_str:
                 formatted_str.append(description)
     
-    return formatted_str
+    return sorted(formatted_str)
 
 def structural_analysis_search_string_bulk(string_listing, x):
     formatted_str = []
@@ -132,7 +132,7 @@ def structural_analysis_search_string_bulk(string_listing, x):
             if description not in formatted_str:
                 formatted_str.append(description)
             
-    return formatted_str
+    return sorted(formatted_str)
     
 # OR Bitwise option recovery
 def recover_bitwise_flag_settings(flag, constants_dict) :

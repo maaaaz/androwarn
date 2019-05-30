@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -19,6 +19,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Androwarn.  If not, see <http://www.gnu.org/licenses/>.
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 # Global imports
 import sys
 import os
@@ -27,10 +31,16 @@ import logging
 import argparse
 
 # Androwarn modules import
-from androguard.misc import AnalyzeAPK
 from warn.search.search import grab_application_package_name
 from warn.analysis.analysis import perform_analysis
+from warn.report.report import dump_analysis_results
 from warn.report.report import generate_report
+
+# Androguard import
+try :
+    from androguard.misc import AnalyzeAPK
+except ImportError :
+    sys.exit("[!] The androwarn module is not installed, please install it and try again")
 
 # Logger definition
 log = logging.getLogger('log')
@@ -41,8 +51,8 @@ handler.setFormatter(formatter)
 log.addHandler(handler)
 
 # Script version
-VERSION = '1.5'
-print '[+] Androwarn version %s\n' % VERSION
+VERSION = '1.6'
+print('[+] Androwarn version %s\n' % VERSION)
 
 # Options definition
 parser = argparse.ArgumentParser(description="version: " + VERSION)
@@ -68,7 +78,7 @@ def main():
         parser.error("Please specify a valid log level")
 
     # Input
-    print "[+] Loading the APK file..."
+    print("[+] Loading the APK file...")
     a, d, x = AnalyzeAPK(options.input)
     package_name = grab_application_package_name(a)
     

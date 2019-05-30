@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -54,7 +54,7 @@ def detect_MediaRecorder_Voice_record(x) :
             if not(local_formatted_str in formatted_str) :
                     formatted_str.append(local_formatted_str)
                 
-    return formatted_str
+    return sorted(formatted_str)
 
 # -- Video Record -- #
 def detect_MediaRecorder_Video_capture(x) :
@@ -82,7 +82,7 @@ def detect_MediaRecorder_Video_capture(x) :
             if not(local_formatted_str in formatted_str) :
                     formatted_str.append(local_formatted_str)
 
-    return formatted_str
+    return sorted(formatted_str)
 
 def gather_audio_video_eavesdropping(x) :
     """

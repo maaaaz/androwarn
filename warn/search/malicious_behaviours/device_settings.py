@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -51,7 +51,7 @@ def detect_log(x) :
                 if not(local_formatted_str in formatted_str) :
                     formatted_str.append(local_formatted_str)
     
-    return formatted_str
+    return sorted(formatted_str)
 
 def detect_get_package_info(x) :
     """
@@ -74,7 +74,7 @@ def detect_get_package_info(x) :
             if not(local_formatted_str in formatted_str) :
                 formatted_str.append(local_formatted_str)
     
-    return formatted_str
+    return sorted(formatted_str)
     
 def detect_package_manager_calls(x) :
     """

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -37,8 +37,8 @@ def grab_classes_list(d, x) :
         
         @rtype : a list of the canonical name (ex "android.widget.GridView") of all the classes used
     """
-    result = map(lambda i: convert_dex_to_canonical(i.get_vm_class().get_name()), x.get_classes())
-    result.sort()     
+    result = sorted(map(lambda i: convert_dex_to_canonical(i.get_vm_class().get_name()), x.get_classes()))
+    #result.sort()
     return result
 
 def grab_internal_classes_list(d, x) :
@@ -48,8 +48,8 @@ def grab_internal_classes_list(d, x) :
         @rtype : a list of the canonical name (ex "android.widget.GridView") of the internal classes used
     """
     
-    result = map(lambda i: convert_dex_to_canonical(i.get_vm_class().get_name()), x.get_internal_classes())
-    result.sort()     
+    result = sorted(map(lambda i: convert_dex_to_canonical(i.get_vm_class().get_name()), x.get_internal_classes()))
+    #result.sort()
     return result
 
 def grab_external_classes_list(d, x) :
@@ -58,8 +58,8 @@ def grab_external_classes_list(d, x) :
         
         @rtype : a list of the canonical name (ex "android.widget.GridView") of the external packages used
     """
-    result = map(lambda i: convert_dex_to_canonical(i.get_vm_class().get_name()), x.get_external_classes())
-    result.sort()     
+    result = sorted(map(lambda i: convert_dex_to_canonical(i.get_vm_class().get_name()), x.get_external_classes()))
+    #result.sort()
     return result
 
 def grab_classes_hierarchy(d, x):
@@ -87,4 +87,4 @@ def grab_intents_sent(x) :
             if not(local_formatted_str in formatted_str) :
                 formatted_str.append(local_formatted_str)
     
-    return formatted_str
+    return sorted(formatted_str)

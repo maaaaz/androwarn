@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -40,7 +40,7 @@ def detect_Library_loading(x) :
     structural_analysis_results = structural_analysis_search_method("Ljava/lang/System", "loadLibrary", x)
     
     for registers in data_flow_analysis(structural_analysis_results, x):
-        local_formatted_str = "This application loads a native library" 
+        local_formatted_str = "This application loads a native library"
         
         # If we're lucky enough to directly have the library's name
         if len(registers) == 1:
@@ -49,9 +49,8 @@ def detect_Library_loading(x) :
         # we want only one occurence
         if not(local_formatted_str in formatted_str) :
             formatted_str.append(local_formatted_str)
-
-        
-    return formatted_str
+    
+    return sorted(formatted_str)
 
 
 def detect_UNIX_command_execution(x) :
@@ -76,7 +75,7 @@ def detect_UNIX_command_execution(x) :
             formatted_str.append(local_formatted_str)
 
         
-    return formatted_str
+    return sorted(formatted_str)
 
 def gather_code_execution(x) :
     """

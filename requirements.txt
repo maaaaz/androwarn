@@ -1,4 +1,5 @@
 androguard >= 3.2.1
 argparse
+future
 jinja2
 play_scraper

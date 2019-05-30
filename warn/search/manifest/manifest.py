@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -21,6 +21,8 @@
 
 # Global imports
 import logging
+import codecs
+import pprint
 
 # Logguer
 log = logging.getLogger('log')
@@ -71,9 +73,14 @@ def grab_permissions(apk) :
         
         @rtype : a list of permissions
     """
-    result = ["Asked: %s" % "\n".join(apk.get_permissions()),
+    '''
+    result = ["Asked: %s" % "\n".join(sorted(apk.get_permissions())),
               "Implied: %s" % apk.get_uses_implied_permission_list(),
               "Declared: %s" % apk.get_declared_permissions()]
+    '''
+    result = ["Asked: %s" % pprint.pformat(sorted(apk.get_permissions())),
+              "Implied: %s" % pprint.pformat(sorted(apk.get_uses_implied_permission_list())),
+              "Declared: %s" % pprint.pformat(sorted(apk.get_declared_permissions()))]
               
     return result
 
@@ -123,8 +130,8 @@ def grab_certificate_information(apk) :
         cert_info.append("Serial number: %s" % cert.serial_number)
         cert_info.append("Hash algorithm: %s" % cert.hash_algo)
         cert_info.append("Signature algorithm: %s" % cert.signature_algo)
-        cert_info.append("SHA-1 thumbprint: %s" % cert.sha1.encode('hex'))
-        cert_info.append("SHA-256 thumbprint: %s" % cert.sha256.encode('hex'))
+        cert_info.append("SHA-1 thumbprint: %s" % codecs.encode(cert.sha1, 'hex').decode())
+        cert_info.append("SHA-256 thumbprint: %s" % codecs.encode(cert.sha256, 'hex').decode())
         cert_info.append("")
     
     return cert_info

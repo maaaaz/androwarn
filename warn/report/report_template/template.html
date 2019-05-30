@@ -25,7 +25,7 @@
 {%- macro render_menu(data) -%}
 {%- if data -%}
     {%- for item in data -%}
-        {%- for nav_menu_header, nav_menu_item in item.iteritems() -%}
+        {%- for nav_menu_header, nav_menu_item in item.items() -%}
             <li class="nav-header">{{ nav_menu_header|replace('_', ' ')|title }}</li>
             {% for name,content in nav_menu_item -%}
                 {%- if content -%}
@@ -44,7 +44,7 @@
 {%- macro render_content(data) -%}
 {%- if data -%}
     {%- for item in data -%}
-        {%- for nav_menu_header, nav_menu_item in item.iteritems() -%}
+        {%- for nav_menu_header, nav_menu_item in item.items() -%}
                 {%- for name,content in nav_menu_item %}
                     {%- if content -%}
                         {%- if name == "application_name" %}

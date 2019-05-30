@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This file is part of Androwarn.
@@ -51,7 +51,8 @@ def detect_Telephony_SMS_abuse(x) :
             local_formatted_str = "This application sends an SMS message '%s' to the '%s' phone number" % (sms_message, target_phone_number)
             if not(local_formatted_str in formatted_str) :
                 formatted_str.append(local_formatted_str)
-    return formatted_str
+    
+    return sorted(formatted_str)
 
 def detect_SMS_interception(a,x) :
     """
@@ -90,10 +91,10 @@ def detect_SMS_interception(a,x) :
                         if structural_analysis_results :
                             formatted_str.append("This application disables incoming SMS notifications")
                     
-    except Exception, e :
+    except Exception as e:
         log.error("detect_SMS_interception(): %s" % e)  
     
-    return formatted_str
+    return sorted(formatted_str)
 
 def detect_Telephony_Phone_Call_abuse(x) :
     """
@@ -112,7 +113,7 @@ def detect_Telephony_Phone_Call_abuse(x) :
         formatted_str.append('This application makes phone calls')
         log_result_path_information(detectors)
         
-    return formatted_str
+    return sorted(formatted_str)
 
 
 def gather_telephony_services_abuse(a,x) :

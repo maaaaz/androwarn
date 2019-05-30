@@ -88,13 +88,14 @@ The APK is available in the `_SampleApplication/bin/` folder and the HTML report
 
 Dependencies and installation
 -----------------------------
-* Python 2.7 + androguard + jinja2 + play_scraper + argparse
+* Python 3 or Python 2.7 + androguard + jinja2 + play_scraper + argparse
 * The **easiest way** to setup everything: `pip install androwarn` and then directly use `$ androwarn`
 * Or git clone that repository and `pip install -r requirements.txt`
 
 
 Changelog
 ---------
+* version 1.6 - 2019/05/30: Python 3 support and few fixes
 * version 1.5 - 2019/01/05: few fixes
 * version 1.4 - 2019/01/04: code cleanup and use of the latest androguard version
 * version 1.3 - 2018/12/30: few fixes
@@ -127,5 +128,5 @@ If not, see http://www.gnu.org/licenses/.
 
 Greetings
 -------------
-* [Stéphane Coulondre](http://stephane.coulondre.info), for supervising my Final Year project
+* [Stphane Coulondre](http://stephane.coulondre.info), for supervising my Final Year project
 * [Anthony Desnos](https://sites.google.com/site/anthonydesnos/home), for his amazing [Androguard](https://github.com/androguard/androguard) project and his help through my Final Year project
