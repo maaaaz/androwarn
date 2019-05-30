@@ -40,7 +40,7 @@ from warn.report.report import generate_report
 try :
     from androguard.misc import AnalyzeAPK
 except ImportError :
-    sys.exit("[!] The androwarn module is not installed, please install it and try again")
+    sys.exit("[!] The androguard module is not installed, please install it and try again")
 
 # Logger definition
 log = logging.getLogger('log')
